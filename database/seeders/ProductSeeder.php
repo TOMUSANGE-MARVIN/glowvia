@@ -33,6 +33,6 @@ class ProductSeeder extends BaseSeeder
 
     private function getProducts(): array
     {
-        return ;
+        return [];
     }
 }
