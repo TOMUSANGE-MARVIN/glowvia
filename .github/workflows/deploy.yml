@@ -27,7 +27,7 @@ jobs:
 
             # ── Clone or pull ─────────────────────────────────
             if [ ! -d "$PROJECT_PATH/.git" ]; then
-              git clone https://github.com/TOMUSANGE-MARVIN/innoshop.git "$PROJECT_PATH"
+              git clone https://github.com/TOMUSANGE-MARVIN/glowvia.git "$PROJECT_PATH"
             else
               cd "$PROJECT_PATH"
               git pull origin main
