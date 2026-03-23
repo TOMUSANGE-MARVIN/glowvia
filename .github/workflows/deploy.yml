@@ -20,7 +20,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: ENV_FILE=${{ secrets.ENV_FILE }}
           script: |
             set -e
 
@@ -36,8 +35,10 @@ jobs:
 
             cd "$PROJECT_PATH"
 
-            # ── Write .env ────────────────────────────────────
-            echo "$ENV_FILE" > "$PROJECT_PATH/.env"
+            # ── Copy .env if not exists ───────────────────────
+            if [ ! -f "$PROJECT_PATH/.env" ]; then
+              cp "$PROJECT_PATH/.env.example" "$PROJECT_PATH/.env"
+            fi
 
             # ── PHP dependencies ──────────────────────────────
             composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
