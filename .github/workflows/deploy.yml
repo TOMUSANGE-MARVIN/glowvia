@@ -30,7 +30,7 @@ jobs:
               git clone https://github.com/TOMUSANGE-MARVIN/glowvia.git "$PROJECT_PATH"
             else
               cd "$PROJECT_PATH"
-              git pull origin main
+              git pull origin master
             fi
 
             cd "$PROJECT_PATH"
