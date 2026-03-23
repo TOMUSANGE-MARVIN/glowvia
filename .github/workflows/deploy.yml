@@ -47,7 +47,7 @@ jobs:
             php artisan key:generate --force
 
             # ── Frontend assets ───────────────────────────────
-            npm ci
+            npm install
             npm run production
 
             # ── Laravel setup ─────────────────────────────────
