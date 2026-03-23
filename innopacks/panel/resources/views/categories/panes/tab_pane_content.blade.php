@@ -1,5 +1,5 @@
 <div class="tab-pane fade mt-3" id="content-tab-pane" role="tabpanel" aria-labelledby="content-tab" tabindex="0">
-  {{-- 多语言内容Tab导航 --}}
+  {{-- Multi-language content tab navigation --}}
   <ul class="nav nav-tabs mb-4" id="locales-content-tab" role="tablist">
     @foreach (locales() as $locale)
       <li class="nav-item" role="presentation">
@@ -14,14 +14,14 @@
     @endforeach
   </ul>
 
-  {{-- 多语言内容Tab面板 --}}
+  {{-- Multi-language content tab panels --}}
   <div class="tab-content" id="locales-content-tabContent">
     @foreach (locales() as $locale)
       <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
         id="locale-{{ $locale->code }}-content-pane" role="tabpanel"
         aria-labelledby="locale-{{ $locale->code }}-content-tab" tabindex="0">
 
-        {{-- 分类介绍 --}}
+        {{-- Category summary --}}
         <div class="mb-3">
           <label class="form-label">{{ panel_trans('category.summary') }}</label>
           <textarea rows="3" name="translations[{{ $locale->code }}][summary]" class="form-control"
@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        {{-- 分类详细描述 --}}
+        {{-- Category detailed description --}}
         <div class="mb-3">
           <label class="form-label">{{ panel_trans('category.content') }}</label>
           <x-common-form-rich-text name="translations[{{ $locale->code }}][content]"

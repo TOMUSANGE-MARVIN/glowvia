@@ -147,7 +147,7 @@
       let url = id ? `${urls.panel_base}/attribute_values/${id}` : `${urls.panel_base}/attribute_values`;
       let method = id ? 'PUT' : 'POST';
 
-      // 显示加载层
+      // Show loading overlay
       layer.load(2, { shade: [0.3, '#fff'] });
 
       $.ajax({
@@ -164,7 +164,7 @@
           inno.msg(err.message)
         },
         complete: () => {
-          // 关闭加载层
+          // Close loading overlay
           layer.closeAll('loading');
         }
       });

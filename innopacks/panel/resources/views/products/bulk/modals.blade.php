@@ -1,4 +1,4 @@
-{{-- 批量设置价格模态框 --}}
+{{-- Bulk set price modal --}}
 <el-dialog v-model="dialogVisible.price"
            :title="`{{ __('panel/product.bulk_set_price') }} (${checkedIds.length} {{ __('panel/product.items') }})`"
            width="500">
@@ -20,7 +20,7 @@
   </template>
 </el-dialog>
 
-{{-- 批量设置分类模态框 --}}
+{{-- Bulk set categories modal --}}
 <el-dialog v-model="dialogVisible.categories"
            :title="`{{ __('panel/product.bulk_set_categories') }} (${checkedIds.length} {{ __('panel/product.items') }})`"
            width="500">
@@ -42,7 +42,7 @@
   </template>
 </el-dialog>
 
-{{-- 批量设置库存模态框 --}}
+{{-- Bulk set quantity modal --}}
 <el-dialog v-model="dialogVisible.quantity"
            :title="`{{ __('panel/product.bulk_set_quantity') }} (${checkedIds.length} {{ __('panel/product.items') }})`"
            width="500">
@@ -66,7 +66,7 @@
   </template>
 </el-dialog>
 
-{{-- 批量发布确认模态框 --}}
+{{-- Bulk publish confirmation modal --}}
 <el-dialog v-model="dialogVisible.publish"
            :title="`{{ __('panel/product.publish_selected') }} (${checkedIds.length} {{ __('panel/product.items') }})`"
            width="500">
@@ -79,7 +79,7 @@
   </template>
 </el-dialog>
 
-{{-- 批量取消发布确认模态框 --}}
+{{-- Bulk unpublish confirmation modal --}}
 <el-dialog v-model="dialogVisible.unpublish"
            :title="`{{ __('panel/product.unpublish_selected') }} (${checkedIds.length} {{ __('panel/product.items') }})`"
            width="500">

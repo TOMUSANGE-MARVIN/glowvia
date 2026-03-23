@@ -1,5 +1,5 @@
 <div class="tab-pane fade show active mt-3" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
-  {{-- 分类名称多语言输入 --}}
+  {{-- Category name multi-language input --}}
   <div class="mb-3 col-12 col-md-6">
     <div class="mb-1 fs-6">{{ panel_trans('category.name') }}</div>
     @if(has_translator())
@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  {{-- 主图片（统一，不区分语言） --}}
+  {{-- Main image (unified, not language-specific) --}}
   <div class="mb-3 col-12 col-md-6">
     <x-common-form-image title="{{ panel_trans('category.image') }}" name="image"
                         value="{{ old('image', $category->image ?? '') }}"/>
@@ -56,7 +56,7 @@
     </div>
   </div>
 
-  {{-- 启用状态 --}}
+  {{-- Active status --}}
   <div class="mb-3 col-12 col-md-6">
     <x-common-form-switch-radio title="{{ panel_trans('common.whether_enable') }}" name="active"
       :value="old('active', $category->active ?? true)" 

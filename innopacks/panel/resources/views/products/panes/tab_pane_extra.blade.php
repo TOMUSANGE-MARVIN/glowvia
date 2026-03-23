@@ -2,14 +2,14 @@
      tabindex="3">
   <div class="row">
     <div class="col-12 col-md-6" id="product-category">
-      {{-- 分类选择 --}}
+      {{-- Category selection --}}
       <x-panel::form.row title="{{ __('panel/product.category') }}">
         <div class="category-select">
           <el-cascader
             :options="source.categories"
             size="medium"
             ref="refCascader"
-            placeholder="请选择/搜索分类"
+            placeholder="Select/Search Category"
             :props="{ label: 'label', value: 'value', children: 'children', checkStrictly: true}"
             @change="categoriesChange"
             filterable
@@ -105,13 +105,13 @@
 
 
     computed: {
-      // 格式化已选分类显示
+      // Format selected categories for display
       categoryFormat() {
         const categories = JSON.parse(JSON.stringify(this.source.categories));
         const categoryIds = this.form.categories;
         const categoryFormat = [];
 
-        // 递归查找分类并构建完整路径
+        // Recursively find category and build full path
         const findCategoryWithPath = (cats, id, parentPath = []) => {
           for (let cat of cats) {
             const currentPath = [...parentPath, cat.label];
@@ -142,14 +142,14 @@
     },
 
     methods: {
-      // 分类选择变化处理
+      // Handle category selection change
       categoriesChange(e) {
         console.log('Category changed:', e);
         const last = e[e.length - 1];
 
-        // 检查是否已经选择过该分类
+        // Check if category has already been selected
         if (last && this.form.categories.includes(last)) {
-          this.$message.warning('该分类已经选择过了');
+          this.$message.warning('This category has already been selected');
           return;
         }
 
@@ -158,7 +158,7 @@
         }
       },
 
-      // 移除分类
+      // Remove category
       removeCategory(index) {
         this.form.categories.splice(index, 1);
       },

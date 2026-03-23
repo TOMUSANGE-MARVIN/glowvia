@@ -1,36 +1,76 @@
-.module-product-tab {
-  .nav-tabs {
-    display: flex;
-    justify-content: center;
+.fp-section {
+  padding: 60px 0 40px;
+}
+
+.fp-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 40px;
+  gap: 1.5rem;
+}
+
+.fp-heading {
+  .fp-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #a07840;
+    margin-bottom: 0.6rem;
+  }
+
+  .fp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: #111;
+    margin: 0 0 0.6rem;
+    line-height: 1.15;
+  }
+
+  .fp-subtitle {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: rgba(0, 0, 0, 0.55);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.fp-tabs {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .fp-tab-btn {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
+    background: none;
     border: none;
-    margin-bottom: 20px;
-    margin-top: -6px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: 0.5rem 1.4rem 0.6rem;
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease;
 
-    @media (min-width: 992px) {
-      margin-bottom: 40px;
-    }
+    &:hover { color: #111; }
 
-    .nav-link {
-      border: none !important;
-      color: #7E7E7E;
-      border-radius: 50px;
-      margin: 0;
-      font-size: 12px;
-      font-weight: bold;
-
-      @media (min-width: 992px) {
-        margin: 0 10px;
-        font-size: 14px;
-      }
-
-      &:hover {
-        background-color: #FFEBF2;
-      }
-
-      &.active {
-        background-color: #FFEBF2;
-        color: $primary;
-      }
+    &.active {
+      color: #111;
+      border-bottom-color: #a07840;
     }
   }
 }

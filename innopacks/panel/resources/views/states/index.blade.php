@@ -75,25 +75,25 @@
       </template>
       <el-form ref="formRef" label-position="top" :model="form" :rules="rules" label-width="auto" status-icon>
         <el-form-item label="{{ __('common/base.name') }}" prop="name">
-          <el-input v-model="form.name" placeholder="名称"></el-input>
+          <el-input v-model="form.name" placeholder="Name"></el-input>
         </el-form-item>
 
-        <el-form-item label="编码" prop="code">
-          <el-input v-model="form.code" placeholder="编码"></el-input>
+        <el-form-item label="Code" prop="code">
+          <el-input v-model="form.code" placeholder="Code"></el-input>
         </el-form-item>
 
-        <el-form-item label="国家代码" prop="country_id">
+        <el-form-item label="Country Code" prop="country_id">
           <select v-model="form.country_id" class="form-control"
                   @change="form.country_code = countries.find(item => item.id == form.country_id).code">
             <option v-for="item in countries" :value="item . id">@{{ item.name }}</option>
           </select>
         </el-form-item>
 
-        <el-form-item label="排序" prop="position">
-          <el-input v-model="form.position" placeholder="排序"></el-input>
+        <el-form-item label="Position" prop="position">
+          <el-input v-model="form.position" placeholder="Position"></el-input>
         </el-form-item>
 
-        <el-form-item label="状态" prop="active">
+        <el-form-item label="Status" prop="active">
           <el-switch v-model="form.active" :active-value="1" :inactive-value="0"></el-switch>
         </el-form-item>
       </el-form>
@@ -148,18 +148,18 @@
             inno.msg(res.message)
             window.location.reload()
           }).catch((error) => {
-            // 处理验证错误
+            // Handle validation errors
             if (error.response && error.response.data) {
               const errorData = error.response.data;
               if (errorData.errors) {
-                // Laravel 验证错误格式
+                // Laravel validation error format
                 let errorMessage = '';
                 for (const field in errorData.errors) {
                   errorMessage += errorData.errors[field].join(', ') + '\n';
                 }
                 inno.msg(errorMessage.trim(), 'error');
               } else if (errorData.message) {
-                // 单个错误消息
+                // Single error message
                 inno.msg(errorData.message, 'error');
               } else {
                 inno.msg('{{ __("common/base.error") }}', 'error');

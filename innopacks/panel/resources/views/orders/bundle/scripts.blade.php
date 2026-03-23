@@ -35,7 +35,7 @@ function showBundleDetails(itemId, reference) {
     tbody.innerHTML += row;
   });
 
-  // 显示模态框
+  // Show modal
   const modal = new bootstrap.Modal(document.getElementById('bundleDetailsModal'));
   modal.show();
 }

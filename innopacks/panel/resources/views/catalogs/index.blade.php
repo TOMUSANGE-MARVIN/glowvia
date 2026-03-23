@@ -91,7 +91,7 @@
        deleteForm.value.submit();
       })
       .catch(() => {
-      // 取消删除
+      // Deletion cancelled
       });
     };
 

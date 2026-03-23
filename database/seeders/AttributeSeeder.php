@@ -112,13 +112,9 @@ class AttributeSeeder extends BaseSeeder
     private function getGroupTranslations(): array
     {
         return [
-            ['attribute_group_id' => 1, 'locale' => 'zh-cn', 'name' => '默认'],
             ['attribute_group_id' => 1, 'locale' => 'en', 'name' => 'Default'],
-            ['attribute_group_id' => 2, 'locale' => 'zh-cn', 'name' => '衣服'],
             ['attribute_group_id' => 2, 'locale' => 'en', 'name' => 'Clothing'],
-            ['attribute_group_id' => 3, 'locale' => 'zh-cn', 'name' => '运动'],
             ['attribute_group_id' => 3, 'locale' => 'en', 'name' => 'Sport'],
-            ['attribute_group_id' => 4, 'locale' => 'zh-cn', 'name' => '配饰'],
             ['attribute_group_id' => 4, 'locale' => 'en', 'name' => 'Accessory'],
         ];
     }
@@ -135,11 +131,8 @@ class AttributeSeeder extends BaseSeeder
     private function getAttributeTranslations(): array
     {
         return [
-            ['attribute_id' => 1, 'locale' => 'zh-cn', 'name' => '功能'],
             ['attribute_id' => 1, 'locale' => 'en', 'name' => 'Features'],
-            ['attribute_id' => 2, 'locale' => 'zh-cn', 'name' => '面料'],
             ['attribute_id' => 2, 'locale' => 'en', 'name' => 'Fabric'],
-            ['attribute_id' => 3, 'locale' => 'zh-cn', 'name' => '样式'],
             ['attribute_id' => 3, 'locale' => 'en', 'name' => 'Style'],
         ];
     }
@@ -165,29 +158,17 @@ class AttributeSeeder extends BaseSeeder
     private function getAttributeValueTranslations(): array
     {
         return [
-            ['attribute_value_id' => 1, 'locale' => 'zh-cn', 'name' => '棉'],
             ['attribute_value_id' => 1, 'locale' => 'en', 'name' => 'Cotton'],
-            ['attribute_value_id' => 2, 'locale' => 'zh-cn', 'name' => '麻'],
             ['attribute_value_id' => 2, 'locale' => 'en', 'name' => 'Linen'],
-            ['attribute_value_id' => 3, 'locale' => 'zh-cn', 'name' => '防水'],
             ['attribute_value_id' => 3, 'locale' => 'en', 'name' => 'Waterproof'],
-            ['attribute_value_id' => 4, 'locale' => 'zh-cn', 'name' => '圆领'],
             ['attribute_value_id' => 4, 'locale' => 'en', 'name' => 'Crew neck'],
-            ['attribute_value_id' => 5, 'locale' => 'zh-cn', 'name' => '丝'],
             ['attribute_value_id' => 5, 'locale' => 'en', 'name' => 'Silk'],
-            ['attribute_value_id' => 6, 'locale' => 'zh-cn', 'name' => '毛'],
             ['attribute_value_id' => 6, 'locale' => 'en', 'name' => 'Wool'],
-            ['attribute_value_id' => 7, 'locale' => 'zh-cn', 'name' => '化纤'],
             ['attribute_value_id' => 7, 'locale' => 'en', 'name' => 'Synthetic fiber'],
-            ['attribute_value_id' => 8, 'locale' => 'zh-cn', 'name' => '无领'],
             ['attribute_value_id' => 8, 'locale' => 'en', 'name' => 'Collarless'],
-            ['attribute_value_id' => 9, 'locale' => 'zh-cn', 'name' => '短袖'],
             ['attribute_value_id' => 9, 'locale' => 'en', 'name' => 'Short-sleeve'],
-            ['attribute_value_id' => 10, 'locale' => 'zh-cn', 'name' => 'T恤'],
             ['attribute_value_id' => 10, 'locale' => 'en', 'name' => 'T-shirt'],
-            ['attribute_value_id' => 11, 'locale' => 'zh-cn', 'name' => '保暖'],
             ['attribute_value_id' => 11, 'locale' => 'en', 'name' => 'Thermal'],
-            ['attribute_value_id' => 12, 'locale' => 'zh-cn', 'name' => '防晒'],
             ['attribute_value_id' => 12, 'locale' => 'en', 'name' => 'UV protection'],
         ];
     }

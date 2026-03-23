@@ -37,7 +37,6 @@ class CustomerGroupSeeder extends Seeder
                 'discount_rate' => 100,
                 'translations'  => [
                     ['locale' => 'en', 'name' => 'Account', 'description' => 'Account'],
-                    ['locale' => 'zh-cn', 'name' => '会员', 'description' => '会员等级'],
                 ],
             ],
             [
@@ -46,7 +45,6 @@ class CustomerGroupSeeder extends Seeder
                 'discount_rate' => 95,
                 'translations'  => [
                     ['locale' => 'en', 'name' => 'VIP', 'description' => 'VIP'],
-                    ['locale' => 'zh-cn', 'name' => 'VIP', 'description' => 'VIP'],
                 ],
             ],
         ];

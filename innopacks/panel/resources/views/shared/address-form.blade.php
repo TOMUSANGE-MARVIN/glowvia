@@ -81,7 +81,7 @@
     getZones(countryId);
   });
 
-  // 获取所有国家数据
+  // Get all countries data
   function getCountries() {
     axios.get('{{ front_route('countries.index') }}').then(function(res) {
       var countries = res.data;
@@ -94,7 +94,7 @@
     });
   }
 
-  // 获取对应国家的省份数据 countries/72
+  // Get province/state data for the given country (countries/72)
   function getZones(countryId, callback = null) {
     axios.get('{{ front_route('countries.index') }}/' + countryId).then(function(res) {
       var zones = res.data;
@@ -112,10 +112,10 @@
   }
 
   function clearForm() {
-    $('.address-form')[0].reset(); // 重置表单到初始值
-    $('.address-form').removeClass('was-validated'); // 移除验证状态
+    $('.address-form')[0].reset(); // Reset form to initial values
+    $('.address-form').removeClass('was-validated'); // Remove validation state
 
-    // 清空所有验证反馈
+    // Clear all validation feedback
     $('.address-form').find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
   }
 </script>

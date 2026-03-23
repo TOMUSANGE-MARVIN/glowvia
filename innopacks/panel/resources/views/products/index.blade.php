@@ -309,7 +309,7 @@
                   window.location.reload();
                 }, 1000);
               } else {
-                throw new Error(response?.message || '响应格式错误');
+                throw new Error(response?.message || 'Invalid response format');
               }
             }).catch(error => {
               let errorMessage = '{{ __("common/base.error") }}';

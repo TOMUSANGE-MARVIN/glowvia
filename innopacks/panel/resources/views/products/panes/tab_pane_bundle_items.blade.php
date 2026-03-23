@@ -50,16 +50,16 @@ $(function () {
       minLength: 1
     });
   }
-  // 初始化已有
+  // Initialise existing items
   initSkuAutocomplete();
-  // 动态添加后初始化
+  // Re-initialise after dynamic add
   $(document).on('focus', '.sku-autocomplete', function() {
     if (!$(this).data('ui-autocomplete')) {
       initSkuAutocomplete();
     }
   });
 
-  // 动态添加组合明细
+  // Dynamically add bundle item
   $('#add-bundle-item').on('click', function() {
     const index = $('.bundle-item').length;
     const html = `
@@ -73,10 +73,10 @@ $(function () {
       </div>
     `;
     $('.bundle-items-list').append(html);
-    // 新增后初始化自动完成
+    // Re-initialise autocomplete after add
     initSkuAutocomplete();
   });
-  // 删除明细
+  // Remove item
   $(document).on('click', '.remove-bundle-item', function() {
     $(this).closest('.bundle-item').remove();
   });

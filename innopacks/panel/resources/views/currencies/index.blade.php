@@ -175,7 +175,7 @@
 
         const rules = {}
 
-        // 汇率计算器相关
+        // Exchange rate calculator
         const calculatorDialogVisible = ref(false)
         const enabledCurrencies = ref(enabledCurrenciesData.map(currency => ({
           id: currency.id,
@@ -223,8 +223,8 @@
             return
           }
 
-          // 计算其他货币的金额
-          // 汇率计算：目标货币金额 = 源货币金额 * (目标货币汇率 / 源货币汇率)
+          // Calculate amounts in other currencies
+          // Rate calculation: target amount = source amount * (target rate / source rate)
           const results = enabledCurrencies.value
             .filter(c => c.code !== calculatorForm.fromCurrency)
             .map(currency => {
@@ -240,12 +240,12 @@
                 rate: rate.toFixed(6),
               }
             })
-            .sort((a, b) => b.amount - a.amount) // 按金额降序排列
+            .sort((a, b) => b.amount - a.amount) // Sort by amount descending
 
           calculatedResults.value = results
         }
 
-        // 监听货币和金额变化
+        // Watch for currency and amount changes
         watch(() => calculatorForm.fromCurrency, () => {
           calculateRates()
         })
@@ -256,7 +256,7 @@
 
         const openCalculator = () => {
           calculatorDialogVisible.value = true
-          // 设置默认货币为第一个启用的货币
+          // Set default currency to the first enabled currency
           if (enabledCurrencies.value.length > 0 && !calculatorForm.fromCurrency) {
             calculatorForm.fromCurrency = enabledCurrencies.value[0].code
           }
@@ -351,7 +351,7 @@
         app.dialogVisible.value = true
       })
       
-      // 汇率计算器按钮点击事件
+      // Exchange rate calculator button click event
       $('.currency-calculator-btn').click(function () {
         app.openCalculator()
       })

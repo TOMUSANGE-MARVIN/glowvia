@@ -63,7 +63,7 @@
                 <div class="input-group" style="display: flex; width: 100%;">
                   <input type="text" class="form-control" :name="'callback_url[' + index + ']'"
                          v-model="item.callback_url" style="flex-grow: 1; min-width: 280px;">
-                  <button class="btn btn-light" @click.prevent="copyCallbackUrl(index)" title="复制"
+                  <button class="btn btn-light" @click.prevent="copyCallbackUrl(index)" title="Copy"
                           style="flex-shrink: 0;">
                     <i class="bi bi-back" style="font-size: 16px;"></i>
                   </button>

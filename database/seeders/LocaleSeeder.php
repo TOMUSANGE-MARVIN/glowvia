@@ -35,13 +35,6 @@ class LocaleSeeder extends Seeder
                 'position' => 0,
                 'active'   => 1,
             ],
-            [
-                'name'     => '简体中文',
-                'code'     => 'zh-cn',
-                'image'    => 'images/flag/zh-cn.png',
-                'position' => 1,
-                'active'   => 1,
-            ],
         ];
     }
 }

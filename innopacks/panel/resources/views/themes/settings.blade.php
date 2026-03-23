@@ -221,7 +221,7 @@
                                class="form-control">
                       </td>
                       <td class="text-end">
-                        <button type="button" class="btn btn-danger" onclick="this.closest('tr').remove()">删除</button>
+                        <button type="button" class="btn btn-danger" onclick="this.closest('tr').remove()">Delete</button>
                       </td>
                     </tr>
                   @endforeach
@@ -229,18 +229,18 @@
                   <tfoot>
                   <tr>
                     <td colspan="3" class="text-end">
-                      <button type="button" class="btn btn-primary" onclick="addSlide(this)">添加</button>
+                      <button type="button" class="btn btn-primary" onclick="addSlide(this)">Add</button>
                     </td>
                   </tr>
                 </table>
               </div>
 
               <div class="tab-pane fade" id="tab-setting-hot-products">
-                <!-- 推荐商品设置 -->
+                <!-- Featured products settings -->
                 <div class="mb-4">
                   <h5 class="mb-3">{{ __('panel/setting.hot_products') }}</h5>
                   
-                  <!-- 按分类组织商品 -->
+                  <!-- Organize products by category -->
                   <div class="mb-3">
                     <button type="button" class="btn btn-success" id="addCategoryGroupBtn">
                       <i class="bi bi-plus-circle"></i> {{ __('panel/setting.add_category') }}
@@ -261,7 +261,7 @@
               </div>
 
               <div class="tab-pane fade" id="tab-setting-home-categories">
-                <!-- 首页分类设置 -->
+                <!-- Home page category settings -->
                 <div class="mb-4">
                   <h5 class="mb-3">{{ __('panel/setting.home_categories') }}</h5>
                   <p class="text-muted small mb-3">{{ __('panel/setting.home_categories_desc') }}</p>
@@ -327,26 +327,26 @@
       getZones(countryId);
     });
 
-    // 获取所有国家数据
+    // Get all countries data
     function getCountries() {
       axios.get('{{ front_route('countries.index') }}').then(function (res) {
         var countries = res.data;
         var countrySelect = $('select[name="country_code"]');
         countrySelect.empty();
-        countrySelect.append('<option value="">请选择国家</option>');
+        countrySelect.append('<option value="">Select Country</option>');
         countries.forEach(function (country) {
           countrySelect.append('<option value="' + country.code + '"' + (country.code == countryCode ? ' selected' : '') + '>' + country.name + '</option>');
         });
       });
     }
 
-    // 获取对应国家的省份数据 countries/72
+    // Get province/state data for the given country (countries/72)
     function getZones(countryId) {
       axios.get('{{ front_route('countries.index') }}/' + countryId).then(function (res) {
         var zones = res.data;
         var zoneSelect = $('select[name="state_code"]');
         zoneSelect.prop('disabled', false).empty();
-        zoneSelect.append('<option value="">请选择省份</option>');
+        zoneSelect.append('<option value="">Select Province/State</option>');
         zones.forEach(function (zone) {
           zoneSelect.append('<option value="' + zone.code + '"' + (zone.code == stateCode ? ' selected' : '') + '>' + zone.name + '</option>');
         });
@@ -389,7 +389,7 @@
           <input type="text" name="slideshow[${index}][link]" class="form-control">
         </td>
         <td class="text-end">
-          <button type="button" class="btn btn-danger" onclick="this.closest('tr').remove()">删除</button>
+          <button type="button" class="btn btn-danger" onclick="this.closest('tr').remove()">Delete</button>
         </td>
       </tr>
     `;
@@ -415,17 +415,17 @@
       $('.setting-header').text(text);
     });
 
-    // 首页推荐商品管理（按分类组织）
-    const hotProductsData = {}; // 存储产品详细信息 {id: {name, ...}}
+    // Home page featured products management (organized by category)
+    const hotProductsData = {}; // Store product details {id: {name, ...}}
     const categories = @json($categories ?? []);
     
-    // 数据结构：{categories: [{category_id, category_name, products: [id1, id2, ...]}, ...]}
+    // Data structure: {categories: [{category_id, category_name, products: [id1, id2, ...]}, ...]}
     let categoryGroups = JSON.parse($('#home_hot_products').val() || '{}');
     if (!categoryGroups.categories || !Array.isArray(categoryGroups.categories)) {
       categoryGroups = {categories: []};
     }
 
-    // 获取分类名称
+    // Get category name
     function getCategoryName(categoryId) {
       const findCategory = (cats, id) => {
         for (let cat of cats) {
@@ -437,10 +437,10 @@
         }
         return null;
       };
-      return findCategory(categories, categoryId) || `分类 ID: ${categoryId}`;
+      return findCategory(categories, categoryId) || `Category ID: ${categoryId}`;
     }
 
-    // 渲染分类组列表
+    // Render category group list
     function renderCategoryGroups() {
       const $container = $('#categoryGroupsList');
       $container.empty();
@@ -452,17 +452,17 @@
             <div class="card-header d-flex justify-content-between align-items-center">
               <strong>${categoryName}</strong>
               <button type="button" class="btn btn-sm btn-danger remove-category-group">
-                <i class="bi bi-trash"></i> 删除分类
+                <i class="bi bi-trash"></i> Delete Category
               </button>
             </div>
             <div class="card-body">
               <div class="mb-2">
                 <button type="button" class="btn btn-sm btn-primary add-product-to-category" data-group-index="${groupIndex}">
-                  <i class="bi bi-plus-circle"></i> 添加商品到此分类
+                  <i class="bi bi-plus-circle"></i> Add Products to Category
                 </button>
               </div>
               <ul class="list-group sortable-products-${groupIndex}" data-category-id="${group.category_id}">
-                <!-- 商品列表将通过 JS 动态插入 -->
+                <!-- Product list will be dynamically inserted by JS -->
               </ul>
             </div>
           </div>
@@ -476,14 +476,14 @@
       updateHotProductsInput();
     }
 
-    // 渲染指定分类下的商品列表
+    // Render the product list for the given category
     function renderProductsInCategory(groupIndex, productIds) {
       const $list = $(`.sortable-products-${groupIndex}`);
       $list.empty();
       
       productIds.forEach((productId) => {
         const productInfo = hotProductsData[productId] || {};
-        const productName = productInfo.name || productInfo.product_name || `商品 ID: ${productId}`;
+        const productName = productInfo.name || productInfo.product_name || `Product ID: ${productId}`;
         const productImage = productInfo.image || productInfo.image_url || '';
         const imageUrl = productImage || '{{ asset("vendor/innoshop/images/placeholder.png") }}';
         
@@ -506,7 +506,7 @@
         `);
       });
       
-      // 初始化拖拽排序
+      // Initialize drag-and-drop sorting
       if (typeof Sortable !== 'undefined') {
         new Sortable($list[0], {
           handle: '.bi-grip-vertical',
@@ -521,50 +521,50 @@
       }
     }
 
-    // 更新隐藏输入框
+    // Update hidden input field
     function updateHotProductsInput() {
       $('#home_hot_products').val(JSON.stringify(categoryGroups));
     }
 
-    // 添加分类组
+    // Add category group
     $('#addCategoryGroupBtn').on('click', function() {
-      // 创建分类选择对话框
+      // Create category selection dialog
       const categoryOptions = formatCategoriesForSelect(categories);
       let selectedCategoryId = null;
-      
+
       const content = `
         <div class="p-3">
-          <label class="form-label">选择分类：</label>
+          <label class="form-label">Select Category:</label>
           <select class="form-select" id="categorySelect" style="width: 100%;">
-            <option value="">请选择分类</option>
+            <option value="">Select a Category</option>
             ${categoryOptions}
           </select>
         </div>
       `;
-      
+
       layer.open({
         type: 1,
-        title: "选择分类",
+        title: "Select Category",
         shadeClose: false,
         shade: 0.8,
         area: ["500px", "200px"],
         content: content,
-        btn: ['确定', '取消'],
+        btn: ['OK', 'Cancel'],
         yes: function(index) {
           selectedCategoryId = $('#categorySelect').val();
           if (!selectedCategoryId) {
-            layer.msg('请选择分类', {icon: 2});
+            layer.msg('Please select a category', {icon: 2});
             return;
           }
-          
-          // 检查是否已存在该分类
+
+          // Check if category already exists
           const exists = categoryGroups.categories.some(g => g.category_id == selectedCategoryId);
           if (exists) {
-            layer.msg('该分类已添加', {icon: 2});
+            layer.msg('This category has already been added', {icon: 2});
             return;
           }
-          
-          // 添加新分类组
+
+          // Add new category group
           categoryGroups.categories.push({
             category_id: parseInt(selectedCategoryId),
             category_name: getCategoryName(selectedCategoryId),
@@ -577,7 +577,7 @@
       });
     });
 
-    // 格式化分类为选择框选项
+    // Format categories as select options
     function formatCategoriesForSelect(cats, level = 0) {
       let html = '';
       cats.forEach(cat => {
@@ -590,11 +590,11 @@
       return html;
     }
 
-    // 产品选择器回调（需要知道添加到哪个分类）
+    // Product selector callback (needs to know which category to add to)
     window.productSelectorCallback = function(products) {
       const groupIndex = window.currentProductSelectorGroupIndex;
       if (groupIndex === undefined || !categoryGroups.categories[groupIndex]) {
-        layer.msg('请先选择分类', {icon: 2});
+        layer.msg('Please select a category first', {icon: 2});
         return;
       }
       
@@ -616,14 +616,14 @@
       renderCategoryGroups();
     };
 
-    // 添加商品到分类
+    // Add products to category
     $(document).on('click', '.add-product-to-category', function() {
       const groupIndex = parseInt($(this).data('group-index'));
       window.currentProductSelectorGroupIndex = groupIndex;
-      
+
       layer.open({
         type: 2,
-        title: "选择商品",
+        title: "Select Products",
         shadeClose: false,
         shade: 0.8,
         area: ["800px", "800px"],
@@ -631,7 +631,7 @@
       });
     });
 
-    // 从分类中删除商品
+    // Remove product from category
     $(document).on('click', '.remove-product-from-category', function() {
       const groupIndex = parseInt($(this).data('group-index'));
       const productId = parseInt($(this).data('product-id'));
@@ -647,13 +647,13 @@
       renderCategoryGroups();
     });
 
-    // 删除分类组
+    // Delete category group
     $(document).on('click', '.remove-category-group', function() {
       const $card = $(this).closest('.category-group-card');
       const groupIndex = parseInt($card.data('group-index'));
       const group = categoryGroups.categories[groupIndex];
-      
-      // 删除该分类下的所有商品数据
+
+      // Remove all product data under this category
       if (group && group.products) {
         group.products.forEach(productId => {
           delete hotProductsData[productId];
@@ -664,9 +664,9 @@
       renderCategoryGroups();
     });
 
-    // 加载已选商品的详细信息（包括图片）
+    // Load detailed info (including images) for selected products
     function loadHotProductsInfo() {
-      // 收集所有商品ID
+      // Collect all product IDs
       const allProductIds = [];
       categoryGroups.categories.forEach(group => {
         if (group.products && Array.isArray(group.products)) {
@@ -679,10 +679,10 @@
         return;
       }
       
-      // 去重
+      // Deduplicate
       const uniqueProductIds = [...new Set(allProductIds)];
-      
-      // 通过API获取商品详细信息
+
+      // Fetch product details via API
       $.ajax({
         url: urls.panel_api + '/products/names',
         type: 'GET',
@@ -716,14 +716,14 @@
       });
     }
 
-    // 初始化渲染
+    // Initial render
     loadHotProductsInfo();
 
-    // 首页分类管理
+    // Home page category management
     const homeCategories = @json(old('home_categories', system_setting('home_categories', []) ?: []));
     const allCategories = @json($categories ?? []);
 
-    // 渲染已选分类
+    // Render selected categories
     function renderSelectedHomeCategories() {
       const selectedDiv = $('#selectedHomeCategories');
       selectedDiv.empty();
@@ -734,7 +734,7 @@
       });
 
       if (selectedIds.length === 0) {
-        selectedDiv.html('<p class="text-muted small">' + '{{ __('panel/setting.no_categories_selected') ?? "未选择分类" }}' + '</p>');
+        selectedDiv.html('<p class="text-muted small">' + '{{ __('panel/setting.no_categories_selected') ?? "No categories selected" }}' + '</p>');
         return;
       }
 
@@ -748,21 +748,21 @@
       });
     }
 
-    // 初始化已选分类显示
+    // Initialize selected categories display
     renderSelectedHomeCategories();
 
-    // 监听分类选择变化
+    // Listen for category selection changes
     $(document).on('change', '.home-category-checkbox', function() {
       renderSelectedHomeCategories();
     });
 
-    // 移除分类
+    // Remove category
     $(document).on('click', '.remove-category', function() {
       const categoryId = $(this).data('id');
       $('#home-category-' + categoryId).prop('checked', false);
       renderSelectedHomeCategories();
     });
   </script>
-  <!-- 供应商相关脚本（通过 Hook 扩展） -->
+  <!-- Vendor-related scripts (extended via Hook) -->
   @hookinsert('panel.themes.settings.script.after')
 @endpush

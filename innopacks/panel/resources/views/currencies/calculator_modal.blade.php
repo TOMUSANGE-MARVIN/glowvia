@@ -1,4 +1,4 @@
-{{-- 汇率计算器 Modal --}}
+{{-- Exchange rate calculator Modal --}}
 <el-dialog v-model="calculatorDialogVisible" :title="'{{ __('panel/currency.calculator') }}'" width="600px">
   <el-form label-position="top">
     <el-form-item :label="'{{ __('panel/currency.select_currency') }}'">
@@ -45,7 +45,7 @@
               @{{ formatAmount(result.amount, result.decimal_place) }}
               <span v-if="result.symbol_right">@{{ result.symbol_right }}</span>
             </div>
-            <small class="text-muted">汇率: @{{ result.rate }}</small>
+            <small class="text-muted">Rate: @{{ result.rate }}</small>
           </div>
         </div>
       </div>

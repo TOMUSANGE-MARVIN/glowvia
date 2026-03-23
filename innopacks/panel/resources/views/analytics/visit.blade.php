@@ -14,7 +14,7 @@
     :end_date="$end_date ?? ''"
 />
 
-{{-- 数据总览卡片 --}}
+{{-- Data overview cards --}}
 <div class="row g-3 mb-4">
   <div class="col-6 col-md-3">
     <div class="card h-100">
@@ -81,7 +81,7 @@
   </div>
 </div>
 
-{{-- 转化漏斗 --}}
+{{-- Conversion funnel --}}
 <div class="row g-3 mb-4">
   <div class="col-12">
     <div class="card">
@@ -146,7 +146,7 @@
   </div>
 </div>
 
-{{-- 趋势图表和设备分布 --}}
+{{-- Trend charts and device distribution --}}
 <div class="row g-3 mb-4">
   <div class="col-12 col-lg-8">
     <div class="card h-100">
@@ -223,7 +223,7 @@
   </div>
 </div>
 
-{{-- 国家分布和24小时分布 --}}
+{{-- Country distribution and 24-hour distribution --}}
 <div class="row g-3 mb-4">
   <div class="col-12 col-md-6">
     <div class="card h-100">
@@ -312,7 +312,7 @@
 @push('footer')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 每日趋势图
+  // Daily trends chart
   @if($daily_statistics && (is_countable($daily_statistics) ? count($daily_statistics) : $daily_statistics->count()) > 0)
   const dailyCtx = document.getElementById('dailyChart');
   if (dailyCtx) {
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   @endif
 
-  // 设备分布图
+  // Device distribution chart
   @if($visits_by_device && (is_countable($visits_by_device) ? count($visits_by_device) : $visits_by_device->count()) > 0)
   const deviceCtx = document.getElementById('deviceChart');
   if (deviceCtx) {

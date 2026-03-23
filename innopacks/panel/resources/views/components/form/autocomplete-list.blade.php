@@ -7,7 +7,7 @@
     </div>
     <div class="autocomplete-list p-2 autocomplete-list-{{ $id }}">
       <ul class="list-group list-group-flush">
-        {{-- 如果传入了已选项的完整数据，直接循环输出，避免API调用 --}}
+        {{-- If full data for selected items is provided, output directly to avoid API calls --}}
         @if(!empty($selectedItems))
           @foreach($selectedItems as $item)
             <li class="list-group list-group-item">
@@ -25,7 +25,7 @@
 @push('footer')
 <script>
   $(function () {
-    // 为每个组件使用唯一的选择器，避免多个组件冲突
+    // Use unique selectors for each component to avoid conflicts with multiple instances
     $('.input-autocomplete-{{ $id }}').autocomplete({
       'source': function(request, response) {
         axios.get('{{ $api }}/autocomplete?keyword=' + encodeURIComponent(request)).then(function(res) {
@@ -48,7 +48,7 @@
       }
     });
 
-    // 为每个组件的删除按钮绑定事件
+    // Bind delete button event for each component
     $(document).on('click', '.autocomplete-wrapper-{{ $id }} .btn-close', function() {
       $(this).closest('li').remove();
     });
@@ -58,11 +58,11 @@
 
 @push('footer')
 <script>
-  {{-- 只有在没有传入完整数据时才通过API获取已选项名称 --}}
+  {{-- Only fetch selected item names via API when full data is not provided --}}
   @if(empty($selectedItems))
     var values = @json($value);
     if (values && values.length > 0) {
-      // 提取基础API路径，移除可能的 /autocomplete 后缀
+      // Extract base API path, removing possible /autocomplete suffix
       var baseApi = '{{ $api }}'.replace(/\/autocomplete$/, '');
       axios.get(baseApi + '/names?ids=' + values.join(',')).then(function(res) {
         var data = res.data;

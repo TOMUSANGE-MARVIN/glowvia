@@ -64,30 +64,12 @@ class CatalogSeeder extends Seeder
         return [
             [
                 'catalog_id'       => 1,
-                'locale'           => 'zh-cn',
-                'title'            => '产品动态',
-                'summary'          => '这里是产品动态',
-                'meta_title'       => '产品动态',
-                'meta_description' => '产品动态',
-                'meta_keywords'    => '产品动态',
-            ],
-            [
-                'catalog_id'       => 1,
                 'locale'           => 'en',
                 'title'            => 'Product Updates',
                 'summary'          => 'Here are the product updates',
                 'meta_title'       => 'Product Updates',
                 'meta_description' => 'Latest information and updates on products',
                 'meta_keywords'    => 'Product, Updates, News',
-            ],
-            [
-                'catalog_id'       => 2,
-                'locale'           => 'zh-cn',
-                'title'            => '行业资讯',
-                'summary'          => '这里是行业资讯',
-                'meta_title'       => '行业资讯',
-                'meta_description' => '行业资讯',
-                'meta_keywords'    => '行业资讯',
             ],
             [
                 'catalog_id'       => 2,

@@ -48,7 +48,7 @@
         `);
       });
 
-      // 行点击选中/取消
+      // Row click to select/deselect
       $tbody.find('tr').off('click').on('click', function(e) {
         if (!$(e.target).is('input[type=checkbox]')) {
           const $checkbox = $(this).find('input[type=checkbox]');
@@ -56,7 +56,7 @@
         }
       });
 
-      // 选中高亮
+      // Highlight selected rows
       $tbody.find('input[type=checkbox]').on('change', function() {
         const $tr = $(this).closest('tr');
         if ($(this).prop('checked')) {
@@ -73,7 +73,7 @@
       });
     }
     function syncFakeScrollbar() {
-      // 设置假滚动条宽度与表格一致
+      // Set fake scrollbar width to match the table
       $('#fake-scrollbar-inner').width($('#productTable').outerWidth());
 
       // 同步滚动
@@ -124,7 +124,7 @@
   </script>
   @stack('header')
   <style>
-    /* 用Bootstrap类名替代大部分自定义样式，仅保留必要的微调 */
+    /* Use Bootstrap class names to replace most custom styles, only keeping necessary fine-tuning */
     .product-list-container {
       
       overflow-y: auto;
@@ -200,7 +200,7 @@
       <div class="table-responsive product-list-container" style="max-height:500px;overflow-y:auto;">
         <table class="table table-hover align-middle mb-0" id="productTable">
           <tbody>
-            <!-- JS 动态插入 -->
+            <!-- Dynamically inserted by JS -->
           </tbody>
         </table>
       </div>

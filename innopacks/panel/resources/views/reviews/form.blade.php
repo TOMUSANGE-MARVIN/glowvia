@@ -104,7 +104,7 @@
               return {label: item['name'], value: item['id']};
             }));
           }).catch((error) => {
-            console.error('请求出错:', error);
+            console.error('Request error:', error);
           });
       },
       'select': function (item) {
@@ -124,7 +124,7 @@
               return {label: item['name'], value: item['id']};
             }));
           }).catch((error) => {
-            console.error('请求出错:', error);
+            console.error('Request error:', error);
           });
       },
       'select': function (item) {

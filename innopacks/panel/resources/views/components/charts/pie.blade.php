@@ -3,11 +3,11 @@
     <span>{{ $title }}</span>
     @if($id === 'customer_source_distribution')
     <div class="btn-group">
-      <button class="btn btn-sm btn-primary active" onclick="switchSource{{ $id }}('pc_web')" id="source_btn_{{ $id }}_pc_web">PC网页</button>
-      <button class="btn btn-sm btn-success" onclick="switchSource{{ $id }}('mobile_web')" id="source_btn_{{ $id }}_mobile_web">手机网页</button>
-      <button class="btn btn-sm btn-info" onclick="switchSource{{ $id }}('miniapp')" id="source_btn_{{ $id }}_miniapp">小程序</button>
-      <button class="btn btn-sm btn-warning" onclick="switchSource{{ $id }}('wechat_official')" id="source_btn_{{ $id }}_wechat_official">微信公众号</button>
-      <button class="btn btn-sm btn-danger" onclick="switchSource{{ $id }}('app')" id="source_btn_{{ $id }}_app">APP应用</button>
+      <button class="btn btn-sm btn-primary active" onclick="switchSource{{ $id }}('pc_web')" id="source_btn_{{ $id }}_pc_web">PC Web</button>
+      <button class="btn btn-sm btn-success" onclick="switchSource{{ $id }}('mobile_web')" id="source_btn_{{ $id }}_mobile_web">Mobile Web</button>
+      <button class="btn btn-sm btn-info" onclick="switchSource{{ $id }}('miniapp')" id="source_btn_{{ $id }}_miniapp">Mini App</button>
+      <button class="btn btn-sm btn-warning" onclick="switchSource{{ $id }}('wechat_official')" id="source_btn_{{ $id }}_wechat_official">WeChat Official</button>
+      <button class="btn btn-sm btn-danger" onclick="switchSource{{ $id }}('app')" id="source_btn_{{ $id }}_app">App</button>
     </div>
     @endif
   </div>
@@ -24,7 +24,7 @@
   function switchSource{{ $id }}(sourceType) {
     const distributionData = @json($items ?? []);
     if (distributionData[sourceType]) {
-      // 更新图表数据
+      // Update chart data
       const chart = Chart.getChart('{{ $id }}');
       if (chart) {
         chart.data.labels = distributionData[sourceType].labels;
@@ -41,18 +41,18 @@
     }
   }
 
-  // 初始化时触发第一个来源的数据
+  // Trigger the first source data on initialization
   document.addEventListener('DOMContentLoaded', function() {
     switchSource{{ $id }}('pc_web');
   });
   @endif
 
-  // 删除数据
+  // Remove data
   function removeData{{ $id }}() {
     const chart = Chart.getChart('{{ $id }}');
     if (chart) {
       const data = chart.data;
-      if (data.labels.length > 1) {  // 保持至少一个数据点
+      if (data.labels.length > 1) {  // Keep at least one data point
         data.labels.pop();
         data.datasets[0].data.pop();
         data.datasets[0].backgroundColor.pop();

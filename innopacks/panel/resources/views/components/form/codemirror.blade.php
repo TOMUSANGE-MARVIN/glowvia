@@ -36,8 +36,8 @@ document.querySelectorAll('.code-editor').forEach(function (editor) {
     // indentUnit: 4,
     indentWithTabs: true,
     theme: 'monokai',
-    foldGutter: true, // 启用折叠功能
-    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"], // 设置折叠功能图标的位置
+    foldGutter: true, // Enable code folding
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"], // Set position of fold gutter icons
     extraKeys: {
       "Ctrl-/": "toggleComment",
       "Cmd-/": "toggleComment",
@@ -48,7 +48,7 @@ document.querySelectorAll('.code-editor').forEach(function (editor) {
   // codemirror.setValue("");
   codemirror.setSize('100%', '500px');
 
-  // 如果 在 tab中的隐藏元素中，单切换到显示时，编辑器无法正常显示，需要重新渲染
+  // If inside a hidden tab, refresh the editor when the tab is shown to ensure correct rendering
   $('.code-tabs .nav-item').on('click', function () {
     codemirror.refresh();
   });

@@ -6,7 +6,7 @@
           v-model="keyword"
           value-key="name"
           :fetch-suggestions="querySearchAsync"
-          placeholder="搜索"
+          placeholder="Search"
           trigger-on-focus
           @select="handleSelect"
           @focus="handleFocus"
@@ -19,7 +19,7 @@
     <div class="vue-autocomplete-list" v-if="items.length">
       <div class="vue-autocomplete-item" v-for="(item, itemIndex) in items" :key="item.id">
         <span class="vue-autocomplete-name">@{{ item.name }}</span>
-        <button type="button" class="btn-close" @click="removeItem(itemIndex)" aria-label="删除"></button>
+        <button type="button" class="btn-close" @click="removeItem(itemIndex)" aria-label="Remove"></button>
       </div>
     </div>
   </div>

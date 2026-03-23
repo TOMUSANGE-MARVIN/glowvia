@@ -2,10 +2,10 @@
     <script src="{{ asset('vendor/vue/2.7/vue.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('vendor/element-ui/element-ui.css') }}">
     <script src="{{ asset('vendor/element-ui/element-ui.js') }}"></script>
-    <!-- Element UI 英文语言包（根据当前语言切换） -->
+    <!-- Element UI language pack -->
     <script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
     <script>
-      // 根据系统语言设置 Element UI 的语言
+      // Set Element UI language from system locale
       (function(){
         var currentLocale = '{{ locale_code() }}';
         if (window.ELEMENT && currentLocale === 'en' && window.ELEMENT.lang && window.ELEMENT.lang.en) {
@@ -18,7 +18,7 @@
     <script src="{{ asset('vendor/vuedraggable/vuedraggable.umd.min.js') }}"></script>
 
   <script>
-    // 从 URL 参数获取配置
+    // Get config from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     window.fileManagerConfig = {
       multiple: urlParams.get('multiple') === '1',
@@ -35,7 +35,7 @@
   </script>
 
   <script>
-    // http 请求封装
+    // HTTP request wrapper
     (function(window) {
       'use strict';
 
@@ -45,7 +45,7 @@
         return currentToken || parentToken;
       };
 
-      // 创建 axios 实例
+      // Create axios instance
       const http = axios.create({
         baseURL: '/api/panel/',
         timeout: 30000,
@@ -54,12 +54,12 @@
         }
       });
 
-      // 添加请求拦截器，确保每次请求都使用最新的 token
+      // Request interceptor: always use latest token
       http.interceptors.request.use(config => {
-        // 每次请求前重新获取 token
+        // Refresh token before each request
         config.headers.Authorization = 'Bearer ' + window.getApiToken();
 
-        // 添加 loading
+        // Show loading indicator
         if (window.layer) {
           layer.load(2, {
             shade: [0.3, '#fff']
@@ -68,7 +68,7 @@
         return config;
       });
 
-      // 响应拦截器
+      // Response interceptor
       http.interceptors.response.use(
         response => {
           if (window.layer) {
@@ -81,33 +81,33 @@
             layer.closeAll('loading');
           }
 
-          // 错误处理
+          // Error handling
           if (error.response) {
-            const message = error.response.data.message || '请求失败';
-            // 使用 Element UI 的消息提示
+            const message = error.response.data.message || 'Request failed';
+            // Use Element UI message toast
             if (window.Vue && window.ELEMENT) {
               ELEMENT.Message.error(message);
             }
 
             switch (error.response.status) {
               case 401:
-                // 未授权处理
+                // Unauthorized handler
                 break;
               case 403:
-                // 禁止访问处理
+                // Forbidden handler
                 break;
               case 404:
-                // 未找到处理
+                // Not found handler
                 break;
               default:
-                // 其他错误
+                // Other errors
                 break;
             }
           }
           return Promise.reject(error);
         }
       );
-      window.http = http; // 确保 http 也被添加到 window 对象上
+      window.http = http;
     })(window);
   </script>
 
@@ -125,7 +125,7 @@
       height: 100%;
     }
 
-    /* 左侧文件夹树样式 */
+    /* Left folder tree styles */
     .folder-tree {
       border-right: 1px solid #EBEEF5;
       overflow-y: auto;
@@ -134,7 +134,7 @@
       border-bottom: 1px solid #F0F0F0;
     }
 
-    /* 右侧文件列表样式 */
+    /* Right file list styles */
     .file-list {
       padding: 20px;
       overflow-y: auto;
@@ -144,7 +144,7 @@
       display: flex;
       flex-direction: column;
     }
-    /* 顶部工具栏 */
+    /* Top toolbar */
     .file-toolbar {
       padding: 15px 20px;
       border-bottom: 1px solid #EBEEF5;
@@ -153,7 +153,7 @@
       flex-shrink: 0;
     }
 
-    /* 文件卡片样式 */
+    /* File card styles */
     .file-card {
       border: 1px solid #EBEEF5;
       border-radius: 4px;
@@ -165,7 +165,7 @@
       overflow: hidden;
     }
 
-    /* 文件缩略图容器 */
+    /* File thumbnail container */
     .file-thumb {
       position: relative;
       padding: 6px;
@@ -193,7 +193,7 @@
       align-items: center;
     }
 
-    /* 鼠标悬停时显示预览按钮 */
+    /* Show preview button on hover */
     .file-thumb:hover .preview-button {
       opacity: 1;
       color: rgba(255, 255, 255, 0.8);
@@ -203,12 +203,12 @@
       transform: scale(1.05);
     }
 
-    /* 预览按钮悬停效果 */
+    /* Preview button hover effect */
     .preview-button:hover {
       transform: scale(1.05);
     }
 
-    /* 禁用图片拖拽 */
+    /* Disable image dragging */
     .file-thumb img {
       max-width: 100%;
       max-height: 100%;
@@ -218,12 +218,12 @@
       -webkit-user-drag: none;
     }
 
-    /* 文件信息区域 */
+    /* File info area */
     .file-info {
       padding: 12px 16px;
     }
 
-    /* 文件名样式 */
+    /* File name styles */
     .file-name {
       font-weight: 500;
       color: #303133;
@@ -238,14 +238,14 @@
       text-overflow: ellipsis;
     }
 
-    /* 文件类型样式 */
+    /* File type styles */
     .file-type {
       font-size: 12px;
       color: #909399;
       line-height: 1.4;
     }
 
-    /* 自定义 Element UI 主题色 */
+    /* Custom Element UI theme colour */
     .el-button--primary {
       background-color: #8446df;
       border-color: #8446df;
@@ -266,7 +266,7 @@
       background-color: #f5f7fa;
     }
 
-    /* 分页容器样式 */
+    /* Pagination container styles */
     .pagination-container {
       padding: 20px;
       text-align: right;
@@ -275,7 +275,7 @@
       flex-shrink: 0;
     }
 
-    /* 加载状态样式 */
+    /* Loading state styles */
     .el-loading-spinner .el-loading-text {
       color: #8446df;
     }
@@ -284,7 +284,7 @@
       stroke: #8446df;
     }
 
-    /* 分页组件主题色自定义 */
+    /* Pagination component theme colour */
     .el-pagination.is-background .el-pager li:not(.disabled).active {
       background-color: #8446df;
     }
@@ -297,17 +297,17 @@
       border-color: #8446df;
     }
 
-    /* 空状态样式 */
+    /* Empty state styles */
     .el-empty {
       padding: 40px 0;
     }
 
-    /* 文件列表加载状态容器 */
+    /* File list loading container */
     .file-list .el-loading-mask {
       border-radius: 4px;
     }
-    /* 修改按钮样式部分 */
-    /* Element UI 按钮样式重置 */
+    /* Button style overrides */
+    /* Element UI button reset */
     .el-button {
       font-weight: normal;
       border-radius: 4px;
@@ -326,7 +326,7 @@
       font-size: 12px;
     }
 
-    /* 主要按钮样式 */
+    /* Primary button styles */
     .el-button--primary {
       background-color: #8446df;
       border-color: #8446df;
@@ -344,7 +344,7 @@
       color: #fff;
     }
 
-    /* 默认按钮样式 */
+    /* Default button styles */
     .el-button--default {
       background: #fff;
       border-color: #dcdfe6;
@@ -358,7 +358,7 @@
       color: #8446df;
     }
 
-    /* 按钮组样式 */
+    /* Button group styles */
     .el-button-group {
       display: inline-flex;
       vertical-align: middle;
@@ -392,17 +392,17 @@
       border-color: #ebeef5;
     }
 
-    /* 图标按钮 */
+    /* Icon button */
     .el-button [class*="el-icon-"]+span {
       margin-left: 5px;
     }
 
-    /* 工具栏按钮间距 */
+    /* Toolbar button spacing */
     .file-toolbar .el-button-group+.el-button-group {
       margin-left: 10px;
     }
 
-    /* 文字按钮 */
+    /* Text button */
     .el-button--text {
       border: 0;
       padding: 0;
@@ -503,7 +503,7 @@
       z-index: 2000;
     }
 
-    /* Element UI 对话框层级参考 */
+    /* Element UI dialog z-index reference */
     .el-dialog__wrapper {
       z-index: 1000;
     }
@@ -512,36 +512,36 @@
       z-index: 999;
     }
 
-    /* 文件夹树图标样式 */
+    /* Folder tree icon styles */
     .el-tree-node__content .el-icon-folder,
     .el-tree-node__content .el-icon-folder-opened {
       font-size: 16px;
     }
 
-    /* 选中状态的文件夹样式 */
+    /* Selected folder styles */
     .el-tree-node.is-current>.el-tree-node__content {
       background-color: #f0e6fc !important;
       color: #8446df;
     }
 
-    /* 鼠标悬停样式 */
+    /* Hover styles */
     .el-tree-node__content:hover {
       background-color: #f5f7fa;
     }
 
-    /* 展开的文件夹图标颜色 */
+    /* Expanded folder icon colour */
     .el-tree-node.is-expanded>.el-tree-node__content .el-icon-folder {
       color: #8446df;
     }
 
-    /* 树节点内容间距 */
+    /* Tree node content spacing */
     .custom-tree-node {
       display: flex;
       align-items: center;
       font-size: 14px;
     }
 
-    /* 添加右键菜单样式 */
+    /* Context menu styles */
     .file-card-context-menu {
       position: fixed;
       background: white;
@@ -589,13 +589,13 @@
       margin-right: 0;
     }
 
-    /* 选中状态的样式 */
+    /* Selected state styles */
     .file-card.selected {
       border-color: #8446df;
       background: rgba(132, 70, 223, 0.05);
     }
 
-    /* 多选模式下的悬停效果 */
+    /* Multi-select hover effect */
     .file-card:hover .file-checkbox {
       opacity: 1;
     }
@@ -618,13 +618,13 @@
       opacity: 1;
     }
 
-    /* 文件列表容器样式 */
+    /* File list container styles */
     .file-list {
       padding: 20px;
       overflow-y: auto;
     }
 
-    /* 多选框样式 */
+    /* Checkbox styles */
     .file-checkbox {
       position: absolute;
       top: 10px;
@@ -642,7 +642,7 @@
       opacity: 1;
     }
 
-    /* 分页容器样式 */
+    /* Pagination container styles */
     .pagination-container {
       padding: 20px 0;
       text-align: right;
@@ -651,13 +651,13 @@
       flex-shrink: 0;
     }
 
-    /* 空状态样式 */
+    /* Empty state styles */
     .el-empty {
       padding: 40px 0;
       background: #fff;
       border-radius: 4px;
     }
-    /* 文件管理器整体容器 */
+    /* File manager main container */
     .file-manager {
       background: #fff;
       border-radius: 4px;
@@ -666,7 +666,7 @@
       flex-direction: column;
     }
 
-    /* 主工具栏样式 */
+    /* Main toolbar styles */
     .file-toolbar {
       padding: 15px 20px;
       border-bottom: 1px solid #EBEEF5;
@@ -674,7 +674,7 @@
       border-radius: 4px 4px 0 0;
     }
 
-    /* 按钮组样式优化 */
+    /* Button group style improvements */
     .el-button-group {
       margin-right: 10px;
     }
@@ -683,7 +683,7 @@
       margin-right: 0;
     }
 
-    /* 确保复选框正确显示 */
+    /* Ensure checkboxes display correctly */
     .el-checkbox__inner {
       border-color: #DCDFE6;
     }
@@ -693,7 +693,7 @@
       border-color: #8446df;
     }
 
-    /* 左侧文件夹树样式 */
+    /* Left folder tree styles */
     .folder-tree {
       height: 100%;
       overflow: auto;
@@ -703,7 +703,7 @@
       font-size: 14px;
     }
 
-    /* 树节点样式 */
+    /* Tree node styles */
     .el-tree {
       background: none;
     }
@@ -735,23 +735,23 @@
       font-size: 16px;
     }
 
-    /* 选中状态 */
+    /* Selected state */
     .el-tree-node.is-current>.el-tree-node__content {
       background-color: #f0e6fc !important;
       color: #8446df;
     }
 
-    /* 鼠标悬停状态 */
+    /* Hover state */
     .el-tree-node__content:hover {
       background-color: #f5f7fa;
     }
 
-    /* 展开的文件夹图标颜色 */
+    /* Expanded folder icon colour */
     .el-tree-node.is-expanded>.el-tree-node__content .el-icon-folder {
       color: #8446df;
     }
 
-    /* 右键菜单样式 */
+    /* Context menu styles */
     .file-card-context-menu {
       position: fixed;
       background: white;
@@ -787,7 +787,7 @@
       font-size: 16px;
     }
 
-    /* 重命名对话框样式 */
+    /* Rename dialog styles */
     .rename-dialog .el-form-item {
       margin-bottom: 0;
     }
@@ -803,12 +803,12 @@
       color: #909399;
     }
 
-    /* 调整对话框宽度 */
+    /* Adjust dialog width */
     .rename-dialog.el-dialog {
       width: 500px !important;
     }
 
-    /* 调整表单布局 */
+    /* Adjust form layout */
     .rename-dialog .el-form-item__label {
       padding-right: 20px;
     }
@@ -817,7 +817,7 @@
       margin-right: 20px;
     }
 
-    /* 文件夹右键菜单样式 */
+    /* Folder context menu styles */
     .folder-context-menu {
       position: fixed;
       background: white;
@@ -853,7 +853,7 @@
       font-size: 16px;
     }
 
-    /* 文件夹图标样式 */
+    /* Folder icon styles */
     .folder-icon {
       display: flex;
       align-items: center;
@@ -866,19 +866,19 @@
       transition: all 0.3s;
     }
 
-    /* 文件卡片悬停时的文件夹图标效果 */
+    /* Folder icon effect on card hover */
     .file-card:hover .folder-icon i {
       transform: scale(1.1);
       color: #9969e5;
     }
 
-    /* 双击提示 */
+    /* Double-click hint */
     .file-card[data-is-dir="true"] {
       cursor: pointer;
     }
 
     .file-card[data-is-dir="true"]:hover::after {
-      content: "双击进入";
+      content: "Double-click to open";
       position: absolute;
       bottom: 5px;
       right: 5px;
@@ -889,7 +889,7 @@
       border-radius: 3px;
     }
 
-    /* 文件夹图标样式 */
+    /* Folder icon styles */
     .folder-icon {
       display: flex;
       align-items: center;
@@ -905,17 +905,17 @@
       transition: all 0.3s;
     }
 
-    /* 文件卡片悬停时的文件夹图标效果 */
+    /* Folder icon effect on card hover */
     .file-card:hover .folder-image {
       transform: scale(1.1);
     }
 
-    /* 文件夹卡片特殊样式 */
+    /* Folder card special styles */
     .file-card[data-is-dir="true"] .file-thumb {
       background: #f8f9fc;
     }
 
-    /* 拖拽时的样式 */
+    /* Drag styles */
     .ghost {
       opacity: 0.5;
       background: #c8ebfb;
@@ -925,37 +925,37 @@
       cursor: move;
     }
 
-    /* 可放置目标的样式 */
+    /* Drop target styles */
     .el-tree-node__content.is-drop-inner {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
     }
 
-    /* 拖拽目标高亮样式 */
+    /* Drag target highlight styles */
     .el-tree-node__content.is-drop-inner {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
     }
 
-    /* 被拖拽节点样式 */
+    /* Dragged node styles */
     .el-tree-node.is-dragging .el-tree-node__content {
       opacity: 0.5;
       background-color: #f0e6fc;
     }
 
-    /* 无效放置目标样式 */
+    /* Invalid drop target styles */
     .el-tree-node.is-drop-not-allow .el-tree-node__content {
       background-color: #fef0f0 !important;
     }
 
-    /* 拖拽目标高亮样式 */
+    /* Drag target highlight styles */
     .el-tree-node__content.is-drop-inner {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
       border-radius: 4px;
     }
 
-    /* 被拖拽节点样式 */
+    /* Dragged node styles */
     .el-tree-node.is-dragging .el-tree-node__content {
       opacity: 0.7;
       background-color: #f0e6fc !important;
@@ -963,25 +963,25 @@
       border-radius: 4px;
     }
 
-    /* 有效放置目标的样式 */
+    /* Valid drop target styles */
     .el-tree-node.is-drop-inner>.el-tree-node__content {
       background-color: #f0e6fc !important;
       box-shadow: 0 0 5px rgba(132, 70, 223, 0.3);
     }
 
-    /* 无效放置目标样式 */
+    /* Invalid drop target styles */
     .el-tree-node.is-drop-not-allow .el-tree-node__content {
       background-color: #fef0f0 !important;
       border: 2px dashed #f56c6c;
     }
 
-    /* 拖拽过程中的文件夹图标样式 */
+    /* Folder icon during drag */
     .el-tree-node.is-dragging .el-icon-folder,
     .el-tree-node.is-dragging .el-icon-folder-opened {
       color: #8446df;
     }
 
-    /* 可放置目标的动画效果 */
+    /* Drop target animation */
     @keyframes dropTarget {
       0% {
         transform: scale(1);
@@ -1000,9 +1000,9 @@
       animation: dropTarget 1s ease infinite;
     }
 
-    /* 拖拽提示文本 */
+    /* Drag hint text */
     .el-tree-node.is-drop-inner::after {
-      content: "放置到此处";
+      content: "Drop here";
       position: absolute;
       right: 10px;
       color: #8446df;
@@ -1012,7 +1012,7 @@
       border-radius: 3px;
     }
 
-    /* 拖拽相关样式 */
+    /* Drag-related styles */
     .file-card.dragging {
       opacity: 0.5;
       border: 2px dashed #8446df;
@@ -1023,9 +1023,9 @@
       border: 2px dashed #8446df;
     }
 
-    /* 拖拽提示 */
+    /* Drag hint */
     .el-tree-node.is-drop-inner::after {
-      content: "放置到此处";
+      content: "Drop here";
       position: absolute;
       right: 10px;
       color: #8446df;
@@ -1035,7 +1035,7 @@
       border-radius: 3px;
     }
 
-    /* 拖拽相关样式 */
+    /* Drag-related styles */
     .file-card.dragging {
       opacity: 0.5;
       border: 2px dashed #8446df;
@@ -1047,7 +1047,7 @@
       border: 2px dashed #8446df;
     }
 
-    /* 拖拽时的文件夹高亮效果 */
+    /* Folder highlight during drag */
     .el-tree-node.can-drop>.el-tree-node__content {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
@@ -1068,7 +1068,7 @@
       }
     }
 
-    /* 拖拽相关样式 */
+    /* Drag-related styles */
     .file-card.dragging {
       opacity: 0.6;
       transform: scale(1.05);
@@ -1078,7 +1078,7 @@
       z-index: 1000;
     }
 
-    /* 可放置目标的高亮样式 */
+    /* Drop target highlight styles */
     .el-tree-node.drag-over>.el-tree-node__content {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
@@ -1099,9 +1099,9 @@
       }
     }
 
-    /* 拖拽提示 */
+    /* Drag hint */
     .el-tree-node.drag-over>.el-tree-node__content::after {
-      content: "放置到此处";
+      content: "Drop here";
       position: absolute;
       right: 10px;
       color: #8446df;
@@ -1111,7 +1111,7 @@
       border-radius: 3px;
     }
 
-    /* 拖拽相关样式 */
+    /* Drag-related styles */
     .file-card.dragging {
       opacity: 0.6;
       transform: scale(1.05);
@@ -1119,7 +1119,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    /* 文件夹树拖拽目标样式 */
+    /* Folder tree drop target styles */
     .el-tree-node.drag-over>.el-tree-node__content {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
@@ -1140,7 +1140,7 @@
       }
     }
 
-    /* 拖拽相关样式 */
+    /* Drag-related styles */
     .file-card.dragging {
       opacity: 0.6;
       transform: scale(0.95);
@@ -1167,9 +1167,9 @@
       }
     }
 
-    /* 文件夹接收拖拽时的提示 */
+    /* Drop hint on folder hover */
     .file-card[data-is-dir="true"].drag-over::after {
-      content: "放置到此处";
+      content: "Drop here";
       position: absolute;
       bottom: 5px;
       right: 5px;
@@ -1180,7 +1180,7 @@
       border-radius: 3px;
     }
 
-    /* 文件夹树节点样式 */
+    /* Folder tree node styles */
     .el-tree-node__wrapper {
       width: 100%;
       padding: 8px;
@@ -1215,18 +1215,18 @@
       align-items: center;
     }
 
-    /* 树节点悬停效果 */
+    /* Tree node hover effect */
     .el-tree-node__wrapper:hover {
       background-color: #f5f7fa;
     }
 
-    /* 选中状态的树节点 */
+    /* Selected tree node */
     .el-tree-node.is-current>.el-tree-node__content>.el-tree-node__wrapper {
       background-color: #f0e6fc !important;
       color: #8446df;
     }
 
-    /* 右键菜单样式优化 */
+    /* Context menu style improvements */
     .file-card-context-menu {
       position: fixed;
       background: white;
@@ -1252,20 +1252,20 @@
       color: #8446df;
     }
 
-    /* 拖拽相关样式 */
+    /* Drag-related styles */
     .el-tree-node.is-dragging {
       opacity: 0.5;
       cursor: move;
     }
 
-    /* 拖拽目标的高亮样式 */
+    /* Drop target highlight */
     .el-tree-node.is-drop-inner>.el-tree-node__content {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df !important;
       animation: dropTarget 1s ease infinite;
     }
 
-    /* 确保动画效果持续显示 */
+    /* Ensure animation persists */
     @keyframes dropTarget {
       0% {
         transform: scale(1);
@@ -1280,23 +1280,23 @@
       }
     }
 
-    /* 防止其他hover效果覆盖拖拽样式 */
+    /* Prevent hover from overriding drag styles */
     .el-tree-node.is-drop-inner>.el-tree-node__content:hover {
       background-color: #f0e6fc !important;
     }
 
-    /* 确保拖拽时的样式优先级 */
+    /* Ensure drag style priority */
     .el-tree-node.is-drop-inner {
       z-index: 100;
     }
 
-    /* 文件夹树容器样式 */
+    /* Folder tree container styles */
     .folder-tree-container {
       height: 100%;
       position: relative;
     }
 
-    /* 根目录拖拽高亮样式 */
+    /* Root directory drag highlight */
     .folder-tree-container.drag-over {
       background-color: #f0e6fc;
       border: 2px dashed #8446df;
@@ -1304,7 +1304,7 @@
       animation: dropTarget 1s ease infinite;
     }
 
-    /* 文件夹节点拖拽高亮样式 */
+    /* Folder node drag highlight */
     .el-tree-node.drag-over>.el-tree-node__content {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df;
@@ -1325,13 +1325,13 @@
       }
     }
 
-    /* 文件夹树容器样式 */
+    /* Folder tree container styles */
     .folder-tree-container {
       height: 100%;
       position: relative;
     }
 
-    /* 根目录拖拽高亮样式 */
+    /* Root directory drag highlight */
     .folder-tree-container.is-drop-target {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df !important;
@@ -1339,14 +1339,14 @@
       animation: dropTarget 1s ease infinite;
     }
 
-    /* 文件夹节点拖拽高亮样式 */
+    /* Folder node drag highlight */
     .el-tree-node.is-drop-target>.el-tree-node__content {
       background-color: #f0e6fc !important;
       border: 2px dashed #8446df !important;
       animation: dropTarget 1s ease infinite;
     }
 
-    /* 确保高亮样式优先级 */
+    /* Ensure highlight priority */
     .el-tree-node.is-drop-target>.el-tree-node__content:hover {
       background-color: #f0e6fc !important;
     }
@@ -1409,7 +1409,7 @@
                 <i class="el-icon-document-copy"></i> {{ __('panel/file_manager.copy_to') }}
               </el-button>
             </el-button-group>
-            <!-- 排序选择器 -->
+            <!-- Sort selector -->
             <el-select v-model="sortField" size="small" style="width:110px;margin-left:10px;" @change="onSortChange">
               <el-option label="{{ __('panel/file_manager.sort_by_time') }}" value="created"></el-option>
               <el-option label="{{ __('panel/file_manager.sort_by_name') }}" value="name"></el-option>
@@ -1422,7 +1422,7 @@
         </el-row>
       </div>
       <el-row :gutter="0">
-        <!-- 左侧文件夹树 -->
+        <!-- Left folder tree -->
         <el-col :xs="8" :sm="6" :md="5" :lg="4"
           :xl="3">
           <div class="folder-tree">
@@ -1448,12 +1448,12 @@
             </el-tree>
           </div>
         </el-col>
-        <!-- 右侧文件列表 -->
+        <!-- Right file list -->
         <el-col :xs="16" :sm="18" :md="19" :lg="20"
           :xl="21">
           <div class="file-list">
             <div class="file-list-content">
-              <div v-loading="loading" element-loading-text="加载中...">
+              <div v-loading="loading" element-loading-text="Loading...">
                 <el-row :gutter="20">
                   <el-col :xs="12" :sm="8" :md="6" :lg="4"
                     :xl="4" :xl="3" v-for="file in files" :key="file.id || file.path">
@@ -1478,7 +1478,7 @@
                           <div class="file-thumb">
                             <div v-if="file.mime && file.mime.startsWith('image/')" class="preview-button"
                               @click.stop="$refs['image-' + file.id][0].clickHandler()">
-                              预览
+                              Preview
                             </div>
                             <el-image :ref="'image-' + file.id" :src="file.url" :alt="file.name"
                               fit="contain" :preview-src-list="[file.origin_url || file.url]">
@@ -1488,12 +1488,12 @@
                       </div>
                       <div class="file-info">
                         <p class="file-name" :title="file.name">@{{ file.name }}</p>
-                        <p class="file-type">@{{ file.is_dir ? '文件夹' : file.mime }}</p>
+                        <p class="file-type">@{{ file.is_dir ? 'Folder' : file.mime }}</p>
                       </div>
                     </div>
                   </el-col>
                 </el-row>
-                <!-- 分页 -->
+                <!-- Pagination -->
                 <div class="pagination-container">
                   <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                     :current-page="pagination.page" :page-sizes="[20, 40, 60, 80]" :page-size="pagination.per_page"
@@ -1501,7 +1501,7 @@
                     layout="total, sizes, prev, pager, next, jumper" :total="pagination.total">
                   </el-pagination>
                 </div>
-                <!-- 添加空状态 -->
+                <!-- Empty state -->
                 <el-empty v-else :description="'{{ __('panel/file_manager.empty') }}'" :image-size="120"></el-empty>
               </div>
             </div>
@@ -1510,49 +1510,49 @@
       </el-row>
     </div>
 
-    <!-- 新建文件夹对话框 -->
-    <el-dialog title="新建文件夹" :visible.sync="folderDialog.visible" width="400px">
-      <el-form :model="folderDialog.form" label-width="80px">
-        <el-form-item label="文件夹名">
-          <el-input v-model="folderDialog.form.name" placeholder="请输入文件夹名称"></el-input>
+    <!-- New Folder dialog -->
+    <el-dialog title="New Folder" :visible.sync="folderDialog.visible" width="400px">
+      <el-form :model="folderDialog.form" label-width="100px">
+        <el-form-item label="Folder Name">
+          <el-input v-model="folderDialog.form.name" placeholder="Enter folder name"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
-        <el-button @click="folderDialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="submitCreateFolder">确 定</el-button>
+        <el-button @click="folderDialog.visible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitCreateFolder">OK</el-button>
       </span>
     </el-dialog>
 
-    <!-- 上传文件对话框 -->
-    <el-dialog title="上传文件" :visible.sync="uploadDialog.visible" width="500px" @open="onUploadDialogOpen">
+    <!-- Upload File dialog -->
+    <el-dialog title="Upload File" :visible.sync="uploadDialog.visible" width="500px" @open="onUploadDialogOpen">
       <el-upload class="file-uploader" drag multiple :action="uploadUrl" :headers="uploadHeaders"
         :data="uploadData" :before-upload="beforeUpload" :on-success="handleUploadSuccess"
         :on-error="handleUploadError" :on-progress="handleUploadProgress">
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">支持 jpg、jpeg、png、gif、webp、mp4 格式的文件</div>
-        <div class="el-upload__tip" slot="tip">服务器最大上传文件大小: {{ $uploadMaxFileSize ?? '未知' }}</div>
-        <div class="el-upload__tip" slot="tip">POST数据最大大小: {{ $postMaxSize ?? '未知' }}</div>
+        <div class="el-upload__text">Drop files here, or <em>click to upload</em></div>
+        <div class="el-upload__tip" slot="tip">Supports jpg, jpeg, png, gif, webp, mp4 files</div>
+        <div class="el-upload__tip" slot="tip">Max upload size: {{ $uploadMaxFileSize ?? 'Unknown' }}</div>
+        <div class="el-upload__tip" slot="tip">Max POST size: {{ $postMaxSize ?? 'Unknown' }}</div>
       </el-upload>
     </el-dialog>
 
-    <!-- 修改重命名对话框 -->
-    <el-dialog title="重命名" :visible.sync="renameDialog.visible" custom-class="rename-dialog" width="500px">
+    <!-- Rename dialog -->
+    <el-dialog title="Rename" :visible.sync="renameDialog.visible" custom-class="rename-dialog" width="500px">
       <el-form :model="renameDialog.form" label-width="100px">
-        <el-form-item label="文件名称">
-          <el-input v-model="renameDialog.form.newName" placeholder="请输入新名称">
+        <el-form-item label="File Name">
+          <el-input v-model="renameDialog.form.newName" placeholder="Enter new name">
             <template slot="append">.@{{ renameDialog.form.extension }}</template>
           </el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
-        <el-button @click="renameDialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="submitRename">确 定</el-button>
+        <el-button @click="renameDialog.visible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitRename">OK</el-button>
       </span>
     </el-dialog>
 
-    <!-- 移动文件对话框 -->
-    <el-dialog title="移动到" :visible.sync="moveDialog.visible" width="400px">
+    <!-- Move File dialog -->
+    <el-dialog title="Move To" :visible.sync="moveDialog.visible" width="400px">
       <el-tree :data="folders" :props="defaultProps" @node-click="handleMoveTargetSelect"
         :highlight-current="true" node-key="id">
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -1561,23 +1561,23 @@
         </span>
       </el-tree>
       <span slot="footer">
-        <el-button @click="moveDialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="submitMove">确 定</el-button>
+        <el-button @click="moveDialog.visible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitMove">OK</el-button>
       </span>
     </el-dialog>
 
-    <!-- 在文件卡片上添加右键菜单 -->
+    <!-- File context menu -->
     <div class="file-card-context-menu" v-show="contextMenu.visible" :style="contextMenu.style">
       <ul>
-        <li @click="renameFile"><i class="el-icon-edit"></i> 重命名</li>
-        <li @click="deleteFile"><i class="el-icon-delete"></i> 删除</li>
-        <li @click="moveFile"><i class="el-icon-folder"></i> 移动到</li>
-        <li @click="copyFile"><i class="el-icon-document-copy"></i> 复制到</li>
+        <li @click="renameFile"><i class="el-icon-edit"></i> Rename</li>
+        <li @click="deleteFile"><i class="el-icon-delete"></i> Delete</li>
+        <li @click="moveFile"><i class="el-icon-folder"></i> Move To</li>
+        <li @click="copyFile"><i class="el-icon-document-copy"></i> Copy To</li>
       </ul>
     </div>
 
-    <!-- 复制文件对话框 -->
-    <el-dialog title="复制到" :visible.sync="copyDialog.visible" width="400px">
+    <!-- Copy File dialog -->
+    <el-dialog title="Copy To" :visible.sync="copyDialog.visible" width="400px">
       <el-tree :data="folders" :props="defaultProps" @node-click="handleCopyTargetSelect"
         :highlight-current="true" node-key="id">
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -1586,12 +1586,12 @@
         </span>
       </el-tree>
       <span slot="footer">
-        <el-button @click="copyDialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="submitCopy">确 定</el-button>
+        <el-button @click="copyDialog.visible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitCopy">OK</el-button>
       </span>
     </el-dialog>
 
-    <!-- 文件夹右键菜单 -->
+    <!-- Folder context menu -->
     <div v-if="folderContextMenu.visible" class="file-card-context-menu"
       :style="{
           top: folderContextMenu.style.top,
@@ -1599,32 +1599,32 @@
       }">
       <ul>
         <li @click="renameFolder">
-          <i class="el-icon-edit"></i> 重命名
+          <i class="el-icon-edit"></i> Rename
         </li>
         <li @click="moveFolder">
-          <i class="el-icon-position"></i> 移动到
+          <i class="el-icon-position"></i> Move To
         </li>
         <li @click="deleteFolder">
-          <i class="el-icon-delete"></i> 删除
+          <i class="el-icon-delete"></i> Delete
         </li>
       </ul>
     </div>
 
-    <!-- 文件夹重命名对话框 -->
-    <el-dialog title="重命名文件夹" :visible.sync="folderRenameDialog.visible" width="400px">
-      <el-form :model="folderRenameDialog.form" label-width="80px">
-        <el-form-item label="文件夹名">
-          <el-input v-model="folderRenameDialog.form.newName" placeholder="请输入新名称"></el-input>
+    <!-- Rename Folder dialog -->
+    <el-dialog title="Rename Folder" :visible.sync="folderRenameDialog.visible" width="400px">
+      <el-form :model="folderRenameDialog.form" label-width="110px">
+        <el-form-item label="Folder Name">
+          <el-input v-model="folderRenameDialog.form.newName" placeholder="Enter new name"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
-        <el-button @click="folderRenameDialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="submitFolderRename">确 定</el-button>
+        <el-button @click="folderRenameDialog.visible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitFolderRename">OK</el-button>
       </span>
     </el-dialog>
 
-    <!-- 文件夹移动对话框 -->
-    <el-dialog title="移动文件夹" :visible.sync="folderMoveDialog.visible" width="400px">
+    <!-- Move Folder dialog -->
+    <el-dialog title="Move Folder" :visible.sync="folderMoveDialog.visible" width="400px">
       <el-tree :data="folders" :props="defaultProps" @node-click="handleFolderMoveTargetSelect"
         :highlight-current="true" node-key="id">
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -1633,12 +1633,12 @@
         </span>
       </el-tree>
       <span slot="footer">
-        <el-button @click="folderMoveDialog.visible = false">取 消</el-button>
-        <el-button type="primary" @click="submitFolderMove">确 定</el-button>
+        <el-button @click="folderMoveDialog.visible = false">Cancel</el-button>
+        <el-button type="primary" @click="submitFolderMove">OK</el-button>
       </span>
     </el-dialog>
 
-    <!-- 存储配置 Modal -->
+    <!-- Storage config modal -->
     <div class="modal fade" id="storageConfigModal" tabindex="-1" aria-labelledby="storageConfigModalLabel"
       aria-hidden="true">
       <div class="modal-dialog">
@@ -1725,10 +1725,10 @@
         this.loadFiles();
         this.loadFolders();
 
-        // 获取当前存储配置
+        // Get current storage config
         this.getStorageConfig();
         
-        // 确保上传路径正确初始化
+        // Ensure upload path is initialised correctly
         this.updateUploadPath();
       },
       data() {
@@ -1763,11 +1763,11 @@
           },
           uploadData: {
             path: '/',
-            type: 'images' // 默认上传路径
+            type: 'images' // default upload path
           },
           cropperOptions: {
             viewMode: 1,
-            autoCropArea: 1, // 默认裁剪全图
+            autoCropArea: 1, // default: crop entire image
             zoomable: true,
             cropBoxResizable: true,
             cropBoxMovable: true,
@@ -1778,12 +1778,12 @@
             background: true,
             modal: true
           },
-          defaultExpandedKeys: ['/'], // 默认展开根节点
+          defaultExpandedKeys: ['/'], // expand root by default
           renameDialog: {
             visible: false,
             form: {
               newName: '',
-              extension: '', // 添加扩展名字段
+              extension: '', // file extension field
               file: null
             }
           },
@@ -1791,8 +1791,8 @@
             visible: false,
             targetPath: null
           },
-          sortField: 'created', // 默认按时间排序
-          sortOrder: 'desc',    // 默认降序
+          sortField: 'created', // default sort by date
+          sortOrder: 'desc',    // descending by default
           contextMenu: {
             visible: false,
             style: {
@@ -1805,7 +1805,7 @@
             visible: false,
             targetPath: null
           },
-          isMultiSelectMode: false, // 多选模式状态
+          isMultiSelectMode: false, // multi-select mode
           folderContextMenu: {
             visible: false,
             style: {
@@ -1842,16 +1842,16 @@
       },
       methods: {
         updateUploadPath() {
-          // 更新上传路径，确保始终有有效值
+          // Update upload path, ensure it always has a valid value
           this.uploadData.path = this.currentFolder ? this.currentFolder.path : '/';
           console.log('Upload path updated:', this.uploadData.path);
         },
         onUploadDialogOpen() {
-          // 对话框打开时确保路径正确
+          // Ensure path is correct when dialog opens
           this.updateUploadPath();
         },
         uploadFile() {
-          // 确保路径正确设置
+          // Ensure path is set correctly
           this.updateUploadPath();
           this.uploadDialog.visible = true;
         },
@@ -1872,7 +1872,7 @@
               this.$message.success("{{ __('panel/file_manager.create_success') }}");
               this.folderDialog.visible = false;
               this.folderDialog.form.name = '';
-              // 重新加载文件夹树
+              // Reload folder tree
               this.loadFolders();
             } else {
               this.$message.error(res.message || "{{ __('panel/file_manager.create_fail') }}");
@@ -1890,7 +1890,7 @@
             type: 'warning'
           }).then(() => {
             const currentPath = this.currentFolder ? this.currentFolder.path : '/';
-            // 获取选中文件的文件名列表
+            // Get list of selected file names
             const fileNames = this.selectedFiles.map(fileId => {
               const file = this.files.find(f => f.id === fileId);
               return file ? file.name : null;
@@ -1903,7 +1903,7 @@
               }
             }).then(res => {
               if (res.success) {
-                this.$message.success('删除成功');
+                this.$message.success('Deleted successfully');
                 this.selectedFiles = [];
                 this.loadFiles(currentPath);
               }
@@ -1932,7 +1932,7 @@
             const fileId = file.id || file.path;
             const index = this.selectedFiles.indexOf(fileId);
 
-            // 如果是文件夹，保持单选模式
+            // If folder, keep single-select mode
             if (file.is_dir) {
               if (index === -1) {
                 this.selectedFiles = [fileId];
@@ -1940,7 +1940,7 @@
                 this.selectedFiles = [];
               }
             } else {
-              // 如果是文件，只从选中列表中移除当前文件
+              // If file, remove only the current file from selection
               if (index !== -1) {
                 this.selectedFiles.splice(index, 1);
               } else {
@@ -1952,7 +1952,7 @@
         handleNodeClick(data) {
           this.currentFolder = data;
           this.loadFiles(data.path);
-          // 更新上传路径
+          // Update upload path
           this.updateUploadPath();
         },
         loadFiles(path = null) {
@@ -1971,23 +1971,23 @@
               params
             })
             .then(res => {
-              // 处理文件列表数据
+              // Process file list data
 
               this.files = res.images.map(file => ({
                 ...file,
-                id: file.id || file.path, // 确保每个文件都有唯一标识
+                id: file.id || file.path, // ensure unique ID
                 selected: false,
-                preview_url: file.url, // 保存预览URL（缩略图）
-                url: file.url, // 缩略图URL（用于列表显示）
-                origin_url: file.origin_url // 原图URL（用于插入编辑器）
+                preview_url: file.url, // thumbnail preview URL
+                url: file.url, // thumbnail URL for list view
+                origin_url: file.origin_url // original URL for editor insertion
               }));
 
-              // 更新分页信息
+              // Update pagination info
               this.pagination.total = res.image_total;
               this.pagination.page = res.image_page;
             })
             .catch(err => {
-              this.$message.error('获取文件列表失败：' + err.message);
+              this.$message.error('Failed to load files: ' + err.message);
             })
             .finally(() => {
               this.loading = false;
@@ -2005,12 +2005,12 @@
           this.loadFiles();
         },
 
-        // 上传文件方法
+        // Upload file method
         uploadFileToServer(file, path, type) {
-          // 验证路径参数
+          // Validate path parameter
           if (!path) {
-            this.$message.error('上传路径未定义');
-            return Promise.reject(new Error('上传路径未定义'));
+            this.$message.error('Upload path not defined');
+            return Promise.reject(new Error('Upload path not defined'));
           }
 
           const formData = new FormData();
@@ -2021,24 +2021,22 @@
           return http.post('file_manager/upload', formData)
             .then(res => {
               if (res.success) {
-                this.$message.success('上传成功');
+                this.$message.success('Uploaded successfully');
                 this.uploadDialog.visible = false;
-                // 上传成功后，重置到第一页并重新加载文件列表，确保新上传的文件显示在最前面
                 this.pagination.page = 1;
                 this.loadFiles();
               } else {
-                this.$message.error(res.message || '上传失败');
+                this.$message.error(res.message || 'Upload failed');
               }
             })
             .catch(err => {
-              this.$message.error('上传失败：' + err.message);
+              this.$message.error('Upload failed: ' + err.message);
             });
         },
 
         beforeUpload(file) {
-          // 验证路径参数
           if (!this.uploadData.path) {
-            this.$message.error('上传路径未定义，请重新选择文件夹');
+            this.$message.error('Upload path not defined, please select a folder first');
             return false;
           }
 
@@ -2050,11 +2048,11 @@
             'application/vnd.openxmlformats-officedocument.presentationml.presentation'
           ].includes(file.type)
           if (!isImage && !isVideo && !isDoc) {
-            this.$message.error('只能上传图片或视频文件！');
+            this.$message.error('Only image or video files are allowed!');
             return false;
           }
 
-          // 将PHP ini格式的大小转换为字节
+          // Convert PHP ini size format to bytes
           function iniSizeToBytes(size) {
             if (!size || size === 'unknown') return 0;
             
@@ -2073,17 +2071,17 @@
             }
           }
           
-          // 获取服务器配置的上传限制
+          // Get server upload size limit
           const uploadMaxFileSizeBytes = iniSizeToBytes(window.fileManagerConfig.uploadMaxFileSize);
           const postMaxSizeBytes = iniSizeToBytes(window.fileManagerConfig.postMaxSize);
           
-          // 使用较小的限制值
+          // Use the smaller limit
           const serverMaxSizeBytes = Math.min(uploadMaxFileSizeBytes, postMaxSizeBytes);
           
-          // 检查文件大小
+          // Check file size
           if (serverMaxSizeBytes > 0 && file.size > serverMaxSizeBytes) {
             const maxSizeMB = (serverMaxSizeBytes / 1024 / 1024).toFixed(2);
-            this.$message.error(`文件大小不能超过 ${maxSizeMB}MB！`);
+            this.$message.error(`File size cannot exceed ${maxSizeMB}MB!`);
             return false;
           }
           if (isVideo || isDoc) {
@@ -2091,7 +2089,7 @@
             this.uploadFileToServer(file, this.uploadData.path, type);
             return false;
           } else {
-            // 根据 enableCrop 变量决定是否进行裁剪
+            // Decide whether to crop based on enableCrop variable
             if (window.fileManagerConfig.enableCrop) {
               this.cropImage(file);
             } else {
@@ -2104,12 +2102,12 @@
         cropImage(file) {
           const reader = new FileReader();
           reader.onload = (e) => {
-            // 创建遮罩层
+            // Create overlay mask
             const mask = document.createElement('div');
             mask.className = 'cropper-mask';
             document.body.appendChild(mask);
 
-            // 创建裁剪对话框
+            // Create crop dialog
             const dialog = document.createElement('div');
             dialog.className = 'cropper-dialog';
             dialog.innerHTML = `
@@ -2117,18 +2115,18 @@
             <img src="${e.target.result}">
           </div>
           <div class="cropper-controls">
-            <button class="el-button el-button--default el-button--small cancel-btn">取消</button>
-            <button class="el-button el-button--primary el-button--small confirm-btn">确认</button>
+            <button class="el-button el-button--default el-button--small cancel-btn">Cancel</button>
+            <button class="el-button el-button--primary el-button--small confirm-btn">Confirm</button>
           </div>
         `;
 
             document.body.appendChild(dialog);
 
-            // 初始化 cropper
+            // Initialise cropper
             const image = dialog.querySelector('img');
             const cropper = new Cropper(image, this.cropperOptions);
 
-            // 确认裁剪
+            // Confirm crop
             dialog.querySelector('.confirm-btn').onclick = () => {
               const canvas = cropper.getCroppedCanvas({
                 width: 800,
@@ -2138,7 +2136,7 @@
               canvas.toBlob((blob) => {
                 this.uploadFileToServer(blob, this.uploadData.path, 'images')
                   .then(() => {
-                    // 上传成功后，重置到第一页并重新加载文件列表，确保新上传的文件显示在最前面
+                    // After upload, reset to page 1 and reload so new files appear first
                     this.pagination.page = 1;
                     this.loadFiles();
                   })
@@ -2149,7 +2147,7 @@
               });
             };
 
-            // 取消裁剪
+            // Cancel crop
             dialog.querySelector('.cancel-btn').onclick = () => {
               this.cleanupDialog(dialog, mask);
             };
@@ -2157,45 +2155,42 @@
           reader.readAsDataURL(file);
         },
 
-        // 上传成功回调
+        // Upload success callback
         handleUploadSuccess(response, file, fileList) {
           if (response.success) {
-            this.$message.success('上传成功');
-            // 上传成功后，重置到第一页并重新加载文件列表，确保新上传的文件显示在最前面
+            this.$message.success('Uploaded successfully');
             this.pagination.page = 1;
             this.loadFiles();
           } else {
-            this.$message.error(response.message || '上传失败');
+            this.$message.error(response.message || 'Upload failed');
           }
 
-          // 如果所有文件都上传完成，关闭对话框
           if (fileList.every(file => file.status === 'success' || file.status === 'error')) {
             this.uploadDialog.visible = false;
           }
         },
 
-        // 上传失败回调
         handleUploadError(err, file) {
-          this.$message.error('上传失败：' + (err.message || '未知错误'));
+          this.$message.error('Upload failed: ' + (err.message || 'Unknown error'));
         },
 
-        // 上传进度回调
+        // Upload progress callback
         handleUploadProgress(event, file) {
 
         },
 
         cleanupDialog(dialog, mask) {
-          // 检查并移除对话框
+          // Check and remove dialog
           if (dialog && dialog.parentNode) {
             dialog.parentNode.removeChild(dialog);
           }
-          // 检查并移除遮罩
+          // Check and remove overlay
           if (mask && mask.parentNode) {
             mask.parentNode.removeChild(mask);
           }
         },
 
-        // 获取文件夹树
+        // Get folder tree
         loadFolders() {
           http.get('file_manager/directories').then(res => {
             const folders = Array.isArray(res.data) ? res.data : [];
@@ -2218,28 +2213,28 @@
               }))
             }];
 
-            // 默认选中根目录
+            // Select root directory by default
             this.currentFolder = {
               id: '/',
               name: "{{ __('panel/file_manager.root_name') }}",
               path: '/'
             };
 
-            // 设置默认展开的节点
+            // Set default expanded nodes
             this.defaultExpandedKeys = ['/'];
 
-            // 加载根目录的文件
+            // Load files in root directory
             this.loadFiles('/');
           }).catch(err => {
             this.$message.error("{{ __('panel/file_manager.error_load_folders_prefix') }}" + err.message);
           });
         },
 
-        // 重命名文件
+        // Rename file
         renameFile() {
           const file = this.contextMenu.file;
           this.renameDialog.form.file = file;
-          // 分离文件名和扩展名
+          // Split filename and extension
           const extension = file.name.split('.').pop();
           const nameWithoutExt = file.name.slice(0, -(extension.length + 1));
           this.renameDialog.form.newName = nameWithoutExt;
@@ -2248,14 +2243,14 @@
           this.hideContextMenu();
         },
 
-        // 重命名选中的文件
+        // Rename selected file
         renameSelectedFile() {
           if (this.selectedFiles.length !== 1) return;
 
           const selectedFile = this.files.find(file => file.id === this.selectedFiles[0]);
           if (selectedFile) {
             this.renameDialog.form.file = selectedFile;
-            // 分离文件名和扩展名
+            // Split filename and extension
             const extension = selectedFile.name.split('.').pop();
             const nameWithoutExt = selectedFile.name.slice(0, -(extension.length + 1));
             this.renameDialog.form.newName = nameWithoutExt;
@@ -2264,7 +2259,7 @@
           }
         },
 
-        // 提交重命名
+        // Submit rename
         submitRename() {
           if (!this.renameDialog.form.newName) {
             this.$message.warning("{{ __('panel/file_manager.enter_new_name') }}");
@@ -2273,7 +2268,7 @@
 
           const file = this.renameDialog.form.file;
           const currentPath = this.currentFolder ? this.currentFolder.path : '/';
-          // 组合新的文件名
+          // Combine new filename
           const newFullName = `${this.renameDialog.form.newName}.${this.renameDialog.form.extension}`;
 
           http.post('file_manager/rename', {
@@ -2288,7 +2283,7 @@
           });
         },
 
-        // 删除单个文件
+        // Delete single file
         deleteFile() {
           const file = this.contextMenu.file;
           this.$confirm("{{ __('panel/file_manager.delete_file_confirm') }}", "{{ __('panel/file_manager.prompt') }}", {
@@ -2313,28 +2308,28 @@
           this.hideContextMenu();
         },
 
-        // 移动文件
+        // Move file
         moveFile() {
           const file = this.contextMenu.file;
-          // 保持单状态
+          // Keep single-select state
           this.selectedFiles = [file.id || file.path];
           this.moveDialog.visible = true;
           this.hideContextMenu();
         },
 
-        // 选择移动目标文件夹
+        // Select move target folder
         handleMoveTargetSelect(data) {
           this.moveDialog.targetPath = data.path;
         },
 
-        // 提交移动
+        // Submit move
         submitMove() {
           if (!this.moveDialog.targetPath) {
             this.$message.warning("{{ __('panel/file_manager.select_target_folder') }}");
             return;
           }
 
-          // 获取选中文的完整路径
+          // Get full path of selected files
           const currentPath = this.currentFolder ? this.currentFolder.path : '/';
           const files = this.selectedFiles.map(fileId => {
             const file = this.files.find(f => f.id === fileId);
@@ -2354,10 +2349,10 @@
           });
         },
 
-        // 显示右键菜单
+        // Show context menu
         showContextMenu(event, file) {
           event.preventDefault();
-          // 右键点击时，清除之前的选择，只选中当前文件
+          // On right-click, clear selection and select current file only
           this.selectedFiles = [file.id || file.path];
 
           this.contextMenu.visible = true;
@@ -2365,39 +2360,39 @@
           this.contextMenu.style.left = event.clientX + 'px';
           this.contextMenu.file = file;
 
-          // 点击其他地方关闭菜单
+          // Click elsewhere to close menu
           document.addEventListener('click', this.hideContextMenu);
         },
 
-        // 隐藏右键菜单
+        // Hide context menu
         hideContextMenu() {
           this.contextMenu.visible = false;
           document.removeEventListener('click', this.hideContextMenu);
         },
 
-        // 复制单个文件
+        // Copy single file
         copyFile() {
           const file = this.contextMenu.file;
-          // 保持单选状态
+          // Keep single-select state
           this.selectedFiles = [file.id || file.path];
           this.copyDialog.visible = true;
           this.hideContextMenu();
         },
 
-        // 批量复制文件
+        // Batch copy files
         copyFiles() {
           if (!this.selectedFiles.length) return;
           this.copyDialog.visible = true;
         },
 
-        // 提交复制
+        // Submit copy
         submitCopy() {
           if (!this.copyDialog.targetPath) {
             this.$message.warning("{{ __('panel/file_manager.select_target_folder') }}");
             return;
           }
 
-          // 获取选中文件的完整路径
+          // Get full paths of selected files
           const currentPath = this.currentFolder ? this.currentFolder.path : '/';
           const files = this.selectedFiles.map(fileId => {
             const file = this.files.find(f => f.id === fileId);
@@ -2417,21 +2412,21 @@
           });
         },
 
-        // 添加选择目标文件夹的方法
+        // Method to select target folder
         handleCopyTargetSelect(data) {
           this.copyDialog.targetPath = data.path;
         },
 
-        // 添加多选模式切换方法
+        // Multi-select mode toggle method
         toggleMultiSelectMode() {
           this.isMultiSelectMode = !this.isMultiSelectMode;
           if (!this.isMultiSelectMode) {
-            // 退出多选模式时清空选择
+            // Clear selection when exiting multi-select mode
             this.selectedFiles = [];
           }
         },
 
-        // 切换文件选择状态
+        // Toggle file selection state
         toggleFileSelect(file) {
           const fileId = file.id || file.path;
           const index = this.selectedFiles.indexOf(fileId);
@@ -2442,20 +2437,20 @@
           }
         },
 
-        // 全选功能
+        // Select all
         selectAll() {
           if (this.selectedFiles.length === this.files.length) {
-            // 如果已经全选，则取消全选
+            // If all selected, deselect all
             this.selectedFiles = [];
           } else {
-            // 否则全选
+            // Otherwise select all
             this.selectedFiles = this.files.map(file => file.id || file.path);
           }
         },
 
-        // 显示文件夹右键菜单
+        // Show folder context menu
         showFolderContextMenu(event, data, node) {
-          if (data.isRoot) return; // 根节点不显示右键菜单
+          if (data.isRoot) return; // no context menu for root
 
           event.preventDefault();
           this.folderContextMenu.visible = true;
@@ -2463,17 +2458,17 @@
           this.folderContextMenu.style.left = event.clientX + 'px';
           this.folderContextMenu.folder = data;
 
-          // 点击其他地方关闭菜单
+          // Click elsewhere to close menu
           document.addEventListener('click', this.hideFolderContextMenu);
         },
 
-        // 隐藏文件夹右键菜单
+        // Hide folder context menu
         hideFolderContextMenu() {
           this.folderContextMenu.visible = false;
           document.removeEventListener('click', this.hideFolderContextMenu);
         },
 
-        // 重命名文件夹
+        // Rename folder
         renameFolder() {
           const folder = this.folderContextMenu.folder;
           this.folderRenameDialog.form.folder = folder;
@@ -2482,7 +2477,7 @@
           this.hideFolderContextMenu();
         },
 
-        // 提交文件夹重命名
+        // Submit folder rename
         submitFolderRename() {
           if (!this.folderRenameDialog.form.newName) {
             this.$message.warning("{{ __('panel/file_manager.enter_new_name') }}");
@@ -2497,13 +2492,13 @@
             if (res.success) {
               this.$message.success("{{ __('panel/file_manager.rename_success') }}");
               this.folderRenameDialog.visible = false;
-              // 重新加载文件夹树
+              // Reload folder tree
               this.loadFolders();
             }
           });
         },
 
-        // 删除文件夹
+        // Delete folder
         deleteFolder() {
           const folder = this.folderContextMenu.folder;
           this.$confirm("{{ __('panel/file_manager.delete_folder_confirm') }}", "{{ __('panel/file_manager.prompt') }}", {
@@ -2525,7 +2520,7 @@
           this.hideFolderContextMenu();
         },
 
-        // 显示移动文件夹对话框
+        // Show move folder dialog
         moveFolder() {
           const folder = this.folderContextMenu.folder;
           this.folderMoveDialog.folder = folder;
@@ -2533,9 +2528,9 @@
           this.hideFolderContextMenu();
         },
 
-        // 选择目标文件夹
+        // Select target folder
         handleFolderMoveTargetSelect(data) {
-          // 不能移动到自己或自己的子文件夹下
+          // Cannot move to itself or its own subfolder
           if (data.path === this.folderMoveDialog.folder.path ||
             data.path.startsWith(this.folderMoveDialog.folder.path + '/')) {
             this.$message.warning("{{ __('panel/file_manager.cannot_move_to_self') }}");
@@ -2544,7 +2539,7 @@
           this.folderMoveDialog.targetPath = data.path;
         },
 
-        // 提交文件夹移动
+        // Submit folder move
         submitFolderMove() {
           if (!this.folderMoveDialog.targetPath) {
             this.$message.warning("{{ __('panel/file_manager.select_target_folder') }}");
@@ -2559,16 +2554,16 @@
             if (res.success) {
               this.$message.success("{{ __('panel/file_manager.move_success') }}");
               this.folderMoveDialog.visible = false;
-              // 重新加载文件夹树
+              // Reload folder tree
               this.loadFolders();
             }
           });
         },
 
-        // 处理文件双击
+        // Handle file double-click
         handleFileDoubleClick(file) {
           if (file.is_dir) {
-            // 如果是文件夹，进入该文件夹
+            // If folder, enter it
             const currentPath = this.currentFolder ? this.currentFolder.path : '/';
             const targetPath = currentPath === '/' ?
               '/' + file.name :
@@ -2580,15 +2575,15 @@
               path: targetPath
             };
 
-            // 将当前路径添加到展开的节点中
+            // Add current path to expanded nodes
             if (!this.defaultExpandedKeys.includes(targetPath)) {
               this.defaultExpandedKeys.push(targetPath);
             }
 
-            // 加载目标文件夹的内容
+            // Load target folder contents
             this.loadFiles(targetPath);
 
-            // 同步左侧树的选中状态
+            // Sync left tree selection state
             this.$nextTick(() => {
               const treeComponent = this.$refs.folderTree;
               if (treeComponent) {
@@ -2596,7 +2591,7 @@
               }
             });
           } else {
-            // 如果是图片文件
+            // If image file
 
             const mainApp = document.querySelector('#app').__vue__;
             if (mainApp && typeof mainApp.confirmSelection === 'function') {
@@ -2605,18 +2600,18 @@
           }
         },
 
-        // 处理文件拖拽结束
+        // Handle file drag end
         handleDragEnd(evt) {
           const draggedFile = this.files[evt.oldIndex];
           const targetFolder = evt.to.dataset.path;
 
           if (targetFolder && draggedFile) {
-            // 移动文件到目标文件夹
+            // Move file to target folder
             this.moveFilesToFolder([draggedFile], targetFolder);
           }
         },
 
-        // 移动文件到文件夹
+        // Move file to folder
         moveFilesToFolder(files, targetPath) {
           const currentPath = this.currentFolder ? this.currentFolder.path : '/';
           const fileNames = files.map(file => currentPath + '/' + file.name);
@@ -2626,23 +2621,23 @@
             dest_path: targetPath
           }).then(res => {
             if (res.success) {
-              this.$message.success('移动成功');
+              this.$message.success('Moved successfully');
               this.loadFiles(currentPath);
             }
           });
         },
 
-        // 处理树节点拖拽
+        // Handle tree node drag
         handleNodeDrop(draggingNode, dropNode, type) {
           if (type !== 'inner') return;
 
           const sourcePath = draggingNode.data.path;
           const targetPath = dropNode.data.path;
 
-          // 检查是否拖放到当前所在的文件夹
+          // Check if dropping to current folder
           const sourceDir = this.getParentPath(sourcePath);
           if (sourcePath === targetPath || sourceDir === targetPath) {
-            // 如果是拖放到当前文件夹，直接返回，不发送请求
+            // If dropping to same folder, return without request
             return;
           }
 
@@ -2651,7 +2646,7 @@
             dest_path: targetPath
           }).then(res => {
             if (res.success) {
-              this.$message.success('移动成功');
+              this.$message.success('Moved successfully');
               this.loadFolders();
               if (this.currentFolder && this.currentFolder.path === sourcePath) {
                 this.loadFiles(targetPath);
@@ -2663,17 +2658,17 @@
           });
         },
 
-        // 判断是否允许拖放
+        // Determine if drop is allowed
         handleAllowDrop(draggingNode, dropNode, type) {
-          // 安全检查
+          // Safety check
           if (!draggingNode || !dropNode) return false;
 
-          // 处理文件拖放
+          // Handle file drop
           if (!draggingNode.data) {
             return type === 'inner';
           }
 
-          // 处理文件夹拖放
+          // Handle folder drop
           if (dropNode.data.isRoot) {
             return type === 'inner';
           }
@@ -2682,59 +2677,59 @@
           return type === 'inner';
         },
 
-        // 判断节点是否可拖动
+        // Determine if node is draggable
         handleAllowDrag(node) {
-          // 根节点不可拖动
+          // Root node is not draggable
           return !node.data.isRoot;
         },
 
-        // 处理拖拽结束
+        // Handle drag end
         handleNodeDragEnd(draggingNode, dropNode) {
-          // 使用 nextTick 确保 DOM 更新完成
+          // Use nextTick to ensure DOM update completes
           this.$nextTick(() => {
-            // 清理所有拖拽相关的样式
+            // Clean up all drag-related styles
             document.querySelectorAll('.el-tree-node').forEach(node => {
               node.classList.remove('is-dragging', 'is-drop-inner');
             });
           });
 
-          // 如果没有成功放置，重新加载文件夹树
+          // If not successfully dropped, reload folder tree
           if (!dropNode) {
             this.loadFolders();
           }
         },
 
-        // 开始拖拽时
+        // Drag start
         handleDragStart(node) {
           if (node && node.$el) {
             node.$el.classList.add('is-dragging');
           }
         },
 
-        // 进入可放置目标时
+        // Enter drop target
         handleDragEnter(draggingNode, dropNode) {
-          // 安全检查
+          // Safety check
           if (!dropNode || !dropNode.$el) return;
 
           if (this.handleAllowDrop(draggingNode, dropNode, 'inner')) {
-            // 移除所有其他节点的拖拽样式
+            // Remove drag styles from all other nodes
             document.querySelectorAll('.el-tree-node').forEach(node => {
               node.classList.remove('is-drop-inner');
             });
-            // 添加当前节点的拖拽样式
+            // Add drag styles to current node
             dropNode.$el.classList.add('is-drop-inner');
           }
         },
 
-        // 离开放置目标时
+        // Leave drop target
         handleDragLeave(draggingNode, dropNode) {
-          // 添加安全检查
+          // Add safety check
           if (!dropNode || !dropNode.$el) return;
 
           dropNode.$el.classList.remove('is-drop-inner');
         },
 
-        // 文件开始拖拽
+        // File drag start
         handleFileDragStart(event, file) {
           this.isDragging = true;
           this.draggedFile = file;
@@ -2742,12 +2737,12 @@
           event.target.classList.add('dragging');
         },
 
-        // 文件拖拽中
+        // File dragging
         handleFileDrag(event) {
-          // 可以添加拖拽过程中的视觉效果
+          // Visual effect during drag can be added here
         },
 
-        // 文件拖拽结束
+        // File drag end
         handleFileDragEnd(event) {
           this.isDragging = false;
           this.draggedFile = null;
@@ -2757,43 +2752,43 @@
           });
         },
         handleConfirm() {
-          // 获取主 Vue 实例并调用其方法
+          // Get main Vue instance and call method
           const mainApp = document.querySelector('#app').__vue__;
           if (mainApp && typeof mainApp.confirmSelection === 'function') {
             mainApp.confirmSelection();
           }
         },
-        // 树节点接收拖拽进入
+        // Tree node accepts drag enter
         handleTreeDragEnter(event, node, data) {
           if (!this.isDragging || !this.draggedFile) return;
 
-          // 文件夹拖拽检查是否是同一个文件夹
+          // Check if dragging folder to itself
           if (this.draggedFile.is_dir) {
-            // 获取当前拖拽文件夹的完整路径
+            // Get full path of dragged folder
             const draggedPath = this.currentFolder.path + '/' + this.draggedFile.name;
 
-            // 如果是拖到自己或者自己的父文件夹，直接返回
+            // If dragging to itself or parent, return
             if (draggedPath === data.path || data.path.startsWith(draggedPath + '/')) {
               return;
             }
 
-            // 如果是拖到当前所在文件夹，直接返回
+            // If dragging to current folder, return
             if (data.path === this.currentFolder.path) {
               return;
             }
           }
 
-          // 清除所有高亮样式
+          // Clear all highlight styles
           document.querySelectorAll('.el-tree-node').forEach(node => {
             node.classList.remove('is-drop-target');
           });
           this.$refs.folderTree.$el.classList.remove('is-drop-target');
 
           if (data.isRoot) {
-            // 如果是根目录，高亮整个树容器
+            // If root, highlight entire tree container
             this.$refs.folderTree.$el.classList.add('is-drop-target');
           } else {
-            // 如果是普通文件夹，高亮当前节点
+            // If normal folder, highlight current node
             const treeNode = event.target.closest('.el-tree-node');
             if (treeNode) {
               treeNode.classList.add('is-drop-target');
@@ -2801,9 +2796,9 @@
           }
         },
 
-        // 处理树节点离开拖拽
+        // Handle tree node drag leave
         handleTreeDragLeave(event, node) {
-          // 检查鼠是否真的离开了目标元素及其子元素
+          // Check if mouse truly left the target element
           const relatedTarget = event.relatedTarget;
           const currentTarget = event.currentTarget;
 
@@ -2812,37 +2807,37 @@
             if (treeNode) {
               treeNode.classList.remove('is-drop-target');
             }
-            // 移除根目录高亮
+            // Remove root highlight
             this.$refs.folderTree.$el.classList.remove('is-drop-target');
           }
         },
 
-        // 处理树节点放置
+        // Handle tree node drop
         handleTreeDrop(event, node, data) {
-          // 移除所有高亮样式
+          // Remove all highlight styles
           document.querySelectorAll('.el-tree-node').forEach(node => {
             node.classList.remove('is-drop-target');
           });
           this.$refs.folderTree.$el.classList.remove('is-drop-target');
 
-          // 如果是从右侧拖来的文件
+          // If file dragged from right panel
           if (this.isDragging && this.draggedFile) {
             const currentPath = this.currentFolder ? this.currentFolder.path : '/';
             const targetPath = data.path;
 
-            // 检查是否拖放到当前所在文件夹
+            // Check if dropping to current folder
             if (currentPath === targetPath) {
               this.isDragging = false;
               this.draggedFile = null;
               return;
             }
 
-            // 如果是文件夹且正在拖拽的也是文件夹，检查是否是同一个文件夹
+            // If both are folders, check if same folder
             if (this.draggedFile.is_dir) {
-              // 获取当前拖拽文件夹的完整路径
+              // Get full path of dragged folder
               const draggedPath = currentPath + '/' + this.draggedFile.name;
 
-              // 如果是拖到自己或者自己的父文件夹，直接返回
+              // If dragging to itself or parent, return
               if (draggedPath === targetPath || targetPath.startsWith(draggedPath + '/')) {
                 this.isDragging = false;
                 this.draggedFile = null;
@@ -2857,11 +2852,11 @@
               dest_path: targetPath
             }).then(res => {
               if (res.success) {
-                this.$message.success('移动成功');
+                this.$message.success('Moved successfully');
                 this.loadFiles(currentPath);
               }
             }).catch(err => {
-              this.$message.error(err.message || '移动失败');
+              this.$message.error(err.message || 'Move failed');
             }).finally(() => {
               this.isDragging = false;
               this.draggedFile = null;
@@ -2869,12 +2864,12 @@
             return;
           }
 
-          // 处理文件夹树内部的拖拽
+          // Handle drag within folder tree
           if (node && data) {
             const sourcePath = node.data.path;
             const targetPath = data.path;
 
-            // 检查是否拖放到当前所在的文件夹
+            // Check if dropping to current folder
             const sourceDir = this.getParentPath(sourcePath);
             if (sourcePath === targetPath || sourceDir === targetPath) {
               return;
@@ -2885,7 +2880,7 @@
               dest_path: targetPath
             }).then(res => {
               if (res.success) {
-                this.$message.success('移动成功');
+                this.$message.success('Moved successfully');
                 this.loadFolders();
                 if (this.currentFolder && this.currentFolder.path === sourcePath) {
                   this.loadFiles(targetPath);
@@ -2893,14 +2888,14 @@
               }
             }).catch(err => {
               this.loadFolders();
-              this.$message.error(err.message || '移动失败');
+              this.$message.error(err.message || 'Move failed');
             });
           }
         },
 
-        // 文件拖入目标
+        // File drag enter target
         handleFileDragEnter(event, file) {
-          // 如果目标不是文件夹，或者是自己，不允许拖入
+          // Disallow drop if target is not a folder or is itself
           if (!this.isDragging || !this.draggedFile || !file.is_dir ||
             this.draggedFile.id === file.id ||
             this.draggedFile.path === file.path) {
@@ -2909,16 +2904,16 @@
 
           const card = event.target.closest('.file-card');
           if (card) {
-            // 清除其他文件夹的样式
+            // Remove styles from other folders
             document.querySelectorAll('.file-card').forEach(c => {
               c.classList.remove('drag-over');
             });
-            // 添加当前文件夹的样式
+            // Add styles to current folder
             card.classList.add('drag-over');
           }
         },
 
-        // 添加文件拖离目标的处理方法
+        // File drag leave handler
         handleFileDragLeave(event) {
           const card = event.target.closest('.file-card');
           if (card) {
@@ -2926,11 +2921,11 @@
           }
         },
 
-        // 文件放置处理
+        // File drop handler
         handleFileDrop(event, targetFile) {
           event.preventDefault();
 
-          // 如果不是拖拽状态，或者目标不是文件夹，或者是拖拽到自己，直接返回
+          // Return if not dragging, target not a folder, or dragging to itself
           if (!this.isDragging || !this.draggedFile || !targetFile.is_dir ||
             this.draggedFile.id === targetFile.id ||
             this.draggedFile.path === targetFile.path) {
@@ -2947,12 +2942,12 @@
             '/' + targetFile.name :
             currentPath + '/' + targetFile.name;
 
-          // 检查是否在同一个文件夹内拖放
+          // Check if dropping within same folder
           const draggedFilePath = this.draggedFile.path;
           const draggedFileDir = draggedFilePath.substring(0, draggedFilePath.lastIndexOf('/')) || '/';
 
           if (draggedFileDir === targetPath) {
-            // 如果是在同一个文件夹内拖放，直接返回，不执行移动
+            // Same-folder drop: return, do not move
             this.isDragging = false;
             this.draggedFile = null;
             document.querySelectorAll('.file-card').forEach(card => {
@@ -2968,11 +2963,11 @@
             dest_path: targetPath
           }).then(res => {
             if (res.success) {
-              this.$message.success('移动成功');
+              this.$message.success('Moved successfully');
               this.loadFiles(currentPath);
             }
           }).catch(err => {
-            this.$message.error(err.message || '移动失败');
+            this.$message.error(err.message || 'Move failed');
           }).finally(() => {
             this.isDragging = false;
             this.draggedFile = null;
@@ -2981,14 +2976,14 @@
             });
           });
         },
-        // 添加辅助方法（如果还没有的话）
+        // Helper methods
         getParentPath(path) {
           if (!path) return '/';
           const parts = path.split('/');
           parts.pop();
           return parts.join('/') || '/';
         },
-        // 处理文件选择
+        // Handle file selection
         handleFileSelect(file) {
           if (this.isIframeMode && window.parent.fileManagerCallback) {
             if (!this.isMultiSelectMode) {
@@ -2999,21 +2994,21 @@
             this.toggleFileSelect(file);
           }
         },
-        // 确认选择（多选模式）
+        // Confirm selection (multi-select mode)
         confirmSelection() {
           if (this.isIframeMode && window.parent.fileManagerCallback) {
             if (this.selectedFiles.length === 0) {
-              this.$message.warning('请至少选择一个文件');
+              this.$message.warning('Please select at least one file');
               return;
             }
             const selectedFiles = this.files.filter(file =>
               this.selectedFiles.includes(file.id || file.path)
             );
             if (window.fileManagerConfig.multiple) {
-              // 多选模式：返回数组
+              // Multi-select mode: return array
               window.parent.fileManagerCallback(selectedFiles);
             } else {
-              // 单选模式：返回单个文件
+              // Single-select mode: return single file
               window.parent.fileManagerCallback(selectedFiles[0]);
             }
             parent.layer.closeAll();
@@ -3026,37 +3021,37 @@
                 layer.msg(response.message, {
                   icon: 1
                 });
-                // 获取modal实例并关闭
+                // Get modal instance and close
                 const modal = bootstrap.Modal.getInstance(document.getElementById('storageConfigModal'));
                 if (modal) {
                   modal.hide();
                 }
-                // 刷新页面以应用新配置
+                // Reload page to apply new config
                 setTimeout(() => {
                   window.location.reload();
                 }, 1500);
               } else {
-                layer.msg(response.data ? response.message : '保存失败', {
+                layer.msg(response.data ? response.message : 'Save failed', {
                   icon: 2
                 });
               }
             })
             .catch(error => {
-              console.error('保存存储配置失败:', error);
-              layer.msg(error.response?.message || '保存失败', {
+              console.error('Failed to save storage config:', error);
+              layer.msg(error.response?.message || 'Save failed', {
                 icon: 2
               });
             });
         },
 
-        // 获取存储配置
+        // Get storage config
         getStorageConfig() {
           axios.get('/api/panel/file_manager/storage_config')
             .then(response => {
               if (response.data && response.success) {
                 this.storageConfig = response.data;
               } else {
-                // 设置默认值
+                // Set default values
                 this.storageConfig = {
                   driver: 'local',
                   key: '',
@@ -3069,8 +3064,8 @@
               }
             })
             .catch(error => {
-              console.error('获取存储配置请求失败:', error);
-              // 设置默认值
+              console.error('Failed to get storage config:', error);
+              // Set default values
               this.storageConfig = {
                 driver: 'local',
                 key: '',
