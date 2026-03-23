@@ -47,6 +47,7 @@ jobs:
             php artisan key:generate --force
 
             # ── Frontend assets ───────────────────────────────
+            cd "$PROJECT_PATH"
             npm install
             npm run production
 
