@@ -1,100 +1,163 @@
 @extends('layouts.app')
-@section('body-class', 'page-login')
+@section('body-class', 'page-login page-auth')
 
 @section('content')
-@if (!request('iframe'))
-  <x-front-breadcrumb type="route" value="register.index" title="{{ __('front/account.register') }}" />
-@endif
+  @hookinsert('account.register.top')
 
-@hookinsert('account.register.top')
+  <div class="auth-split">
 
-<div class="container">
-  <div class="login-register-box {{ request('iframe') ? 'iframe' : '' }}">
-    <div class="login-title">{{ __('front/register.register') }}</div>
-    <div class="login-sub-title">{{ __('front/register.register_text') }}</div>
-    
-    @if($authMethod === 'both')
-      <div class="auth-method-switch mb-3">
-        <div class="btn-group w-100" role="group">
-          <button type="button" class="btn btn-outline-primary active" data-method="email">
-            {{ __('front/register.register_by_email') }}
-          </button>
-          <button type="button" class="btn btn-outline-primary" data-method="phone">
-            {{ __('front/register.register_by_phone') }}
-          </button>
-        </div>
+    {{-- ── Left branding panel ─────────────────────────────── --}}
+    <div class="auth-panel-left">
+      <div class="auth-panel-inner">
+        <a href="{{ front_route('home.index') }}" class="auth-brand">
+          <span>{{ system_setting('base_site_name', 'InnoShop') }}</span>
+        </a>
+        <blockquote class="auth-quote">
+          <p>"Fashion is the armor to survive the reality of everyday life."</p>
+          <cite>— Bill Cunningham</cite>
+        </blockquote>
       </div>
-    @endif
+    </div>
 
-    <form action="{{ front_route('register.store') }}" class="needs-validation form-wrap" novalidate>
-      @csrf
-      
-      @if($authMethod === 'email_only' || $authMethod === 'both')
-        <div class="auth-form auth-form-email" @if($authMethod === 'both') style="display: none;" @endif>
-          @hookupdate('account.register.email')
-          <div class="form-group mb-4">
-            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" 
-                   @if($authMethod === 'email_only') required @elseif($authMethod === 'both') data-required-with="email" @endif 
-                   autocomplete="email" placeholder="{{ __('front/login.email') }}" />
-            <span class="invalid-feedback" role="alert"><strong>{{ __('front/login.email_required') }}</strong></span>
-          </div>
-          @endhookupdate
-          @hookinsert('account.register.email.after')
-          <div class="form-group mb-4">
-            <input id="password" type="password" class="form-control" name="password" 
-                   @if($authMethod === 'email_only') required @elseif($authMethod === 'both') data-required-with="email" @endif 
-                   autocomplete="new-password" placeholder="{{ __('front/login.password') }}" />
-            <input id="password_confirmation" type="password" class="d-none" name="password_confirmation" 
-                   autocomplete="new-password" />
-            <span class="invalid-feedback" role="alert"><strong>{{ __('front/login.password_required') }}</strong></span>
-          </div>
+    {{-- ── Right form panel ────────────────────────────────── --}}
+    <div class="auth-panel-right">
+      <div class="auth-form-wrap">
+
+        <div class="auth-heading">
+          <h1 class="auth-title">{{ __('front/register.register') }}</h1>
+          <p class="auth-sub">{{ __('front/register.register_text') }}</p>
         </div>
-      @endif
 
-      @if($authMethod === 'phone_only' || $authMethod === 'both')
-        <div class="auth-form auth-form-phone" @if($authMethod === 'both') style="display: none;" @endif>
-          <div class="form-group mb-4">
-            <div class="row">
-              <div class="col-4">
-                <input type="text" class="form-control" name="calling_code" 
-                       @if($authMethod === 'phone_only') required @elseif($authMethod === 'both') data-required-with="phone" @endif 
-                       placeholder="{{ __('front/register.calling_code') }}" value="{{ old('calling_code', '+86') }}" />
-              </div>
-              <div class="col-8">
-                <input type="tel" class="form-control" name="telephone" 
-                       @if($authMethod === 'phone_only') required @elseif($authMethod === 'both') data-required-with="phone" @endif 
-                       placeholder="{{ __('front/register.telephone') }}" value="{{ old('telephone') }}" />
-              </div>
-            </div>
-          </div>
-          <div class="form-group mb-4">
-            <div class="input-group">
-              <input type="text" class="form-control" name="code" 
-                     @if($authMethod === 'phone_only') required @elseif($authMethod === 'both') data-required-with="phone" @endif 
-                     placeholder="{{ __('front/register.sms_code') }}" maxlength="6" />
-              <button type="button" class="btn btn-outline-secondary" id="send-sms-code" 
-                      @if($authMethod === 'both') data-required-with="phone" @endif>
-                {{ __('front/register.send_code') }}
+        @if($authMethod === 'both')
+          <div class="auth-method-switch mb-4">
+            <div class="auth-tab-group" role="group">
+              <button type="button" class="auth-tab active" data-method="email">
+                {{ __('front/register.register_by_email') }}
+              </button>
+              <button type="button" class="auth-tab" data-method="phone">
+                {{ __('front/register.register_by_phone') }}
               </button>
             </div>
-            <span class="invalid-feedback" role="alert"><strong>{{ __('front/register.code_required') }}</strong></span>
           </div>
-        </div>
-      @endif
+        @endif
 
-      <div class="btn-submit">
-        <button type="button" class="btn btn-primary form-submit btn-lg">{{ __('front/register.register_submit') }}</button>
-        <a href="{{ front_route('login.index') }}{{ request('iframe') ? '?iframe=true' : '' }}">{{ __('front/register.have_account') }} <i class="bi bi-arrow-up-right-square"></i></a>
+        <form action="{{ front_route('register.store') }}" class="needs-validation form-wrap" novalidate>
+          @csrf
+
+          @if($authMethod === 'email_only' || $authMethod === 'both')
+            <div class="auth-form auth-form-email" @if($authMethod === 'both') style="display: none;" @endif>
+              @hookupdate('account.register.email')
+              <div class="auth-field mb-3">
+                <label class="auth-label">{{ __('front/login.email') }}</label>
+                <input id="email" type="email" class="auth-input" name="email" value="{{ old('email') }}"
+                       @if($authMethod === 'email_only') required @elseif($authMethod === 'both') data-required-with="email" @endif
+                       autocomplete="email" placeholder="you@example.com"/>
+                <span class="invalid-feedback"><strong>{{ __('front/login.email_required') }}</strong></span>
+              </div>
+              @endhookupdate
+              @hookinsert('account.register.email.after')
+
+              <div class="auth-field mb-3">
+                <label class="auth-label">{{ __('front/login.password') }}</label>
+                <div class="auth-input-group">
+                  <input id="password" type="password" class="auth-input" name="password"
+                         @if($authMethod === 'email_only') required @elseif($authMethod === 'both') data-required-with="email" @endif
+                         autocomplete="new-password" placeholder="••••••••"/>
+                  <button type="button" class="auth-eye-btn" data-target="password" tabindex="-1">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <span class="invalid-feedback"><strong>{{ __('front/login.password_required') }}</strong></span>
+              </div>
+
+              <div class="auth-field mb-4">
+                <label class="auth-label">Confirm Password</label>
+                <div class="auth-input-group">
+                  <input id="password_confirmation" type="password" class="auth-input" name="password_confirmation"
+                         @if($authMethod === 'email_only') required @elseif($authMethod === 'both') data-required-with="email" @endif
+                         autocomplete="new-password" placeholder="••••••••"/>
+                  <button type="button" class="auth-eye-btn" data-target="password_confirmation" tabindex="-1">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <span class="invalid-feedback"><strong>Passwords do not match.</strong></span>
+              </div>
+            </div>
+          @endif
+
+          @if($authMethod === 'phone_only' || $authMethod === 'both')
+            <div class="auth-form auth-form-phone" @if($authMethod === 'both') style="display: none;" @endif>
+              <div class="auth-field mb-3">
+                <label class="auth-label">{{ __('front/register.telephone') }}</label>
+                <div class="row g-2">
+                  <div class="col-4">
+                    <input type="text" class="auth-input" name="calling_code"
+                           @if($authMethod === 'phone_only') required @elseif($authMethod === 'both') data-required-with="phone" @endif
+                           placeholder="+256" value="{{ old('calling_code', '+256') }}" />
+                  </div>
+                  <div class="col-8">
+                    <input type="tel" class="auth-input" name="telephone"
+                           @if($authMethod === 'phone_only') required @elseif($authMethod === 'both') data-required-with="phone" @endif
+                           placeholder="{{ __('front/register.telephone') }}" value="{{ old('telephone') }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="auth-field mb-4">
+                <label class="auth-label">{{ __('front/register.sms_code') }}</label>
+                <div class="auth-input-group">
+                  <input type="text" class="auth-input" name="code"
+                         @if($authMethod === 'phone_only') required @elseif($authMethod === 'both') data-required-with="phone" @endif
+                         placeholder="{{ __('front/register.sms_code') }}" maxlength="6" />
+                  <button type="button" class="auth-send-code-btn" id="send-sms-code"
+                          @if($authMethod === 'both') data-required-with="phone" @endif>
+                    {{ __('front/register.send_code') }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          @endif
+
+          <button type="button" class="auth-submit-btn form-submit">{{ __('front/register.register_submit') }}</button>
+
+          <p class="auth-switch-link">
+            {{ __('front/register.have_account') }}
+            <a href="{{ front_route('login.index') }}{{ request('iframe') ? '?iframe=true' : '' }}">{{ __('front/account.login') }}</a>
+          </p>
+        </form>
+
+        {{-- Social login --}}
+        @if(collect(system_setting('social'))->where('active', true)->count())
+          <div class="auth-divider"><span>or continue with</span></div>
+          <div class="auth-socials">
+            @foreach(system_setting('social') as $provider)
+              @if($provider['active'])
+                <button type="button" class="auth-social-btn auth-social-{{ $provider['provider'] }}"
+                        onclick="openSocialLogin('{{ front_root_route('social.redirect', ['provider' => $provider['provider']]) }}')">
+                  <i class="bi bi-{{ $provider['provider'] }}"></i>
+                  <span>{{ ucfirst($provider['provider']) }}</span>
+                </button>
+              @endif
+            @endforeach
+          </div>
+        @else
+          <div class="auth-divider"><span>or continue with</span></div>
+          <div class="auth-socials">
+            <button type="button" class="auth-social-btn auth-social-google" onclick="openSocialLogin('#')">
+              <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+              <span>Google</span>
+            </button>
+            <button type="button" class="auth-social-btn auth-social-facebook" onclick="openSocialLogin('#')">
+              <i class="bi bi-facebook"></i>
+              <span>Facebook</span>
+            </button>
+          </div>
+        @endif
+
       </div>
-
-      @include('account/_social')
-
-    </form>
+    </div>
   </div>
-</div>
 
-@hookinsert('account.register.bottom')
-
+  @hookinsert('account.register.bottom')
 @endsection
 
 @push('footer')
@@ -102,116 +165,83 @@
   const iframe = @json(request('iframe', false));
   const authMethod = @json($authMethod);
 
+  // Password visibility toggle
+  document.querySelectorAll('.auth-eye-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const input = document.getElementById(this.dataset.target);
+      const icon = this.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('bi-eye', 'bi-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('bi-eye-slash', 'bi-eye');
+      }
+    });
+  });
+
   @if($authMethod === 'both')
-    // Switch between email and phone registration
-    $('.auth-method-switch button').on('click', function() {
+    $('.auth-tab').on('click', function() {
       const method = $(this).data('method');
-      $('.auth-method-switch button').removeClass('active');
+      $('.auth-tab').removeClass('active');
       $(this).addClass('active');
-      
       $('.auth-form').hide();
       $('.auth-form-' + method).show();
-      
-      // Update required attributes
       $('.auth-form-' + method + ' [data-required-with]').attr('required', true);
-      $('.auth-form').not('.auth-form-' + method + ' [data-required-with]').removeAttr('required');
+      $('.auth-form').not('.auth-form-' + method).find('[data-required-with]').removeAttr('required');
     });
-    
-    // Set default to email
     $('.auth-form-email').show();
     $('.auth-form-email [data-required-with="email"]').attr('required', true);
   @endif
 
-  // Send SMS code
   $('#send-sms-code').on('click', function() {
     const callingCode = $('input[name="calling_code"]').val();
     const telephone = $('input[name="telephone"]').val();
-    
-    if (!callingCode || !telephone) {
-      layer.msg('{{ __('front/register.please_enter_phone') }}', {icon: 2});
-      return;
-    }
-    
+    if (!callingCode || !telephone) { layer.msg('{{ __('front/register.please_enter_phone') }}', {icon: 2}); return; }
     const btn = $(this);
-    btn.prop('disabled', true);
-    btn.text('{{ __('front/register.sending') }}...');
-    
-    axios.post('{{ front_route('register.sms-code') }}', {
-      calling_code: callingCode,
-      telephone: telephone
-    }).then(function(res) {
-      if (res.success) {
-        layer.msg(res.message, {icon: 1});
-        // Start countdown
-        let countdown = 60;
-        const timer = setInterval(function() {
-          btn.text(countdown + 's');
-          countdown--;
-          if (countdown < 0) {
-            clearInterval(timer);
-            btn.prop('disabled', false);
-            btn.text('{{ __('front/register.send_code') }}');
-          }
-        }, 1000);
-      } else {
-        layer.msg(res.message, {icon: 2});
-        btn.prop('disabled', false);
-        btn.text('{{ __('front/register.send_code') }}');
-      }
-    }).catch(function() {
-      btn.prop('disabled', false);
-      btn.text('{{ __('front/register.send_code') }}');
-    });
+    btn.prop('disabled', true).text('{{ __('front/register.sending') }}...');
+    axios.post('{{ front_route('register.sms-code') }}', { calling_code: callingCode, telephone: telephone })
+      .then(function(res) {
+        if (res.success) {
+          layer.msg(res.message, {icon: 1});
+          let countdown = 60;
+          const timer = setInterval(function() {
+            btn.text(countdown + 's'); countdown--;
+            if (countdown < 0) { clearInterval(timer); btn.prop('disabled', false).text('{{ __('front/register.send_code') }}'); }
+          }, 1000);
+        } else { layer.msg(res.message, {icon: 2}); btn.prop('disabled', false).text('{{ __('front/register.send_code') }}'); }
+      }).catch(function() { btn.prop('disabled', false).text('{{ __('front/register.send_code') }}'); });
   });
 
   inno.validateAndSubmitForm('.form-wrap', function(serializedData) {
-    layer.load(2, {shade: [0.3,'#fff'] })
-    
-    // Parse serialized data to object
+    layer.load(2, {shade: [0.3, '#fff']});
     const data = {};
     serializedData.split('&').forEach(function(item) {
       const parts = item.split('=');
-      if (parts.length === 2) {
-        data[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
-      }
+      if (parts.length === 2) data[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
     });
-    
-    // Ensure password_confirmation matches password
-    if (data.password) {
-      data.password_confirmation = data.password;
+    if (data.password && data.password !== data.password_confirmation) {
+      layer.msg('Passwords do not match.', {icon: 2});
+      layer.closeAll('loading');
+      return;
     }
-    
-    // Remove hidden fields based on auth method
     if (authMethod === 'both') {
-      const activeMethod = $('.auth-method-switch button.active').data('method');
-      if (activeMethod === 'email') {
-        delete data.calling_code;
-        delete data.telephone;
-        delete data.code;
-      } else {
-        delete data.email;
-        delete data.password;
-        delete data.password_confirmation;
-      }
+      const activeMethod = $('.auth-tab.active').data('method');
+      if (activeMethod === 'email') { delete data.calling_code; delete data.telephone; delete data.code; }
+      else { delete data.email; delete data.password; delete data.password_confirmation; }
     }
-    
-    const params = new URLSearchParams(data);
-
-    axios.post($('.form-wrap').attr('action'), params.toString()).then(function(res) {
+    axios.post($('.form-wrap').attr('action'), new URLSearchParams(data).toString()).then(function(res) {
       if (res.success) {
-        if (iframe) {
-          setTimeout(() => {
-            parent.layer.closeAll()
-            parent.window.location.reload()
-          }, 400);
-        } else {
-          layer.msg(res.message, {icon: 1})
-          location.href = '{{ front_route('account.index') }}';
-        }
-      } else {
-        layer.msg(res.message, { icon: 2 });
-      }
-    }).finally(function() {layer.closeAll('loading')});
+        if (iframe) { setTimeout(() => { parent.layer.closeAll(); parent.window.location.reload(); }, 400); }
+        else { layer.msg(res.message, {icon: 1}); location.href = '{{ front_route('account.index') }}'; }
+      } else { layer.msg(res.message, {icon: 2}); }
+    }).finally(function() { layer.closeAll('loading'); });
   });
+
+  function openSocialLogin(url) {
+    if (url === '#') return;
+    const w = 600, h = 600;
+    window.open(url, 'socialLogin', `width=${w},height=${h},top=${(window.innerHeight-h)/2},left=${(window.innerWidth-w)/2}`);
+  }
 </script>
 @endpush

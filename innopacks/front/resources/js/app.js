@@ -4,6 +4,7 @@ import './inno-validation';
 import './inno-header';
 import './inno-footer';
 import './inno-autocomplete';
+import './inno-scroll-reveal';
 
 initInno();
 

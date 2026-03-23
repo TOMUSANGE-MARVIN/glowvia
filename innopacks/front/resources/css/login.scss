@@ -1,83 +1,324 @@
-body.page-login {
+body.page-auth {
   margin-bottom: 0 !important;
+
+  // Hide breadcrumb and padding added by layout
+  #appContent { padding-top: 0 !important; }
+  footer#appFooter { display: none; }
 }
 
-.login-register-box {
-  max-width: 540px;
-  background-color: #F3F3F3;
-  margin: 30px auto;
-  padding: 16px;
+// ── Split layout ───────────────────────────────────────────────
+.auth-split {
+  display: flex;
+  min-height: 100vh;
+}
+
+// ── Left branding panel ────────────────────────────────────────
+.auth-panel-left {
+  display: none;
 
   @media (min-width: 992px) {
-    padding: 36px;
-    margin: 70px auto;
-  }
+    display: flex;
+    flex: 0 0 42%;
+    background: linear-gradient(160deg, #0e0a05 0%, #1c1208 50%, #0a0a0e 100%);
+    position: relative;
+    overflow: hidden;
 
-  &.iframe {
-    margin: 10px 0 0;
-  }
-
-  .login-title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
-  .login-sub-title {
-    text-align: center;
-    font-size: 16px;
-    color: #666666;
-    margin-bottom: 30px;
-  }
-
-  .form-group {
-    input {
-      border: none;
-      height: 44px;
-      font-size: 15px;
-      border-radius: 0;
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('/images/icons/footer-1.svg') no-repeat top left / 60%;
+      opacity: 0.08;
     }
   }
+}
 
-  .btn-submit {
-    margin-top: 30px;
+.auth-panel-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  width: 100%;
+}
 
-    @media (min-width: 400px) {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.auth-brand {
+  font-family: $font-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+}
 
-    .form-submit {
-      width: 50%;
-      display: block;
-    }
+.auth-quote {
+  margin: 0;
+  border: none;
+  padding: 0;
 
-    a {
-      color: #222;
-      display: block;
-      font-weight: bold;
-    }
+  p {
+    font-family: $font-serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: rgba(255,255,255,0.88);
+    line-height: 1.45;
+    margin-bottom: 1.2rem;
   }
 
-  // Auth method switch styles
-  .auth-method-switch {
-    .btn-outline-primary {
-      &.active {
-        background-color: $primary;
-        border-color: $primary;
-        color: #fff !important;
-      }
-
-      &:not(.active) {
-        color: $primary;
-        background-color: #fff;
-
-        &:hover {
-          background-color: #fff;
-          color: $primary;
-        }
-      }
-    }
+  cite {
+    font-family: $font-sans;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $gold;
+    font-style: normal;
   }
+}
+
+// ── Right form panel ───────────────────────────────────────────
+.auth-panel-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: $white;
+  overflow-y: auto;
+}
+
+.auth-form-wrap {
+  width: 100%;
+  max-width: 420px;
+}
+
+// ── Heading ────────────────────────────────────────────────────
+.auth-heading {
+  margin-bottom: 32px;
+}
+
+.auth-title {
+  font-family: $font-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 400;
+  color: $black;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.auth-sub {
+  font-family: $font-sans;
+  font-size: 0.85rem;
+  color: $muted;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+// ── Method tabs ────────────────────────────────────────────────
+.auth-tab-group {
+  display: flex;
+  border: 1px solid $border;
+}
+
+.auth-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $muted;
+  padding: 10px;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &.active {
+    background: $gold-dark;
+    color: #fff;
+  }
+}
+
+// ── Fields ────────────────────────────────────────────────────
+.auth-label {
+  display: block;
+  font-family: $font-sans;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $muted;
+  margin-bottom: 7px;
+}
+
+.auth-input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid $border;
+  border-radius: 0;
+  padding: 0 14px;
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  color: $black;
+  background: $white;
+  transition: border-color $transition-base;
+  outline: none;
+  box-shadow: none !important;
+
+  &:focus { border-color: $gold-dark; }
+  &::placeholder { color: $muted; font-size: 0.85rem; }
+}
+
+.auth-input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+
+  .auth-input { flex: 1; }
+}
+
+.auth-eye-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 46px;
+  background: none;
+  border: none;
+  color: $muted;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color $transition-base;
+  z-index: 2;
+
+  &:hover { color: $gold-dark; }
+
+  i { font-size: 1rem; pointer-events: none; }
+}
+
+.auth-send-code-btn {
+  flex-shrink: 0;
+  background: $bg-light;
+  border: 1px solid $border;
+  border-left: none;
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $mid;
+  padding: 0 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all $transition-base;
+
+  &:hover { background: $gold-dark; border-color: $gold-dark; color: #fff; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// ── Forgot password ────────────────────────────────────────────
+.auth-link-small {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  color: $muted;
+  letter-spacing: 0.06em;
+  transition: color $transition-base;
+
+  &:hover { color: $gold-dark; }
+}
+
+// ── Submit button ──────────────────────────────────────────────
+.auth-submit-btn {
+  width: 100%;
+  height: 52px;
+  background: $gold-dark;
+  border: none;
+  color: #fff;
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background $transition-base;
+  margin-bottom: 20px;
+
+  &:hover { background: $gold-deeper; }
+}
+
+// ── Switch link ────────────────────────────────────────────────
+.auth-switch-link {
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  color: $muted;
+  text-align: center;
+  margin: 0;
+
+  a {
+    color: $gold-dark;
+    font-weight: 500;
+    transition: color $transition-base;
+    &:hover { color: $gold-deeper; }
+  }
+}
+
+// ── Divider ────────────────────────────────────────────────────
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: $border-light;
+  }
+
+  span {
+    font-family: $font-sans;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $muted;
+    white-space: nowrap;
+  }
+}
+
+// ── Social buttons ─────────────────────────────────────────────
+.auth-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.auth-social-btn {
+  flex: 1;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid $border;
+  background: $white;
+  font-family: $font-sans;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: $mid;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all $transition-base;
+
+  svg { flex-shrink: 0; }
+  i { font-size: 1.1rem; }
+
+  &:hover {
+    border-color: $mid;
+    color: $black;
+  }
+
+  &.auth-social-google:hover { border-color: #EA4335; color: #EA4335; }
+  &.auth-social-facebook { i { color: #1877F2; } &:hover { border-color: #1877F2; } }
 }

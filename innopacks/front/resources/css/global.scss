@@ -1,112 +1,355 @@
+// ============================================================
+// Global Styles — Luxury Fashion Design System
+// ============================================================
+
+// Generated utility classes
 @for $i from 1 through 6 {
-  .min-h#{$i} {
-    min-height: #{$i}00px;
-  }
+  .min-h#{$i} { min-height: #{$i}00px; }
+}
+@for $i from 1 through 10 {
+  .wp-#{$i}00  { width: #{$i}00px; flex: 0 0 #{$i}00px; }
+  .wp-#{$i}00- { width: calc(100% - #{$i}00px); flex: 0 0 calc(100% - #{$i}00px); }
+  .h-min-#{$i}00 { min-height: #{$i}00px; }
+  .w-min-#{$i}00 { min-width: #{$i}00px; }
+  .w-max-#{$i}00 { max-width: #{$i}00px; }
+  .hp-#{$i}00  { height: #{$i}00px; }
+}
+@for $i from 1 through 10 {
+  .wh-#{$i}0 { height: #{$i}0px; width: #{$i}0px; flex: 0 0 #{$i}0px; }
 }
 
-// 生成 100 200 300 ... 1000 的宽度
-@for $i from 1 through 10 {
-  .wp-#{$i}00 {
-    width: #{$i}00px;
-    flex: 0 0 #{$i}00px;
-  }
+// Base
+body {
+  font-family: $font-sans;
+  color: $black;
+  background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-// clac(100% - #{$i}00px)
-@for $i from 1 through 10 {
-  .wp-#{$i}00- {
-    width: calc(100% - #{$i}00px);
-    flex: 0 0 calc(100% - #{$i}00px);
-  }
-}
-
-// 生成 100 200 300 ... 1000 的最小高度
-@for $i from 1 through 10 {
-  .h-min-#{$i}00 {
-    min-height: #{$i}00px;
-  }
-}
-
-// 生成 100 200 300 ... 1000 的最小宽度
-@for $i from 1 through 10 {
-  .w-min-#{$i}00 {
-    min-width: #{$i}00px;
-  }
-}
-
-// 生成 100 200 300 ... 1000 的最大宽度
-@for $i from 1 through 10 {
-  .w-max-#{$i}00 {
-    max-width: #{$i}00px;
-  }
-}
-
-// 生成 100 200 300 ... 1000 的高度
-@for $i from 1 through 10 {
-  .hp-#{$i}00 {
-    height: #{$i}00px;
-  }
-}
-
-// 生成 10 20 30 ... 90 的高宽
-@for $i from 1 through 10 {
-  .wh-#{$i}0 {
-    height: #{$i}0px;
-    width: #{$i}0px;
-    flex: 0 0 #{$i}0px;
-  }
-}
-
-// body {
-//   -webkit-font-smoothing: antialiased; /* For better font smoothing in Safari */
-//   -moz-osx-font-smoothing: grayscale; /* For better font smoothing on MacOS */
-// }
 
 a {
   text-decoration: none;
+  color: inherit;
+  transition: color $transition-base;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+input[type="password"] {
+  font-family: 'Arial';
 }
 
-.btn-primary {
-  color: #fff !important;
-}
+.cursor-pointer { cursor: pointer; }
 
-[v-cloak] {
-  display: none;
-}
+[v-cloak] { display: none; }
 
-// .container {
-//   @media (max-width: 768px) {
-//     padding-right: 15px;
-//     padding-left: 15px;
-//   }
-// }
-
+// ============================================================
+// Container
+// ============================================================
 .container-fluid {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-// table 响应试
+// ============================================================
+// Buttons — Gold fill & outline variants
+// ============================================================
+.btn-primary,
+.btn-gold {
+  background-color: $gold-dark !important;
+  border-color: $gold-dark !important;
+  color: $white !important;
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  padding: 0.75rem 2rem;
+  transition: background-color $transition-base, border-color $transition-base;
+
+  &:hover,
+  &:focus {
+    background-color: $gold-deeper !important;
+    border-color: $gold-deeper !important;
+    color: $white !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    background-color: darken($gold-deeper, 5%) !important;
+    border-color: darken($gold-deeper, 5%) !important;
+  }
+}
+
+.btn-outline-dark,
+.btn-outline {
+  background-color: transparent !important;
+  border: 1px solid $black !important;
+  color: $black !important;
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  padding: 0.7rem 2rem;
+  transition: background-color $transition-base, color $transition-base;
+
+  &:hover,
+  &:focus {
+    background-color: $black !important;
+    color: $white !important;
+    box-shadow: none !important;
+  }
+}
+
+// ============================================================
+// Form Inputs
+// ============================================================
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+textarea,
+select {
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  color: $black;
+  background-color: $white;
+  border: 1px solid $border;
+  border-radius: 2px;
+  padding: 0.65rem 0.9rem;
+  box-shadow: none !important;
+  outline: none;
+  transition: border-color $transition-base;
+
+  &:focus {
+    border-color: $gold-dark;
+    outline: none;
+    box-shadow: none !important;
+  }
+
+  &::placeholder {
+    color: $muted;
+    font-size: 0.85rem;
+  }
+}
+
+.form-select {
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  border: 1px solid $border;
+  border-radius: 2px;
+  color: $black;
+  box-shadow: none !important;
+
+  &:focus {
+    border-color: $gold-dark;
+    box-shadow: none !important;
+  }
+}
+
+// ============================================================
+// Quantity Control
+// ============================================================
+.quantity-wrap {
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  width: 130px;
+  height: inherit;
+  overflow: hidden;
+  position: relative;
+  background: $white;
+
+  &.disabled {
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: 1;
+    }
+  }
+
+  input {
+    border: none;
+    text-align: center;
+    padding: 0;
+    font-size: 0.95rem;
+    font-family: $font-sans;
+    height: inherit;
+    box-shadow: none !important;
+    background: transparent;
+    color: $black;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  }
+
+  div {
+    font-size: 1rem;
+    height: inherit;
+    width: 36px;
+    flex: 0 0 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $muted;
+    transition: color $transition-base;
+
+    &:hover { color: $gold-dark; }
+  }
+}
+
+// ============================================================
+// Tabs
+// ============================================================
+.tabs-plus {
+  border-bottom: 1px solid $border;
+  margin-bottom: 30px;
+  padding-bottom: 0;
+
+  .nav-item {
+    margin-right: 0;
+  }
+
+  .nav-link {
+    padding: 0.75rem 1.5rem 0.75rem 0;
+    border: none !important;
+    color: $muted;
+    font-family: $font-sans;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    cursor: pointer;
+    background: transparent !important;
+    margin-right: 2rem;
+
+    @media (min-width: 768px) {
+      font-size: 0.8rem;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: $gold-dark;
+      bottom: -1px;
+      left: 0;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    &.active {
+      color: $black;
+      font-weight: 500;
+
+      &::after { transform: scaleX(1); }
+    }
+
+    &:hover { color: $black; }
+  }
+}
+
+// ============================================================
+// Page Head (breadcrumb banner)
+// ============================================================
+.page-head {
+  padding: 48px 0;
+  background: $bg-cream;
+  text-align: center;
+
+  @media (max-width: 768px) { padding: 28px 0; }
+
+  .page-title {
+    font-family: $font-serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: $black;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+
+    @media (min-width: 768px) { font-size: 2.6rem; }
+  }
+
+  .breadcrumb {
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    justify-content: center;
+    font-family: $font-sans;
+
+    .breadcrumb-item + .breadcrumb-item::before {
+      content: '—';
+      font-size: 0.65rem;
+      color: $muted;
+      margin-top: 2px;
+      font-family: $font-sans;
+    }
+
+    a {
+      text-decoration: none;
+      color: $muted;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      transition: color $transition-base;
+
+      &:hover { color: $gold-dark; }
+    }
+
+    .active { color: $black; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem; }
+  }
+}
+
+// ============================================================
+// Swiper
+// ============================================================
+.swiper {
+  .swiper-pagination-bullet-active {
+    background-color: $gold-dark;
+  }
+}
+
+// ============================================================
+// File Upload
+// ============================================================
+.is-up-file {
+  .img-upload-item {
+    border-style: dashed !important;
+
+    &:hover {
+      background-color: #f4f4f4 !important;
+      border-color: $gold-dark !important;
+    }
+
+    &:active { background-color: #e4e4e4 !important; }
+
+    .tool-wrap > div:first-of-type { border-right: 1px solid #fff; }
+    .tool-wrap > div:hover { background-color: $gold-deeper; }
+  }
+}
+
+// ============================================================
+// Responsive Table
+// ============================================================
 .table-response {
   thead {
     display: none;
-    @media (min-width: 768px) {
-      display: table-header-group;
-    }
+    @media (min-width: 768px) { display: table-header-group; }
   }
 
   &:not(&.table-bordered) {
     tr {
       td, th {
-        &:first-child {
-          padding-left: 0;
-        }
-        &:last-child {
-          padding-right: 0;
-        }
+        &:first-child { padding-left: 0; }
+        &:last-child { padding-right: 0; }
       }
     }
   }
@@ -115,13 +358,16 @@ a {
     display: block;
     text-align: right;
     clear: both;
+
     &::before {
       content: attr(data-title) ": ";
       float: left;
+      color: $muted;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
 
-      @media (min-width: 768px) {
-        display: none;
-      }
+      @media (min-width: 768px) { display: none; }
     }
 
     @media (min-width: 768px) {
@@ -133,394 +379,30 @@ a {
       border-bottom: none;
 
       &:last-child {
-        border-bottom: 1px solid #e6e6e6;
-        padding-bottom: 24px;
-        margin-bottom: 14px;
+        border-bottom: 1px solid $border-light;
+        padding-bottom: 20px;
+        margin-bottom: 12px;
       }
     }
   }
 }
 
-.quantity-wrap {
-  border: 1px solid #e6e6e6;
-  display: flex;
-  align-items: center;
-  width: 140px;
-  height: inherit;
-  overflow: hidden;
-  position: relative;
-  &.disabled {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(255, 255, 255, 0.5);
-      z-index: 1;
-    }
-  }
-
-  input {
-    border: none;
-    text-align: center;
-    padding: 0;
-    font-size: 18px;
-    height: inherit;
-    box-shadow: none !important;
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-
-  div {
-    font-size: 18px;
-    height: inherit;
-    width: 38px;
-    flex: 0 0 38px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #666;
-    &:hover {
-      color: $primary;
-    }
-  }
-}
-
-.tabs-plus {
-  border-bottom: 1px solid #e4e4e4;
-  margin-bottom: 24px;
-  padding-bottom: 6px;
-
-  .nav-item {
-    margin-right: 10px;
-
-    @media (min-width: 768px) {
-      margin-right: 40px;
-    }
-  }
-
-  .nav-link {
-    padding-left: 2px;
-    padding-right: 2px;
-    border: none !important;
-    color: #888;
-    font-size: 14px;
-    position: relative;
-    cursor: pointer;
-
-    @media (min-width: 768px) {
-      font-size: 18px;
-    }
-
-    &::after {
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: 2px;
-      background-color: #222;
-      bottom: -6px;
-      left: 0;
-      transform: scaleX(0);
-      transition: transform 0.3s;
-      display: none;
-    }
-
-    &.active {
-      color: #222;
-      font-weight: bold;
-
-      &::after {
-        transform: scaleX(1);
-        display: block;
-      }
-    }
-  }
-}
-
-.is-up-file {
-  .img-upload-item {
-    border-style: dashed !important;
-
-    &:hover {
-      background-color: #f4f4f4 !important;
-      border-color: $primary !important;
-    }
-
-    &:active {
-      background-color: #e4e4e4 !important;
-    }
-
-    .tool-wrap > div:first-of-type {
-        border-right: 1px solid #fff;
-    }
-
-    .tool-wrap > div:hover {
-        background-color: #1d4ff3
-    }
-  }
-}
-
-.swiper {
-  .swiper-pagination-bullet-active {
-    background-color: $primary;
-  }
-}
-
-.page-head {
-  padding: 40px 0;
-  background: #EFF1FE;
-  text-align: center;
-  @media (max-width: 768px) {
-    padding: 20px 0;
-  }
-
-  .page-title {
-    font-size: 30px;
-    color: #333;
-    margin-bottom: 14px;
-  }
-
-  .breadcrumb {
-    margin-bottom: 0;
-    font-size: 15px;
-
-    .breadcrumb-item + .breadcrumb-item::before {
-      content: '\F285';
-      font-size: 12px;
-      margin-top: 3px;
-      font-family: 'bootstrap-icons';
-    }
-
-    a {
-      text-decoration: none;
-    }
-  }
-}
-
-.page-product-content {
-  margin-top: 3rem;
-
-  @media (max-width: 992px) {
-    margin-top: 1.5rem;
-  }
-
-  .title-box {
-    text-align: center;
-    margin-bottom: 40px;
-
-    .title {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .sub-title {
-      font-size: 16px;
-      color: #666;
-    }
-  }
-
-  .product-item {
-    margin-bottom: 30px;
-    background-color: #fff;
-    box-shadow: 0 10px 30px 0 rgba(194, 49, 244, 0.1);
-
-    .top {
-      background-color: #F3F7FF;
-      height: 70px;
-      display: flex;
-      align-items: center;
-
-      .left {
-        width: 70px;
-        height: 70px;
-        background-color: $primary;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        i {
-          color: #fff;
-          font-size: 20px;
-        }
-      }
-
-      .name {
-        font-size: 18px;
-        padding: 0 10px 0 20px;
-      }
-    }
-
-    .content {
-      padding: 20px;
-      line-height: 2;
-      font-size: 15px;
-      color: #555;
-
-      @media (min-width: 992px) {
-        height: 220px;
-      }
-    }
-  }
-}
-
-.page-service-content {
-  margin-top: 3rem;
-  color: #606B86;
-
-  .title-box {
-    margin-bottom: 60px;
-
-    @media (max-width: 992px) {
-      margin-bottom: 30px;
-    }
-
-    .title {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 20px;
-      @media (max-width: 992px) {
-        font-size: 22px;
-        text-align: center;
-      }
-    }
-
-    .sub-title {
-      font-size: 16px;
-      max-width: 550px;
-      @media (max-width: 992px) {
-        font-size: 12px;
-        text-align: center;
-      }
-
-      @media (min-width: 992px) {
-        line-height: 1.8;
-      }
-    }
-  }
-
-  .service-row-2 {
-    @media (min-width: 992px) {
-      padding-left: 64px;
-    }
-  }
-
-  .service-icon {
-    max-width: 500px;
-
-    @media (max-width: 992px) {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      img {
-        max-width: 80%;
-      }
-    }
-  }
-
-  .service-item {
-    margin-bottom: 50px;
-
-    @media (max-width: 992px) {
-      margin-bottom: 20px;
-    }
-
-    .icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #FCF3F4;
-      margin-bottom: 20px;
-      i {
-        font-size: 18px;
-        color: #FA4949;
-      }
-    }
-
-    .title {
-      margin-bottom: 10px;
-      color: #222;
-      font-size: 18px;
-    }
-
-    .sub-title {
-      color: #606B86;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-  }
-}
-
-.page-about-content {
-  margin-top: 3rem;
-
-  .about-text {
-    .main-title {
-      font-size: 26px;
-      color: #333;
-      margin-bottom: 50px;
-
-      @media (max-width: 992px) {
-        font-size: 20px;
-        margin-bottom: 30px;
-      }
-    }
-
-    .about-text-item {
-      display: flex;
-      margin-bottom: 40px;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      .left {
-        width: 40px;
-        flex: 0 0 40px;
-        i {
-          font-size: 24px;
-          color: $primary;
-        }
-      }
-
-      .right {
-        .title {
-          font-size: 20px;
-          color: #333;
-          margin-bottom: 10px;
-        }
-
-        .sub-title {
-          font-size: 14px;
-          color: #606B86;
-          line-height: 2;
-          max-width: 460px;
-        }
-      }
-    }
-  }
-
-  .home-contact {
-    background-color: #F9F9FC;
-    background: linear-gradient(180deg, #F9F9FC 0%, #fff 100%);
-    padding: 60px 0;
-  }
-}
-
+// ============================================================
+// Layui dialog
+// ============================================================
 .layui-layer-btn .layui-layer-btn0 {
-  background-color: $primary;
-  border-color: $primary;
+  background-color: $gold-dark;
+  border-color: $gold-dark;
 }
 
-input[type="password"] {
-  font-family: 'Arial';
+// ============================================================
+// No data placeholder
+// ============================================================
+.no-data-wrap {
+  padding: 80px 20px;
+  text-align: center;
+  color: $muted;
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
 }

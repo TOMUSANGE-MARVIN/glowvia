@@ -1,0 +1,70 @@
+name: Deploy Glowvia
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+
+            PROJECT_PATH="${{ secrets.SSH_PATH }}"
+
+            # ── Clone or pull ─────────────────────────────────
+            if [ ! -d "$PROJECT_PATH/.git" ]; then
+              git clone https://github.com/TOMUSANGE-MARVIN/innoshop.git "$PROJECT_PATH"
+            else
+              cd "$PROJECT_PATH"
+              git pull origin main
+            fi
+
+            cd "$PROJECT_PATH"
+
+            # ── Copy .env if not exists ───────────────────────
+            if [ ! -f "$PROJECT_PATH/.env" ]; then
+              cp /home/marvin/innoshop/.env "$PROJECT_PATH/.env"
+            fi
+
+            # ── PHP dependencies ──────────────────────────────
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+
+            # ── Generate app key if not set ───────────────────
+            php artisan key:generate --force
+
+            # ── Frontend assets ───────────────────────────────
+            npm ci
+            npm run production
+
+            # ── Laravel setup ─────────────────────────────────
+            php artisan migrate --force
+            php artisan db:seed --force
+            php artisan storage:link
+
+            # ── Clear & cache for production ──────────────────
+            php artisan cache:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+
+            # ── Fix permissions ───────────────────────────────
+            sudo chown -R marvin:www-data "$PROJECT_PATH"
+            sudo chmod -R 775 "$PROJECT_PATH/storage"
+            sudo chmod -R 775 "$PROJECT_PATH/bootstrap/cache"
+
+            # ── Reload Nginx ──────────────────────────────────
+            sudo systemctl reload nginx

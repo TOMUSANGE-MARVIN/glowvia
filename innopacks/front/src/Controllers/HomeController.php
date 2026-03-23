@@ -31,12 +31,29 @@ class HomeController extends Controller
         ];
 
         $news = ArticleRepo::getInstance()->getLatestArticles();
+        $homeCategories = HomeRepo::getInstance()->getHomeCategories();
+        if (empty($homeCategories)) {
+            $homeCategories = CategoryRepo::getInstance()
+                ->builder(['active' => true, 'parent_id' => 0])
+                ->with(['translation'])
+                ->orderBy('position')
+                ->limit(10)
+                ->get()
+                ->map(fn ($c) => [
+                    'id'          => $c->id,
+                    'name'        => $c->fallbackName(),
+                    'url'         => $c->url,
+                    'image'       => $c->image ? image_resize($c->image, 300, 300) : '',
+                    'description' => $c->translation->description ?? '',
+                ])->toArray();
+        }
+
         $data = [
             'slideshow'       => HomeRepo::getInstance()->getSlideShow(),
             'tab_products'    => $tabProducts,
             'news'            => $news,
             'hot_products'    => $this->getHotProducts(),
-            'home_categories' => HomeRepo::getInstance()->getHomeCategories(),
+            'home_categories' => $homeCategories,
         ];
 
         $data = fire_hook_filter('home.index.data', $data);

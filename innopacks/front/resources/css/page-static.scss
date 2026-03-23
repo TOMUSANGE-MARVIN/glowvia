@@ -1,0 +1,598 @@
+// ── Static Pages (About, Creations, Services) ─────────────────
+
+// ── Hero ───────────────────────────────────────────────────────
+.sp-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(150deg, #0e0a05 0%, #1c1208 55%, #0a0a0e 100%);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/images/icons/footer-1.svg') no-repeat top right / 50%;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) { min-height: 50vh; }
+}
+
+.sp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 100%);
+}
+
+.sp-hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 120px 0 80px;
+
+  @media (max-width: 768px) { padding: 100px 0 60px; text-align: center; }
+}
+
+.sp-eyebrow {
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: $gold;
+  margin-bottom: 1.2rem;
+}
+
+.sp-hero-title {
+  font-family: $font-serif;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+
+  em {
+    font-style: italic;
+    color: $gold;
+  }
+}
+
+.sp-hero-sub {
+  font-family: $font-sans;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 580px;
+  line-height: 1.8;
+  margin: 0;
+
+  @media (max-width: 768px) { margin: 0 auto; }
+}
+
+// ── Section base ───────────────────────────────────────────────
+.sp-section {
+  padding: 90px 0;
+
+  @media (max-width: 768px) { padding: 60px 0; }
+
+  &--cream { background: $bg-cream; }
+  &--dark  { background: #111; }
+}
+
+.sp-centered { text-align: center; }
+
+// ── Labels & headings ──────────────────────────────────────────
+.sp-label {
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: $muted;
+  margin-bottom: 0.8rem;
+  display: block;
+
+  &--gold { color: $gold; }
+}
+
+.sp-section-title {
+  font-family: $font-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 400;
+  color: $black;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.4rem;
+
+  &--light { color: #fff; }
+}
+
+.sp-body {
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  color: $mid;
+  line-height: 1.9;
+  margin-bottom: 1rem;
+
+  &--muted { color: rgba(255,255,255,0.55); }
+}
+
+// ── Text block ─────────────────────────────────────────────────
+.sp-text-block {
+  @media (min-width: 992px) { padding-right: 40px; }
+}
+
+// ── Image frame placeholder ────────────────────────────────────
+.sp-image-frame {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: $bg-cream;
+  border: 1px solid $border-light;
+  overflow: hidden;
+
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.sp-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: $muted;
+  background: $bg-light;
+  min-height: 360px;
+
+  i { font-size: 2rem; }
+  span { font-family: $font-sans; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+}
+
+// ── Mission quote ──────────────────────────────────────────────
+.sp-mission-quote {
+  font-family: $font-serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  color: rgba(255,255,255,0.9);
+  line-height: 1.55;
+  max-width: 760px;
+  margin: 0 auto;
+  border: none;
+  padding: 0;
+  text-align: center;
+
+  &::before { content: '\201C'; color: $gold; margin-right: 4px; }
+  &::after  { content: '\201D'; color: $gold; margin-left: 4px; }
+}
+
+// ── Value cards ────────────────────────────────────────────────
+.sp-value-card {
+  border: 1px solid $border-light;
+  padding: 32px 24px;
+  background: $white;
+  transition: box-shadow $transition-base;
+
+  &:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+}
+
+.sp-value-icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: $gold-dark;
+
+  i { font-size: 1.2rem; }
+}
+
+.sp-value-title {
+  font-family: $font-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 10px;
+}
+
+.sp-value-body {
+  font-family: $font-sans;
+  font-size: 0.85rem;
+  color: $muted;
+  line-height: 1.8;
+  margin: 0;
+}
+
+// ── Stats ──────────────────────────────────────────────────────
+.sp-stat {
+  padding: 24px;
+}
+
+.sp-stat-number {
+  font-family: $font-serif;
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: $gold-dark;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.sp-stat-label {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $muted;
+}
+
+// ── Collection cards ───────────────────────────────────────────
+.sp-collection-card {
+  border: 1px solid $border-light;
+  padding: 40px 32px;
+  background: $white;
+  height: 100%;
+  transition: border-color $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    border-color: $gold;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  }
+}
+
+.sp-collection-icon {
+  font-size: 1.8rem;
+  color: $gold-dark;
+  margin-bottom: 16px;
+}
+
+.sp-collection-tag {
+  font-family: $font-sans;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: $gold;
+  margin-bottom: 10px;
+}
+
+.sp-collection-name {
+  font-family: $font-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 14px;
+}
+
+.sp-collection-body {
+  font-family: $font-sans;
+  font-size: 0.88rem;
+  color: $muted;
+  line-height: 1.8;
+  margin: 0;
+}
+
+// ── Service cards ──────────────────────────────────────────────
+.sp-service-card {
+  padding: 36px 28px;
+  border: 1px solid $border-light;
+  background: $white;
+  height: 100%;
+  transition: border-color $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    border-color: $gold;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  }
+}
+
+.sp-service-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba($gold, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: $gold-dark;
+
+  i { font-size: 1.3rem; }
+}
+
+.sp-service-title {
+  font-family: $font-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 12px;
+}
+
+.sp-service-body {
+  font-family: $font-sans;
+  font-size: 0.85rem;
+  color: $muted;
+  line-height: 1.85;
+  margin: 0;
+}
+
+// ── Process track ──────────────────────────────────────────────
+.sp-process-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(12.5%);
+    right: calc(12.5%);
+    height: 1px;
+    background: $border;
+    z-index: 0;
+
+    @media (max-width: 768px) { display: none; }
+  }
+}
+
+.sp-process-step {
+  text-align: center;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+    border: 1px solid $border-light;
+    background: $white;
+  }
+}
+
+.sp-process-num {
+  font-family: $font-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  color: $white;
+  background: $gold-dark;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.sp-process-title {
+  font-family: $font-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 10px;
+}
+
+.sp-process-body {
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  color: $muted;
+  line-height: 1.8;
+  margin: 0;
+}
+
+// ── CTA block ──────────────────────────────────────────────────
+.sp-cta-block {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.sp-contact-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 24px 0 32px;
+  flex-wrap: wrap;
+}
+
+.sp-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-sans;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+
+  i { color: $gold; font-size: 1rem; }
+}
+
+// ── Buttons ────────────────────────────────────────────────────
+.sp-btn {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #fff;
+  background: $gold-dark;
+  border: 1px solid $gold-dark;
+  padding: 1rem 2.8rem;
+  text-decoration: none;
+  transition: background $transition-base, border-color $transition-base;
+  cursor: pointer;
+  margin-top: 8px;
+
+  &:hover { background: $gold-deeper; border-color: $gold-deeper; color: #fff; }
+
+  &--outline {
+    background: transparent;
+    color: $gold-dark;
+    border-color: $gold-dark;
+    margin-top: 24px;
+    display: inline-block;
+
+    &:hover { background: $gold-dark; color: #fff; }
+  }
+}
+
+// ── Contact page ───────────────────────────────────────────────
+.sp-contact-card {
+  text-align: center;
+  padding: 36px 24px;
+  border: 1px solid $border-light;
+  background: $white;
+  height: 100%;
+  transition: border-color $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    border-color: $gold;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  }
+}
+
+.sp-contact-card-icon {
+  font-size: 1.6rem;
+  color: $gold-dark;
+  margin-bottom: 16px;
+}
+
+.sp-contact-card-title {
+  font-family: $font-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 8px;
+}
+
+.sp-contact-card-detail {
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $black;
+  margin-bottom: 4px;
+}
+
+.sp-contact-card-sub {
+  font-family: $font-sans;
+  font-size: 0.78rem;
+  color: $muted;
+  margin: 0;
+}
+
+// ── Contact form ────────────────────────────────────────────────
+.sp-contact-form { margin-top: 24px; }
+
+.sp-form-label {
+  display: block;
+  font-family: $font-sans;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $muted;
+  margin-bottom: 6px;
+}
+
+.sp-form-input {
+  width: 100%;
+  border: 1px solid $border;
+  border-radius: 0;
+  padding: 12px 14px;
+  font-family: $font-sans;
+  font-size: 0.88rem;
+  color: $black;
+  background: $white;
+  transition: border-color $transition-base;
+  outline: none;
+  appearance: none;
+
+  &:focus { border-color: $gold-dark; }
+  &::placeholder { color: $muted; }
+}
+
+.sp-form-select { cursor: pointer; }
+
+.sp-form-textarea { resize: vertical; min-height: 140px; }
+
+.sp-form-note {
+  font-family: $font-sans;
+  font-size: 0.85rem;
+  margin-top: 12px;
+}
+
+// ── Contact info panel ──────────────────────────────────────────
+.sp-contact-info-panel {
+  background: $bg-cream;
+  border: 1px solid $border-light;
+  padding: 40px 36px;
+}
+
+.sp-info-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  font-family: $font-sans;
+  font-size: 0.88rem;
+  color: $mid;
+  line-height: 1.7;
+
+  i {
+    color: $gold-dark;
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  strong {
+    display: block;
+    color: $black;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+}
+
+// ── Generic static page (privacy, etc.) ───────────────────────
+.page-static-title {
+  font-family: $font-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $border-light;
+}
+
+.page-static-body {
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  color: $mid;
+  line-height: 1.9;
+
+  h2, h3 {
+    font-family: $font-serif;
+    font-weight: 400;
+    color: $black;
+    margin-top: 2.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+
+  p { margin-bottom: 1rem; }
+
+  ul { padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+}

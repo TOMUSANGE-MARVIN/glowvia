@@ -63,6 +63,12 @@ class PageSeeder extends Seeder
                 'viewed' => 0,
                 'active' => 1,
             ],
+            [
+                'id'     => 5,
+                'slug'   => 'contact',
+                'viewed' => 0,
+                'active' => 1,
+            ],
         ];
     }
 
@@ -72,271 +78,127 @@ class PageSeeder extends Seeder
     private function getPageTranslations(): array
     {
         return [
-            [
-                'page_id'  => 1,
-                'locale'   => 'zh-cn',
-                'title'    => '产品',
-                'content'  => '',
-                'template' => '<div class="page-product-content">
-    <div class="container">
-      <div class="title-box">
-        <div class="title">我们的产品</div>
-        <div class="sub-title">Our Creations</div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <div class="product-item">
-            <div class="top">
-              <div class="left"><i class="bi bi-box-seam-fill"></i></div>
-              <div class="name">InnoShop</div>
-            </div>
-            <div class="content">
-              InnoShop是一款面向中小企业的电子商务平台，提供一站式在线商店解决方案。它以用户友好的界面和强大的后台管理功能著称，帮助商家轻松管理商品、订单和客户关系。InnoShop支持多种支付方式，并集成了社交媒体营销工具，助力商家扩大市场影响力。
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="product-item">
-            <div class="top">
-              <div class="left"><i class="bi bi-box-seam-fill"></i></div>
-              <div class="name">InnoShop Pro</div>
-            </div>
-            <div class="content">
-              InnoShop Pro是InnoShop的高级版本，专为需要更高级功能和定制服务的企业设计。除了基础版所有功能外，Pro版本提供高级数据分析、个性化推荐引擎和API集成，以满足更复杂的业务需求。它还包含专业的客户支持和优先更新服务，确保商家能够充分利用平台潜力。
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="product-item">
-            <div class="top">
-              <div class="left"><i class="bi bi-wechat"></i></div>
-              <div class="name">小程序</div>
-            </div>
-            <div class="content">
-              我们的小程序为移动用户提供了便捷的购物体验。它轻量级、易于访问，特别适合快速浏览和购买。小程序与主流社交媒体和通讯工具无缝集成，支持一键分享和邀请朋友，通过社交网络快速传播，增加用户粘性和品牌曝光度。
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="product-item">
-            <div class="top">
-              <div class="left"><i class="bi bi-phone-fill"></i></div>
-              <div class="name">APP</div>
-            </div>
-            <div class="content">
-              我们的App是一款为移动设备优化的应用程序，提供更加丰富和个性化的用户体验。它不仅包含了小程序的所有功能，还增加了个性化推送、增强的搜索功能和更高级的用户互动元素。App的设计注重流畅性和互动性，确保用户在移动设备上也能享受到优质的购物和服务体验。
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>',
-                'meta_title'       => '产品',
-                'meta_description' => '产品',
-                'meta_keywords'    => '产品',
-            ],
-            [
-                'page_id'  => 2,
-                'locale'   => 'zh-cn',
-                'title'    => '服务',
-                'content'  => '',
-                'template' => "<div class=\"page-service-content\">
-    <div class=\"container\">
-      <div class=\"row\">
-        <div class=\"col-12 col-md-5\">
-          <div class=\"service-icon\"><img src=\"{{ asset('images/front/service/bg-1.png') }}\" class=\"img-fluid\"></div>
-        </div>
-        <div class=\"col-12 col-md-7\">
-          <div class=\"row\">
-            <div class=\"col-12\">
-              <div class=\"title-box\">
-                <div class=\"title\">我们的服务</div>
-                <div class=\"sub-title\">我们不仅提供定制化的解决方案，还以专业的技术知识、创新的思维方式和全方位的支持，确保您能够享受到卓越而高效的服务体验。我们承诺，无论您的需求如何变化，我们都能为您提供最匹配的专业服务。</div>
-              </div>
-            </div>
-            <div class=\"col-12 col-md-6\">
-              <div class=\"service-item\">
-                <div class=\"icon\"><i class=\"bi bi-house-door-fill\"></i></div>
-                <div class=\"title\">开源系统</div>
-                <div class=\"sub-title\">致力于提供高度灵活和可定制的解决方案。利用开放源代码的优势，我们帮助企业构建可扩展的系统，同时确保透明度和社区支持。</div>
-              </div>
-            </div>
-            <div class=\"col-12 col-md-6\">
-              <div class=\"service-item\">
-                <div class=\"icon\"><i class=\"bi bi-house-door-fill\"></i></div>
-                <div class=\"title\">插件市场</div>
-                <div class=\"sub-title\">通过我们的插件市场，用户可以轻松扩展其系统功能。我们提供丰富的插件选择，以满足不同的业务需求，让定制化服务触手可及</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class=\"row\">
-        <div class=\"col-12 col-md-1\"></div>
-        <div class=\"col-12 col-md-11 service-row-2\">
-          <div class=\"row\">
-            <div class=\"col-12 col-md-4\">
-              <div class=\"service-item\">
-                <div class=\"icon\"><i class=\"bi bi-house-door-fill\"></i></div>
-                <div class=\"title\">定制开发</div>
-                <div class=\"sub-title\">专注于根据您的具体需求，打造独一无二的软件解决方案。从概念到实现，我们与您紧密合作，确保最终产品超出您的期望。</div>
-              </div>
-            </div>
-            <div class=\"col-12 col-md-4\">
-              <div class=\"service-item\">
-                <div class=\"icon\"><i class=\"bi bi-house-door-fill\"></i></div>
-                <div class=\"title\">安装维护</div>
-                <div class=\"sub-title\">我们的安装维护服务确保您的系统运行平稳，通过定期更新和故障排除，我们提供无忧的技术支持，让您专注于核心业务。</div>
-              </div>
-            </div>
-            <div class=\"col-12 col-md-4\">
-              <div class=\"service-item\">
-                <div class=\"icon\"><i class=\"bi bi-house-door-fill\"></i></div>
-                <div class=\"title\">技术培训</div>
-                <div class=\"sub-title\">通过我们的技术培训服务，您的团队将获得必要的技能和知识。我们的培训课程旨在提升效率，促进创新，并确保长期的技术自给自足。</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>",
-                'meta_title'       => '服务',
-                'meta_description' => '服务',
-                'meta_keywords'    => '服务',
-            ],
-            [
-                'page_id'  => 3,
-                'locale'   => 'zh-cn',
-                'title'    => '关于',
-                'content'  => '',
-                'template' => "<div class=\"page-about-content\">
-  <div class=\"container\">
-    <div class=\"row\">
-      <div class=\"col-12 col-md-6\">
-        <div class=\"about-img\">
-          <img src=\"{{ asset('images/front/about/bg-2.png') }}\" class=\"img-fluid\">
-        </div>
-      </div>
-      <div class=\"col-12 col-md-6\">
-        <div class=\"about-text\">
-          <div class=\"main-title\">创新驱动，专业团队，卓越技术，共创未来。</div>
-          <div class=\"about-text-item\">
-            <div class=\"left\"><i class=\"bi bi-check-circle\"></i></div>
-            <div class=\"right\">
-              <div class=\"title\">我们的团队</div>
-              <div class=\"sub-title\">
-                我们的团队由一群充满激情和创造力的专业人士组成，他们来自不同的背景，但共同拥有对技术的热情和对卓越的追求。我们鼓励团队成员之间的协作与交流，以促进创新思维的碰撞和知识的共享。
-              </div>
-            </div>
-          </div>
-          <div class=\"about-text-item\">
-            <div class=\"left\"><i class=\"bi bi-check-circle\"></i></div>
-            <div class=\"right\">
-              <div class=\"title\">办公环境</div>
-              <div class=\"sub-title\">
-                我们的办公空间设计现代而舒适，旨在激发员工的创造力和提高工作效率。开放式的工作区域促进了团队成员之间的沟通与合作，同时，我们也提供了安静的休息区，供员工在紧张的工作之余放松身心。
-              </div>
-            </div>
-          </div>
-          <div class=\"about-text-item\">
-            <div class=\"left\"><i class=\"bi bi-check-circle\"></i></div>
-            <div class=\"right\">
-              <div class=\"title\">技术能力</div>
-              <div class=\"sub-title\">
-                我们拥有强大的技术实力，团队成员不仅精通最新的编程语言和开发工具，还对人工智能、机器学习、数据分析等前沿技术有着深入的理解和实践经验。我们致力于利用这些技术为用户创造高效、智能的解决方案。
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>",
-                'meta_title'       => '关于',
-                'meta_description' => '关于',
-                'meta_keywords'    => '关于',
-            ],
+            
+            
+            
             [
                 'page_id'          => 1,
                 'locale'           => 'en',
                 'title'            => 'Creations',
-                'content'          => 'This is Creations page for English',
-                'meta_title'       => 'Creations',
-                'meta_description' => 'Creations',
-                'meta_keywords'    => 'Creations',
+                'content'          => '<section class="page-content-section">
+  <div class="page-hero-text">
+    <p class="page-eyebrow">Our Work</p>
+    <h1 class="page-headline">Where Vision Becomes Garment</h1>
+    <p class="page-lead">Every piece in the Glowvia collection is a deliberate act of artistry — conceived with intention, cut with precision, and finished by hand.</p>
+  </div>
+
+  <div class="page-content-body">
+    <h2>The Glowvia Aesthetic</h2>
+    <p>At Glowvia, we believe clothing is the first language. Each creation speaks before you do — announcing your presence with quiet confidence and understated luxury. Our design philosophy is rooted in the tension between structure and fluidity, the modern and the timeless.</p>
+    <p>From our signature draped silhouettes to our architectural tailoring, every collection is born from months of research, material sourcing, and iterative design. We do not follow trends. We set the conditions for them.</p>
+
+    <h2>Handcrafted in Africa, Worn Worldwide</h2>
+    <p>Our atelier is based in Uganda, where a dedicated team of skilled artisans brings each design to life. We are deeply committed to supporting local craftsmanship, investing in the skills of our makers, and ensuring every person in our supply chain is treated with dignity and paid fairly.</p>
+    <p>The fabrics we choose are sourced from across the continent and beyond — premium cottons, silk blends, and sustainable textiles that feel as extraordinary as they look.</p>
+
+    <h2>Signature Collections</h2>
+    <p><strong>The Luminary Series</strong> — Our flagship line of eveningwear. Fluid, luminous, and designed for the woman who commands every room she enters.</p>
+    <p><strong>The Meridian Edit</strong> — Elevated everyday wear. Clean lines, refined cuts, and fabrics that move with you from morning to midnight.</p>
+    <p><strong>The Rift Collection</strong> — Bold statement pieces inspired by the dramatic landscapes of East Africa. Rich textures, earthy tones, and unapologetic silhouettes.</p>
+
+    <h2>Bespoke & Made-to-Order</h2>
+    <p>For clients who desire something entirely their own, we offer a bespoke service. Work directly with our head designer to create a piece conceived around your body, your story, and your vision. Every bespoke garment begins with a private consultation and ends with something you will wear for a lifetime.</p>
+  </div>
+</section>',
+                'meta_title'       => 'Creations — Glowvia Fashion',
+                'meta_description' => 'Explore Glowvia\'s handcrafted fashion collections — from signature eveningwear to bespoke made-to-order garments, designed and crafted in Uganda.',
+                'meta_keywords'    => 'Glowvia creations, fashion collections, African luxury fashion, bespoke garments, handcrafted clothing Uganda',
             ],
             [
                 'page_id'          => 2,
                 'locale'           => 'en',
                 'title'            => 'Services',
-                'content'          => 'This is Services page for English',
-                'meta_title'       => 'Services',
-                'meta_description' => 'Services',
-                'meta_keywords'    => 'Services',
+                'content'          => '<section class="page-content-section">
+  <div class="page-hero-text">
+    <p class="page-eyebrow">What We Offer</p>
+    <h1 class="page-headline">A Complete Fashion Experience</h1>
+    <p class="page-lead">From your first purchase to a fully bespoke commission, Glowvia offers a suite of services designed around you.</p>
+  </div>
+
+  <div class="page-content-body">
+    <h2>Personal Styling</h2>
+    <p>Our in-house stylists are available for one-on-one consultations, whether in person at our Kampala showroom or virtually. We help you build a wardrobe that reflects your personality, suits your lifestyle, and makes getting dressed feel effortless. Sessions are available by appointment.</p>
+
+    <h2>Bespoke & Custom Orders</h2>
+    <p>Have a vision? We bring it to life. Our bespoke service covers everything from custom wedding and event attire to one-of-a-kind wardrobe pieces. The process begins with a detailed consultation, followed by fabric selection, pattern drafting, fittings, and final delivery. Lead time is typically 4–8 weeks depending on complexity.</p>
+
+    <h2>Alterations & Tailoring</h2>
+    <p>We offer professional alterations on all Glowvia garments. Whether you need a hem adjusted, a seam let out, or a full re-cut to better fit your silhouette, our tailors handle every request with care. We also accept alteration requests on select third-party garments — contact us to discuss your needs.</p>
+
+    <h2>Corporate & Bulk Orders</h2>
+    <p>Equip your team or event with unified, beautifully designed attire. Glowvia works with businesses, NGOs, and event organisers to create branded or custom-designed uniforms and group outfits. Bulk pricing is available for orders of 10 pieces and above.</p>
+
+    <h2>Gift Cards & Gifting</h2>
+    <p>Give the gift of Glowvia. Our digital gift cards are available in any denomination and never expire. Perfect for birthdays, anniversaries, and celebrations of all kinds. We also offer curated gift packaging on all orders upon request.</p>
+
+    <h2>Delivery & Shipping</h2>
+    <p>We deliver across Uganda with same-day dispatch on in-stock orders placed before 12 pm. International shipping is available to selected countries across Africa, Europe, and North America. All orders are carefully packaged in our signature Glowvia boxes.</p>
+
+    <h2>Get in Touch</h2>
+    <p>To book a consultation, place a custom order, or simply ask a question, reach us at <strong>hello@glowvia.com</strong> or visit our showroom in Kampala. We would love to meet you.</p>
+  </div>
+</section>',
+                'meta_title'       => 'Services — Glowvia Fashion',
+                'meta_description' => 'Discover Glowvia\'s full range of fashion services — personal styling, bespoke orders, alterations, corporate attire, and gift cards.',
+                'meta_keywords'    => 'Glowvia services, personal styling Uganda, bespoke fashion, custom clothing, alterations Kampala',
             ],
             [
                 'page_id'          => 3,
                 'locale'           => 'en',
-                'title'            => 'About',
-                'content'          => 'This is About page for English',
-                'meta_title'       => 'About Us',
-                'meta_description' => 'About Us',
-                'meta_keywords'    => 'About Us',
+                'title'            => 'About Us',
+                'content'          => '<section class="page-content-section">
+  <div class="page-hero-text">
+    <p class="page-eyebrow">Our Story</p>
+    <h1 class="page-headline">Dressing the World in African Luxury</h1>
+    <p class="page-lead">Glowvia is a Ugandan luxury fashion house built on the belief that African style deserves a global stage.</p>
+  </div>
+
+  <div class="page-content-body">
+    <h2>Who We Are</h2>
+    <p>Founded in Kampala, Glowvia is more than a fashion brand — it is a movement. We create clothing for the modern African woman and man: confident, global, rooted in culture, and unafraid to stand out. Every piece we produce is a statement of identity, crafted with the skill of our artisans and the vision of our designers.</p>
+    <p>We are a brand that refuses to be boxed in. We draw inspiration from the richness of East African heritage — its textiles, its colours, its stories — and we translate that inspiration into contemporary silhouettes that feel at home in Kampala, London, Lagos, or New York.</p>
+
+    <h2>Our Mission</h2>
+    <p>To make luxury fashion that is honest, inclusive, and deeply rooted in African craftsmanship. We are committed to producing clothing that lasts — in quality, in style, and in meaning.</p>
+
+    <h2>Our Values</h2>
+    <p><strong>Craftsmanship:</strong> We believe in making things properly. Every Glowvia garment is handled by skilled hands and inspected before it leaves our atelier.</p>
+    <p><strong>Authenticity:</strong> We do not imitate. Our designs are original, our voice is distinct, and our identity is our own.</p>
+    <p><strong>Community:</strong> We employ local artisans, source from local suppliers where possible, and invest in the communities that make our work possible.</p>
+    <p><strong>Sustainability:</strong> We produce in limited quantities, use quality materials that endure, and are working toward a fully transparent supply chain.</p>
+
+    <h2>The Team</h2>
+    <p>Glowvia was founded by a small team of designers, creatives, and entrepreneurs who shared a frustration: the world\'s fashion industry was not telling Africa\'s story. We decided to change that — one garment at a time.</p>
+    <p>Today our team spans design, production, styling, and customer experience. We are a passionate, diverse group united by a love of beautiful clothing and a belief that fashion should feel personal.</p>
+
+    <h2>Find Us</h2>
+    <p>Our showroom and atelier are located in Kampala, Uganda. We welcome visitors by appointment. You can also shop our full collection online at glowvia.com, with delivery available across Uganda and internationally.</p>
+    <p>For enquiries: <strong>hello@glowvia.com</strong></p>
+  </div>
+</section>',
+                'meta_title'       => 'About Us — Glowvia Fashion',
+                'meta_description' => 'Learn about Glowvia — a Ugandan luxury fashion house crafting contemporary African clothing for the global stage.',
+                'meta_keywords'    => 'Glowvia, about us, African luxury fashion, Ugandan fashion brand, Kampala fashion',
             ],
+            
             [
-                'page_id' => 4,
-                'locale'  => 'zh-cn',
-                'title'   => '隐私政策',
-                'content' => '<p>InnoShop 非常重视用户的隐私保护。本隐私政策说明了我们如何收集、使用和保护您的个人信息。</p>
-
-<h3>1. 信息收集</h3>
-<p>我们收集的信息包括：</p>
-<ul>
-    <li>账号信息：邮箱、用户名等</li>
-    <li>设备信息：IP地址、浏览器类型等</li>
-    <li>使用数据：访问记录、操作日志等</li>
-</ul>
-
-<h3>2. 信息使用</h3>
-<p>我们使用收集的信息用于：</p>
-<ul>
-    <li>提供和改进服务</li>
-    <li>发送重要通知</li>
-    <li>防止欺诈和滥用</li>
-</ul>
-
-<h3>3. 信息保护</h3>
-<p>我们采取严格的安全措施保护您的信息，包括：</p>
-<ul>
-    <li>数据加密存储</li>
-    <li>访问权限控制</li>
-    <li>定期安全审计</li>
-</ul>
-
-<h3>4. 信息共享</h3>
-<p>我们不会出售您的个人信息。仅在以下情况下可能共享信息：</p>
-<ul>
-    <li>获得您的明确同意</li>
-    <li>法律要求</li>
-    <li>保护我们的合法权益</li>
-</ul>
-
-<h3>5. 您的权利</h3>
-<p>您有权：</p>
-<ul>
-    <li>访问您的个人信息</li>
-    <li>更正不准确的信息</li>
-    <li>要求删除您的信息</li>
-    <li>限制信息处理</li>
-</ul>
-
-<h3>6. 联系我们</h3>
-<p>如果您有任何关于隐私政策的疑问，请联系我们：</p>
-<p>邮箱：privacy@innoshop.com</p>',
-                'meta_title'       => '隐私政策 - InnoShop',
-                'meta_description' => 'InnoShop 隐私政策说明',
-                'meta_keywords'    => '隐私政策,数据保护,个人信息',
+                'page_id'          => 5,
+                'locale'           => 'en',
+                'title'            => 'Contact Us',
+                'content'          => '',
+                'meta_title'       => 'Contact Us — Glowvia Fashion',
+                'meta_description' => 'Get in touch with Glowvia. Visit our Kampala showroom, send us a message, or book a consultation.',
+                'meta_keywords'    => 'contact Glowvia, Kampala showroom, fashion consultation Uganda',
             ],
             [
                 'page_id' => 4,

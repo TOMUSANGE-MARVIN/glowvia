@@ -1,161 +1,182 @@
+// ── Account card (shared) ──────────────────────────────────────
 .account-card-box {
-  border: 1px solid #ECF0F4;
-  padding: 16px;
+  border: 1px solid $border-light;
+  padding: 20px;
+  background: $white;
 
-  @media (min-width: 992px) {
-    min-height: 621px;
-  }
-
-  @media (min-width: 768px) {
-    padding: 30px;
-  }
+  @media (min-width: 992px) { min-height: 560px; }
+  @media (min-width: 768px) { padding: 36px; }
 
   .account-card-title {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $border-light;
 
     span {
-      font-size: 16px;
-      font-weight: bold;
+      font-family: $font-serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: $black;
+      letter-spacing: 0.04em;
 
-      @media (min-width: 768px) {
-        font-size: 20px;
-      }
+      @media (min-width: 768px) { font-size: 1.5rem; }
     }
   }
 
   .account-card-sub-title {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 
     span {
-      font-size: 16px;
-      font-weight: bold;
+      font-family: $font-serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: $black;
+      letter-spacing: 0.03em;
     }
   }
 }
 
+// ── Account overview page ──────────────────────────────────────
 body.page-account {
   .account-info {
     .account-data {
-      border-bottom: 1px solid #ECF0F4;
-      margin-bottom: 50px;
-      padding-bottom: 50px;
-      margin-top: 50px;
+      border-bottom: 1px solid $border-light;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      margin-top: 48px;
 
       .account-item-data {
         text-align: center;
 
         .value {
-          font-size: 2rem;
-          font-weight: bold;
+          font-family: $font-serif;
+          font-size: 2.4rem;
+          font-weight: 400;
+          color: $black;
+          letter-spacing: 0.02em;
         }
 
         .title {
-          // color: #000;
+          font-family: $font-sans;
+          font-size: 0.72rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: $muted;
+          margin-top: 4px;
         }
       }
     }
 
     .no-order {
-      background-color: #f6f6f6;
-      font-size: 1rem;
+      background: $bg-light;
+      border: 1px solid $border-light;
+      font-family: $font-sans;
+      font-size: 0.9rem;
+      color: $muted;
+      text-align: center;
+      padding: 48px 24px;
 
       a {
-        color: #457C46;
+        color: $gold-dark;
+        &:hover { text-decoration: underline; }
       }
     }
   }
 }
 
+// ── Sidebar navigation ─────────────────────────────────────────
 .account-sidebar {
-  border: 1px solid #e8eef3;
-  margin-bottom: 20px;
+  border: 1px solid $border-light;
+  margin-bottom: 24px;
+  background: $white;
 
   .account-user {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #e8eef3;
-    margin: 16px;
-    padding-bottom: 20px;
+    border-bottom: 1px solid $border-light;
+    padding: 20px;
 
-    @media (min-width: 768px) {
-      margin: 30px;
-      padding-bottom: 30px;
-    }
+    @media (min-width: 768px) { padding: 28px 28px 24px; }
 
     .profile {
-      width: 60px;
-      height: 60px;
-      flex: 0 0 60px;
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #e8eef3;
+      border: 1px solid $border-light;
       border-radius: 50%;
       overflow: hidden;
-      margin-right: 14px;
+      margin-right: 16px;
+      background: $bg-cream;
     }
 
     .account-name {
       .name {
-        font-size: .9rem;
+        font-family: $font-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: $black;
+        letter-spacing: 0.02em;
       }
     }
   }
 
   .account-links {
     list-style: none;
-    padding-left: 0;
+    padding: 12px 0;
+
     li {
-      &.active {
-        a {
-          color: #222;
-          border-left: 2px solid $primary;
-        }
+      &.active a {
+        color: $black;
+        border-left-color: $gold-dark;
       }
 
       a {
-        color: #7C818B;
-        padding: 6px 10px 6px 18px;
-        margin: 20px 0;
+        font-family: $font-sans;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: $muted;
+        padding: 10px 20px 10px 20px;
         border-left: 2px solid transparent;
         display: flex;
-        font-weight: bold;
         align-items: center;
-        font-size: 1rem;
-        line-height: 1;
+        gap: 12px;
+        transition: color $transition-base, border-color $transition-base;
 
-        @media (min-width: 768px) {
-          padding: 6px 10px 6px 30px;
-          margin: 26px 0;
-        }
+        @media (min-width: 768px) { padding: 10px 28px; }
 
-        &:hover {
-          color: #222;
-        }
+        &:hover { color: $black; border-left-color: $border; }
 
         i {
-          color: #222;
-          font-size: 20px;
-          margin-right: 20px;
+          color: $mid;
+          font-size: 1rem;
+          width: 18px;
+          text-align: center;
         }
       }
     }
   }
 }
 
+// ── Account data table ─────────────────────────────────────────
 .account-table-box {
   th, td {
-    padding: 10px 0;
+    padding: 12px 0;
+    font-family: $font-sans;
+    font-size: 0.85rem;
   }
 
   th {
     border-bottom: none;
-    font-size: 14px;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $muted;
+    font-weight: 400;
   }
 
-  tr:last-child {
-    td {
-      border-bottom: none;
-    }
-  }
+  tr:last-child td { border-bottom: none; }
 }

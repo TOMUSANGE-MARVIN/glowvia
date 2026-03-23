@@ -1,3 +1,30 @@
-$primary: #E91E63;
-$price: #E53E3E;
-$default: #8446e0;
+// ============================================================
+// Design System Variables — Luxury Fashion
+// ============================================================
+
+// Brand Colors
+$gold:          #c9a96e;
+$gold-dark:     #a07840;
+$gold-deeper:   #8a6530;
+$black:         #111111;
+$dark:          #1c1c1c;
+$mid:           #444444;
+$muted:         #888888;
+$border:        #e0dbd4;
+$border-light:  #ece9e3;
+$bg-light:      #faf9f7;
+$bg-cream:      #f5f3f0;
+$white:         #ffffff;
+
+// Semantic aliases (keep backward compat)
+$primary:       $gold-dark;
+$price:         $black;
+$default:       $gold-dark;
+
+// Typography
+$font-serif:    'Cormorant Garamond', Georgia, serif;
+$font-sans:     'Jost', 'Helvetica Neue', Arial, sans-serif;
+
+// Transitions
+$transition-base: 0.25s ease;
+$transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);

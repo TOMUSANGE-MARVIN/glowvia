@@ -31,8 +31,8 @@ class CurrencySeeder extends Seeder
     private function getCurrencies(): array
     {
         return [
-            ['name' => 'USD', 'code' => 'usd', 'symbol_left' => '$', 'symbol_right' => '', 'decimal_place' => 2, 'value' => 1, 'active' => 1],
-            ['name' => '人民币', 'code' => 'cny', 'symbol_left' => '￥', 'symbol_right' => '', 'decimal_place' => 2, 'value' => 7.2, 'active' => 1],
+            ['name' => 'UGX', 'code' => 'ugx', 'symbol_left' => 'UGX ', 'symbol_right' => '', 'decimal_place' => 0, 'value' => 1, 'active' => 1],
+            ['name' => 'USD', 'code' => 'usd', 'symbol_left' => '$', 'symbol_right' => '', 'decimal_place' => 2, 'value' => 0.00027, 'active' => 1],
         ];
     }
 }
