@@ -4,7 +4,15 @@ FROM node:20-bookworm-slim AS frontend
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --no-audit --no-fund
+RUN npm config set fetch-retries 5 \
+    && npm config set fetch-retry-mintimeout 20000 \
+    && npm config set fetch-retry-maxtimeout 120000 \
+    && npm config set fetch-timeout 300000 \
+    && for i in 1 2 3; do \
+        npm ci --no-audit --no-fund && break; \
+        if [ "$i" -eq 3 ]; then exit 1; fi; \
+        echo "npm ci failed, retrying ($i/3)..." && sleep 15; \
+    done
 
 COPY resources ./resources
 COPY public ./public
