@@ -91,7 +91,7 @@ This repository now includes a production-ready Docker setup:
 
 - `Dockerfile`: Builds frontend assets and runs Laravel with Apache (port `80`)
 - `.dockerignore`: Reduces build context and excludes local secrets/dependencies
-- `docker-compose.yml`: App + MySQL + Redis stack (works locally and in Coolify)
+- `docker-compose.yaml`: App + MySQL + Redis stack (works locally and in Coolify)
 
 ### Local Docker
 
@@ -107,7 +107,7 @@ Open: `http://localhost:8080`
 ### Coolify
 
 1. Create a new application from this repository.
-2. Use **Docker Compose** and select `docker-compose.yml` (or use `Dockerfile` only with external DB/Redis services).
+2. Use **Docker Compose** and select `docker-compose.yaml` (or use `Dockerfile` only with external DB/Redis services).
 3. Set required environment variables in Coolify (`APP_KEY`, `APP_URL`, DB credentials, mail settings, etc.).
 4. Deploy, then run:
 
