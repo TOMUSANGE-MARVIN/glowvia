@@ -9,6 +9,11 @@ $requestUri = $_SERVER['REQUEST_URI'] ?? '';
 $envPath = __DIR__.'/../.env';
 $envExists = file_exists($envPath);
 $envValid = $envExists && str_contains(file_get_contents($envPath), 'APP_KEY=');
+
+// In container deployments, configuration may be provided via runtime env vars
+// instead of a physical .env file.
+$runtimeEnvValid = ! empty(getenv('APP_KEY')) && (! empty(getenv('DB_CONNECTION')) || ! empty(getenv('DB_HOST')));
+$envValid = $envValid || $runtimeEnvValid;
 $installed = file_exists(__DIR__.'/../storage/installed');
 $isInstallRoute = str_starts_with($requestUri, '/install');
 $isDebugbar = stripos($_SERVER['REQUEST_URI'], '_debugbar') !== false;

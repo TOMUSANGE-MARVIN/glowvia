@@ -18,11 +18,9 @@ services:
       DB_DATABASE: ${DB_DATABASE:-innoshop}
       DB_USERNAME: ${DB_USERNAME:-innoshop}
       DB_PASSWORD: ${DB_PASSWORD:-innoshop}
-      CACHE_STORE: redis
-      QUEUE_CONNECTION: redis
-      SESSION_DRIVER: redis
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+      SESSION_DRIVER: file
     depends_on:
       - mysql
       - redis
