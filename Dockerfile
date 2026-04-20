@@ -43,8 +43,11 @@ COPY . .
 
 RUN rm -rf node_modules vendor \
     && composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader \
-    && chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R ug+rwx storage bootstrap/cache
+    && [ -f .env ] || cp .env.example .env \
+    && mkdir -p public/cache \
+    && chown -R www-data:www-data .env storage bootstrap/cache public/cache \
+    && chmod 755 .env \
+    && chmod -R ug+rwx storage bootstrap/cache public/cache
 
 EXPOSE 80
 
